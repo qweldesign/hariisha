@@ -10,23 +10,23 @@
  */
 :root {
   --color--darkest: #34312d;
-  --color--darkest--active: rgb(41.8354558318%, 39.4218718415%, 36.2037598545%);
+  --color--darkest--active: rgb(106.6804123711, 100.5257731959, 92.3195876289);
   --color--darker: #55504a;
-  --color--darker--active: rgb(54.5541990381%, 51.483536811%, 47.7987421384%);
+  --color--darker--active: rgb(139.1132075472, 131.2830188679, 121.8867924528);
   --color--dark: #7d776e;
-  --color--dark--active: rgb(68.2436378807%, 66.5114726742%, 63.9132248644%);
+  --color--dark--active: rgb(174.0212765957, 169.6042553191, 162.9787234043);
   --color--light: #b9b2a2;
-  --color--light--active: rgb(54.817755323%, 50.691687718%, 41.2606760496%);
+  --color--light--active: rgb(139.7852760736, 129.263803681, 105.2147239264);
   --color--lighter: #e6e1d2;
-  --color--lighter--active: rgb(75.9103641457%, 71.0924369748%, 56.6386554622%);
+  --color--lighter--active: rgb(193.5714285714, 181.2857142857, 144.4285714286);
   --color--lightest: #ffffff;
   --color--lightest--active: #cccccc;
   --color--primary: #2b3546;
-  --color--primary--active: rgb(32.0839840361%, 39.5453756724%, 52.2297414541%);
+  --color--primary--active: rgb(81.814159292, 100.8407079646, 133.185840708);
   --color--secondary: #d8d0ae;
-  --color--secondary--active: rgb(71.7058823529%, 65.9019607843%, 41.2352941176%);
+  --color--secondary--active: rgb(182.85, 168.05, 105.15);
   --color--tertiary: #efebda;
-  --color--tertiary--active: rgb(81.650018498%, 77.0625231225%, 57.5656677765%);
+  --color--tertiary--active: rgb(208.2075471698, 196.5094339623, 146.7924528302);
   --container-width--sm: 37.5rem;
   --container-width--md: 56.25rem;
   --container-width--lg: 75rem;
@@ -425,7 +425,9 @@ button, input, select, textarea {
   text-decoration: none;
   word-break: break-word;
   outline: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   cursor: pointer;
   transition: all 0.5s ease;
 }
@@ -565,7 +567,9 @@ button, input, select, textarea {
   text-decoration: none;
   word-break: break-word;
   outline: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   cursor: pointer;
   transition: all 0.5s ease;
 }
@@ -796,6 +800,7 @@ button, input, select, textarea {
   width: 6rem;
 }
 .drawerMenu__item.is-social {
+  width: -moz-fit-content;
   width: fit-content;
   padding-block: 1rem;
 }
@@ -926,6 +931,7 @@ button, input, select, textarea {
   position: absolute;
   inset: 0;
   z-index: 2000;
+  width: -moz-fit-content;
   width: fit-content;
   height: min(100%, 36rem);
   margin: auto;
@@ -1029,7 +1035,8 @@ button, input, select, textarea {
 .slider__item img {
   width: 83.33vmin;
   aspect-ratio: 1.6;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   margin: 0;
 }
 @media (min-width: 900px) {
@@ -1152,7 +1159,13 @@ button, input, select, textarea {
   position: relative;
   background-color: var(--color--primary);
   color: var(--color--lightest);
+  font-size: 1rem;
   overflow: hidden;
+}
+@media (min-width: 900px) {
+  .hero {
+    font-size: min(1vw, 12px);
+  }
 }
 .hero__container {
   width: min(100%, var(--container-width--lg));
@@ -1184,18 +1197,18 @@ button, input, select, textarea {
 .hero__lead {
   margin: 0;
   color: var(--color--secondary);
-  font-size: var(--font-size--x-large);
+  font-size: 1.5em;
 }
 .hero__title {
   margin: 0;
   font-weight: 500;
-  font-size: 2.75rem;
+  font-size: 2.75em;
   line-height: 1.3;
   letter-spacing: 0.12em;
 }
 @media (min-width: 900px) {
   .hero__title {
-    font-size: 4rem;
+    font-size: 4em;
   }
 }
 .hero__title > span {
@@ -1220,6 +1233,7 @@ button, input, select, textarea {
 }
 .hero__actions .button {
   margin-inline: 0;
+  font-size: var(--font-size--normal);
 }
 .hero__actions .button.is-primary {
   box-shadow: inset 0 0 0 1px var(--color--light);
@@ -1238,7 +1252,7 @@ button, input, select, textarea {
 .hero__caption {
   margin: 0;
   font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
-  font-size: var(--font-size--x-large);
+  font-size: 1.5em;
   letter-spacing: 0.3em;
   writing-mode: vertical-rl;
 }
@@ -1261,7 +1275,8 @@ button, input, select, textarea {
 .hero__fader .fader__item img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .hero__fader .faderNav {
   bottom: -2.5rem;
@@ -1385,7 +1400,8 @@ button, input, select, textarea {
 }
 .mediaText__media img {
   aspect-ratio: 4/3;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .mediaText__media.is-pair {
   display: grid;
@@ -1624,7 +1640,8 @@ button, input, select, textarea {
 }
 .postList .postItem__image img {
   aspect-ratio: 1.6;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .postList .postItem__info {
   margin-block-start: var(--spacing--small);
@@ -1760,7 +1777,8 @@ button, input, select, textarea {
   aspect-ratio: 1;
   border-radius: 50%;
   background-color: var(--color--secondary);
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .memberList__role {
   display: block;
@@ -1885,7 +1903,9 @@ button, input, select, textarea {
   text-decoration: none;
   word-break: break-word;
   outline: 0;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
   cursor: pointer;
   transition: all 0.5s ease;
 }
