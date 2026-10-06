@@ -4,15 +4,95 @@
 
 .hero {
   position: relative;
-  @include row(center, center);
-  width: 100%;
-  height: 100vh;
-  color: $body-bg;
-  text-align: center;
+  background-color: theme-color("primary");
+  color: color-yiq("primary");
+  overflow: hidden;
+
+  &__container {
+    @include container();
+    position: relative;
+    display: grid;
+    gap: space("large");
+    align-items: center;
+    padding-block: calc(#{$header-height} + #{space("large")}) space("x-large");
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+
+    @media (min-width: breakpoint("md")) {
+      min-height: 100vh;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
 
   &__content {
-    position: relative;
-    z-index: 1;
-    font-size: $h1-font-size;
+    display: flex;
+    flex-direction: column;
+    gap: space();
+  }
+
+  &__lead {
+    margin: 0;
+    color: theme-color("secondary");
+    font-size: font-size("x-large");
+  }
+
+  &__title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 2.75rem;
+    line-height: 1.3;
+    letter-spacing: 0.12em;
+
+    @media (min-width: breakpoint("md")) {
+      font-size: 4rem;
+    }
+
+    & > span {
+      display: block;
+    }
+  }
+
+  &__copy {
+    margin: space() 0 0;
+    font-size: font-size("medium");
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: space();
+    margin-block: space();
+
+    .button {
+      margin-inline: 0;
+    }
+
+    // 紺地に紺のボタンが沈まないよう, 枠線を付ける
+    .button.is-primary {
+      box-shadow: inset 0 0 0 1px theme-color("light");
+    }
+  }
+
+  &__visual {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: space("medium");
+  }
+
+  // 縦書きキャプション「海まで徒歩5分」
+  &__caption {
+    margin: 0;
+    font-family: $font-family-serif;
+    font-size: font-size("x-large");
+    letter-spacing: 0.3em;
+    writing-mode: vertical-rl;
+  }
+
+  &__image {
+    width: min(30rem, 72vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }

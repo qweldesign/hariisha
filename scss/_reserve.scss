@@ -1,0 +1,41 @@
+/**
+ * Project - Reserve
+ * ご予約・お問い合わせ (電話 + フォーム)
+ */
+
+.reserve {
+  display: grid;
+  gap: space("large");
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+
+  &__contact > :first-child {
+    margin-block-start: 0;
+  }
+
+  &__tel {
+    display: inline-flex;
+    align-items: center;
+    gap: space("x-small");
+    font-size: font-size("x-large");
+  }
+
+  // .form を白い面に載せる
+  .form {
+    padding: space("medium");
+    border-radius: space("x-small");
+    background-color: $body-bg;
+    color: $body-color;
+
+    a {
+      @include link-text();
+    }
+
+    // 必須マーク: 砂色は白地でコントラストが不足するため差し替え
+    span.is-required {
+      color: theme-color("darker");
+    }
+  }
+}

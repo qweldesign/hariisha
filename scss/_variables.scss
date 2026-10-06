@@ -1,2 +1,38 @@
 // Variables
 
+// 配色 (_colorSystem.scss)
+$grays:            (
+  darkest:           #34312d, // 本文
+  darker:            #55504a,
+  dark:              #7d776e,
+  light:             #b9b2a2,
+  lighter:           #e6e1d2,
+  lightest:          #ffffff,
+);
+
+$colors:           (
+  primary:           #2b3546, // 紺 (パンフレット地色)
+  secondary:         #d8d0ae, // 砂色
+  tertiary:          #efebda  // 砂色の淡色
+);
+
+// フォント (_typography.scss)
+$font-family-sans: "\"Zen Kaku Gothic New\"", "\"Hiragino Sans\"", "\"游ゴシック\"", "\"Yu Gothic\"", sans-serif;
+$font-family-serif: "\"Zen Old Mincho\"", "\"Hiragino Mincho ProN\"", "\"游明朝\"", "\"Yu Mincho\"", serif;
+$font-family-hand: "\"Klee One\"", $font-family-sans; // ロゴ用 (ギャラリー看板の手書き感)
+
+$body-typography:  (
+  font-family:       $font-family-sans,
+  font-weight:       400,
+  line-height:       1.9,
+  letter-spacing:    0.04em
+);
+
+$heading-typography: (
+  margin-block-start: var(--spacing--medium),
+  margin-block-end:  var(--spacing--small),
+  font-family:       $font-family-serif,
+  font-weight:       700,
+  line-height:       1.6,
+  letter-spacing:    0.08em
+);

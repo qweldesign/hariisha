@@ -1,0 +1,50 @@
+/**
+ * Project - Member List
+ * 運営チーム
+ */
+
+.memberList {
+  @include list-unstyled();
+  display: grid;
+  gap: space("medium") space("large");
+  margin: space("medium") 0 0;
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: space();
+    margin: 0;
+  }
+
+  // 写真未支給の間はプレースホルダー
+  &__photo {
+    flex: 0 0 5.5rem;
+    width: 5.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: theme-color("secondary");
+    object-fit: cover;
+  }
+
+  &__role {
+    display: block;
+    color: theme-color("darker");
+    font-size: font-size("small");
+  }
+
+  &__name {
+    display: block;
+    color: theme-color("primary");
+    font-family: $font-family-serif;
+    font-size: font-size("large");
+  }
+
+  &__note {
+    margin: space("x-small") 0 0;
+    font-size: font-size("small");
+  }
+}

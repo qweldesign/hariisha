@@ -1,0 +1,108 @@
+/**
+ * Project - Stay Guide
+ * 宿泊料金・ご案内・キャンセル規定
+ */
+
+.stayGuide {
+  display: grid;
+  gap: space("large");
+
+  &__overview {
+    display: grid;
+    gap: space("large");
+
+    @media (min-width: breakpoint("md")) {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    }
+  }
+
+  &__heading {
+    margin-block: 0 space();
+    color: theme-color("primary");
+    font-size: font-size("x-large");
+  }
+
+  &__note {
+    @include small-text();
+    color: theme-color("darker");
+  }
+}
+
+.priceTable {
+  @include table();
+
+  th {
+    font-weight: 500;
+  }
+
+  td {
+    color: theme-color("primary");
+    font-size: font-size("large");
+    text-align: right;
+
+    @media (max-width: breakpoint("sm") - 0.1) {
+      padding-block-start: 0;
+      text-align: left;
+    }
+  }
+}
+
+.infoList {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: space() space("medium");
+  align-content: start;
+  align-self: start;
+  margin: 0;
+  padding: space("medium");
+  border-radius: space("x-small");
+  background-color: theme-color("tertiary");
+
+  dt {
+    font-weight: 700;
+    color: theme-color("primary");
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+.cancelSteps {
+  @include list-unstyled();
+  display: grid;
+  gap: 4px;
+  margin: 0;
+
+  @media (min-width: breakpoint("sm")) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: space() space("medium");
+    background-color: theme-color("tertiary");
+    color: color-yiq("tertiary");
+
+    &:nth-child(2) {
+      background-color: theme-color("secondary");
+      color: color-yiq("secondary");
+    }
+
+    &:nth-child(3) {
+      background-color: theme-color("primary");
+      color: color-yiq("primary");
+    }
+  }
+
+  &__term {
+    font-size: font-size("small");
+  }
+
+  &__fee {
+    font-family: $font-family-serif;
+    font-size: font-size("x-large");
+  }
+}

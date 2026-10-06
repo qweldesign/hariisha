@@ -1,0 +1,48 @@
+/**
+ * Project - Photo Grid
+ * 館内写真の一覧 (クリックで Modal 表示)
+ */
+
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: space("medium") space();
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: space("large") space("medium");
+  }
+
+  &__item {
+    margin: 0;
+  }
+
+  &__link {
+    display: block;
+    overflow: hidden;
+
+    img {
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    &:hover img, &:focus-visible img {
+      transform: scale(1.03);
+    }
+  }
+
+  // 丸く切り抜く写真 (パンフレットの円形トリミング)
+  &__item.is-round &__link {
+    border-radius: 50%;
+
+    img {
+      aspect-ratio: 1;
+    }
+  }
+
+  &__caption {
+    margin-block-start: space();
+    text-align: left;
+  }
+}

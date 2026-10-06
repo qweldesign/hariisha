@@ -9,24 +9,24 @@
  * Root
  */
 :root {
-  --color--darkest: #262626;
-  --color--darkest--active: #595959;
-  --color--darker: #4d4d4d;
-  --color--darker--active: gray;
-  --color--dark: #808080;
-  --color--dark--active: #b3b3b3;
-  --color--light: #b3b3b3;
-  --color--light--active: gray;
-  --color--lighter: #d9d9d9;
-  --color--lighter--active: #a6a6a6;
+  --color--darkest: #34312d;
+  --color--darkest--active: rgb(106.6804123711, 100.5257731959, 92.3195876289);
+  --color--darker: #55504a;
+  --color--darker--active: rgb(139.1132075472, 131.2830188679, 121.8867924528);
+  --color--dark: #7d776e;
+  --color--dark--active: rgb(174.0212765957, 169.6042553191, 162.9787234043);
+  --color--light: #b9b2a2;
+  --color--light--active: rgb(139.7852760736, 129.263803681, 105.2147239264);
+  --color--lighter: #e6e1d2;
+  --color--lighter--active: rgb(193.5714285714, 181.2857142857, 144.4285714286);
   --color--lightest: #ffffff;
   --color--lightest--active: #cccccc;
-  --color--primary: hsl(203, 71%, 60%);
-  --color--primary--active: hsl(203, 71%, 80%);
-  --color--secondary: hsl(32, 85%, 48%);
-  --color--secondary--active: hsl(32, 85%, 68%);
-  --color--tertiary: hsl(70, 100%, 34%);
-  --color--tertiary--active: hsl(70, 100%, 54%);
+  --color--primary: #2b3546;
+  --color--primary--active: rgb(81.814159292, 100.8407079646, 133.185840708);
+  --color--secondary: #d8d0ae;
+  --color--secondary--active: rgb(182.85, 168.05, 105.15);
+  --color--tertiary: #efebda;
+  --color--tertiary--active: rgb(208.2075471698, 196.5094339623, 146.7924528302);
   --container-width--sm: 37.5rem;
   --container-width--md: 56.25rem;
   --container-width--lg: 75rem;
@@ -39,16 +39,16 @@
   --spacing--medium: 1.5rem;
   --spacing--large: 3rem;
   --spacing--x-large: 6rem;
-  --font-family-base: "Noto Sans JP", "游ゴシック", "Yu Gothic", sans-serif;
+  --font-family-base: "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
   --font-weight-base: 400;
-  --line-height-base: 1.8;
-  --letter-spacing-base: 0;
+  --line-height-base: 1.9;
+  --letter-spacing-base: 0.04em;
   --heading-margin-block-start: var(--spacing--medium);
   --heading-margin-block-end: var(--spacing--small);
-  --heading-font-family: "Noto Sans JP", "游ゴシック", "Yu Gothic", sans-serif;
-  --heading-font-weight: 400;
-  --heading-line-height: 1.2;
-  --heading-letter-spacing: 0;
+  --heading-font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
+  --heading-font-weight: 700;
+  --heading-line-height: 1.6;
+  --heading-letter-spacing: 0.08em;
   --font-size--x-small: 0.75rem;
   --font-size--small: 0.875rem;
   --font-size--normal: 1rem;
@@ -331,6 +331,7 @@ button, input, select, textarea {
   text-decoration: underline;
 }
 .footer {
+  border-block-start: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
 }
 
@@ -447,22 +448,22 @@ button, input, select, textarea {
 }
 .button.is-secondary, .button.is-secondary:active {
   background-color: var(--color--secondary);
-  color: var(--color--lightest);
+  color: var(--color--darkest);
 }
 .button.is-secondary:hover, .button.is-secondary:focus {
   background-color: var(--color--secondary--active);
-  color: var(--color--darkest);
+  color: var(--color--lightest);
 }
 .button.is-secondary:hover, .button.is-secondary:focus {
   box-shadow: 0 0 var(--spacing--small) var(--color--secondary);
 }
 .button.is-tertiary, .button.is-tertiary:active {
   background-color: var(--color--tertiary);
-  color: var(--color--lightest);
+  color: var(--color--darkest);
 }
 .button.is-tertiary:hover, .button.is-tertiary:focus {
   background-color: var(--color--tertiary--active);
-  color: var(--color--darkest);
+  color: var(--color--lightest);
 }
 .button.is-tertiary:hover, .button.is-tertiary:focus {
   box-shadow: 0 0 var(--spacing--small) var(--color--tertiary);
@@ -531,12 +532,12 @@ button, input, select, textarea {
   font-style: normal;
   font-size: 0.875rem;
   color: var(--color--darker);
-  background-color: rgba(226.44, 129.336, 18.36, 0.15);
+  background-color: rgba(216, 208, 174, 0.15);
   padding: 0 0.2em;
   border-radius: 0.2em;
 }
 .breadcrumb__item span {
-  background-color: rgba(80.58, 169.898, 225.42, 0.1);
+  background-color: rgba(43, 53, 70, 0.1);
 }
 
 /**
@@ -1111,64 +1112,428 @@ button, input, select, textarea {
 }
 
 /**
+ * Component - Dots
+ * js/dots.js が生成する canvas
+ * 点の色は --dots-color, 全体の透明度は $dots-opacity で指定する
+ */
+[data-dots] {
+  --dots-color: #6f7888;
+}
+
+.dots {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  pointer-events: none;
+  animation: dots-fade-in 0.6s ease both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dots {
+    animation: none;
+  }
+}
+
+@keyframes dots-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+/**
+ * Project - Brand
+ * サイト名「はりいしゃ」のロゴタイプ
+ */
+.brandLogo {
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+/**
  * Project - Hero
  */
 .hero {
   position: relative;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
+  background-color: var(--color--primary);
   color: var(--color--lightest);
-  text-align: center;
+  overflow: hidden;
+}
+.hero__container {
+  width: min(100%, var(--container-width--lg));
+  margin-inline: auto;
+  padding-inline: var(--container-pad--lg);
+  position: relative;
+  display: grid;
+  gap: var(--spacing--large);
+  align-items: center;
+  padding-block: calc(4.5rem + var(--spacing--large)) var(--spacing--x-large);
+  padding-inline: calc(var(--container-pad--lg) + 0.75rem);
+}
+@media (min-width: 900px) {
+  .hero__container {
+    min-height: 100vh;
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
 }
 .hero__content {
-  position: relative;
-  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--small);
+}
+.hero__lead {
+  margin: 0;
+  color: var(--color--secondary);
   font-size: var(--font-size--x-large);
+}
+.hero__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 2.75rem;
+  line-height: 1.3;
+  letter-spacing: 0.12em;
+}
+@media (min-width: 900px) {
+  .hero__title {
+    font-size: 4rem;
+  }
+}
+.hero__title > span {
+  display: block;
+}
+.hero__copy {
+  margin: var(--spacing--small) 0 0;
+  font-size: var(--font-size--medium);
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing--small);
+  margin-block: var(--spacing--small);
+}
+.hero__actions .button {
+  margin-inline: 0;
+}
+.hero__actions .button.is-primary {
+  box-shadow: inset 0 0 0 1px var(--color--light);
+}
+.hero__visual {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing--medium);
+}
+.hero__caption {
+  margin: 0;
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-size: var(--font-size--x-large);
+  letter-spacing: 0.3em;
+  writing-mode: vertical-rl;
+}
+.hero__image {
+  width: min(30rem, 72vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 /**
  * Project - Section
+ * md以上では見出しを縦組みにして左列に置く (パンフレットの縦書きを踏襲)
  */
-.section__inner {
-  padding-block: var(--spacing--large);
+.section {
+  position: relative;
 }
-:where(.section__inner) {
+.section__inner {
+  padding-block: var(--spacing--x-large);
   background-color: var(--color--lightest);
 }
-:where(.section:nth-child(odd) .section__inner) {
-  background-color: var(--color--darker);
+.section.is-white .section__inner {
+  background-color: var(--color--lightest);
+  color: var(--color--darkest);
+}
+.section.is-navy .section__inner {
+  background-color: var(--color--primary);
   color: var(--color--lightest);
 }
-:where(.section:nth-child(odd) .section__inner) a, :where(.section:nth-child(odd) .section__inner) a:active {
-  color: var(--color--lightest);
+.section.is-sand .section__inner {
+  background-color: var(--color--secondary);
+  color: var(--color--darkest);
+}
+.section.is-cream .section__inner {
+  background-color: var(--color--tertiary);
+  color: var(--color--darkest);
+}
+.section.is-navy .section__inner a:not(.button), .section.is-navy .section__inner a:not(.button):active {
+  color: var(--color--secondary);
   text-decoration: none;
 }
-:where(.section:nth-child(odd) .section__inner) a:hover, :where(.section:nth-child(odd) .section__inner) a:focus {
+.section.is-navy .section__inner a:not(.button):hover, .section.is-navy .section__inner a:not(.button):focus {
   color: var(--color--lightest);
   text-decoration: underline;
 }
-.section__heading {
-  margin: var(--spacing--medium) 0;
-  text-align: center;
-  text-transform: capitalize;
-}
 .section__container {
-  padding-block-start: calc(var(--spacing--small) + var(--spacing--medium));
-  padding-block-end: var(--spacing--large);
-}
-.section__container:not(.section__container.is-md) {
   width: min(100%, var(--container-width--lg));
   margin-inline: auto;
   padding-inline: var(--container-pad--lg);
+  padding-inline: calc(var(--container-pad--lg) + 0.75rem);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--spacing--medium);
 }
-.section__container.is-md {
-  width: min(100%, var(--container-width--md));
-  margin-inline: auto;
-  padding-inline: var(--container-pad--md);
+@media (min-width: 900px) {
+  .section__container {
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: var(--spacing--large);
+  }
+}
+.section__heading {
+  margin: 0;
+  font-size: var(--font-size--xx-large);
+  letter-spacing: 0.24em;
+}
+@media (min-width: 900px) {
+  .section__heading {
+    writing-mode: vertical-rl;
+  }
+}
+.is-navy .section__heading {
+  color: var(--color--lightest);
+}
+.is-white .section__heading, .is-cream .section__heading {
+  color: var(--color--primary);
+}
+.section__body {
+  min-width: 0;
+}
+
+/**
+ * Project - Media Text
+ * 文章と画像を2列で並べる (md未満は1列)
+ */
+.mediaText {
+  display: grid;
+  gap: var(--spacing--large);
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .mediaText {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+@media (min-width: 900px) {
+  .mediaText.is-reverse .mediaText__media {
+    order: -1;
+  }
+}
+.mediaText__text {
+  max-width: 36em;
+}
+.mediaText__text > :first-child {
+  margin-block-start: 0;
+}
+.mediaText__lead {
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-size: var(--font-size--x-large);
+  line-height: 1.7;
+}
+.mediaText__label {
+  margin-block-end: 0;
+  font-size: var(--font-size--small);
+  opacity: 0.8;
+}
+.mediaText__note {
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-radius: var(--spacing--x-small);
+  background-color: var(--color--tertiary);
+  color: var(--color--darkest);
+}
+.mediaText__media {
+  margin: 0;
+}
+.mediaText__media img {
+  aspect-ratio: 4/3;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.mediaText__media.is-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing--small);
+  align-items: end;
+}
+.mediaText__media.is-pair img {
+  aspect-ratio: 4/5;
+}
+
+/**
+ * Project - Photo Grid
+ * 館内写真の一覧 (クリックで Modal 表示)
+ */
+.photoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--spacing--medium) var(--spacing--small);
+}
+@media (min-width: 900px) {
+  .photoGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing--large) var(--spacing--medium);
+  }
+}
+.photoGrid__item {
+  margin: 0;
+}
+.photoGrid__link {
+  display: block;
+  overflow: hidden;
+}
+.photoGrid__link img {
+  aspect-ratio: 4/5;
+  -o-object-fit: cover;
+     object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.photoGrid__link:hover img, .photoGrid__link:focus-visible img {
+  transform: scale(1.03);
+}
+.photoGrid__item.is-round .photoGrid__link {
+  border-radius: 50%;
+}
+.photoGrid__item.is-round .photoGrid__link img {
+  aspect-ratio: 1;
+}
+.photoGrid__caption {
+  margin-block-start: var(--spacing--small);
+  text-align: left;
+}
+
+/**
+ * Project - Stay Guide
+ * 宿泊料金・ご案内・キャンセル規定
+ */
+.stayGuide {
+  display: grid;
+  gap: var(--spacing--large);
+}
+.stayGuide__overview {
+  display: grid;
+  gap: var(--spacing--large);
+}
+@media (min-width: 900px) {
+  .stayGuide__overview {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  }
+}
+.stayGuide__heading {
+  margin-block: 0 var(--spacing--small);
+  color: var(--color--primary);
+  font-size: var(--font-size--x-large);
+}
+.stayGuide__note {
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  letter-spacing: var(--small-letter-spacing);
+  color: var(--color--darker);
+}
+
+.priceTable {
+  width: 100%;
+}
+@media (max-width: 599.9px) {
+  .priceTable, .priceTable thead, .priceTable tbody, .priceTable tr, .priceTable th, .priceTable td {
+    display: block;
+  }
+}
+.priceTable thead, .priceTable tbody {
+  width: 100%;
+}
+.priceTable thead {
+  border: 0;
+}
+.priceTable tr {
+  border-block-end: 1px solid var(--color--lighter);
+}
+.priceTable tr:first-child {
+  border-block-start: 1px solid var(--color--lighter);
+}
+.priceTable th, .priceTable td {
+  padding: var(--spacing--small);
+  border: 0;
+}
+.priceTable th {
+  font-weight: 500;
+}
+.priceTable td {
+  color: var(--color--primary);
+  font-size: var(--font-size--large);
+  text-align: right;
+}
+@media (max-width: 599.9px) {
+  .priceTable td {
+    padding-block-start: 0;
+    text-align: left;
+  }
+}
+
+.infoList {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--spacing--small) var(--spacing--medium);
+  align-content: start;
+  align-self: start;
+  margin: 0;
+  padding: var(--spacing--medium);
+  border-radius: var(--spacing--x-small);
+  background-color: var(--color--tertiary);
+}
+.infoList dt {
+  font-weight: 700;
+  color: var(--color--primary);
+}
+.infoList dd {
+  margin: 0;
+}
+
+.cancelSteps {
+  list-style: none;
+  padding-inline-start: 0;
+  display: grid;
+  gap: 4px;
+  margin: 0;
+}
+@media (min-width: 600px) {
+  .cancelSteps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.cancelSteps__item {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--spacing--small) var(--spacing--medium);
+  background-color: var(--color--tertiary);
+  color: var(--color--darkest);
+}
+.cancelSteps__item:nth-child(2) {
+  background-color: var(--color--secondary);
+  color: var(--color--darkest);
+}
+.cancelSteps__item:nth-child(3) {
+  background-color: var(--color--primary);
+  color: var(--color--lightest);
+}
+.cancelSteps__term {
+  font-size: var(--font-size--small);
+}
+.cancelSteps__fee {
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-size: var(--font-size--x-large);
 }
 
 /**
@@ -1254,7 +1619,7 @@ button, input, select, textarea {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 }
 @media (min-width: 900px) {
   .postList.is-grid .postList__item {
@@ -1305,6 +1670,119 @@ button, input, select, textarea {
 }
 
 /**
+ * Project - Archive List
+ * レジデンシーの展示実績
+ */
+.archiveList {
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+  border-block-start: 1px solid rgba(255, 255, 255, 0.2);
+}
+.archiveList__item {
+  margin: 0;
+  border-block-end: 1px solid rgba(255, 255, 255, 0.2);
+}
+.archiveList__link {
+  display: grid;
+  grid-template-columns: 7em minmax(0, 1fr);
+  gap: var(--spacing--x-small) var(--spacing--medium);
+  padding-block: var(--spacing--small);
+}
+.archiveList__date {
+  font-size: var(--font-size--small);
+}
+.archiveList__title {
+  display: block;
+  color: var(--color--lightest);
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-size: var(--font-size--large);
+}
+.archiveList__artist {
+  display: block;
+  color: var(--color--lighter);
+  font-size: var(--font-size--small);
+}
+
+/**
+ * Project - Member List
+ * 運営チーム
+ */
+.memberList {
+  list-style: none;
+  padding-inline-start: 0;
+  display: grid;
+  gap: var(--spacing--medium) var(--spacing--large);
+  margin: var(--spacing--medium) 0 0;
+}
+@media (min-width: 900px) {
+  .memberList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.memberList__item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing--small);
+  margin: 0;
+}
+.memberList__photo {
+  flex: 0 0 5.5rem;
+  width: 5.5rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background-color: var(--color--secondary);
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.memberList__role {
+  display: block;
+  color: var(--color--darker);
+  font-size: var(--font-size--small);
+}
+.memberList__name {
+  display: block;
+  color: var(--color--primary);
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-size: var(--font-size--large);
+}
+.memberList__note {
+  margin: var(--spacing--x-small) 0 0;
+  font-size: var(--font-size--small);
+}
+
+/**
+ * Project - Access
+ */
+.access {
+  display: grid;
+  gap: var(--spacing--large);
+}
+@media (min-width: 900px) {
+  .access {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+}
+.access .embed {
+  height: auto;
+  aspect-ratio: 4/3;
+}
+.access__address {
+  margin-block-start: 0;
+}
+.access__routes {
+  margin: 0;
+}
+.access__routes dt {
+  margin-block-start: var(--spacing--small);
+  font-weight: 700;
+  color: var(--color--primary);
+}
+.access__routes dd {
+  margin: 0;
+}
+
+/**
  * Form
  */
 .form label {
@@ -1316,7 +1794,7 @@ button, input, select, textarea {
   line-height: var(--small-line-height);
   letter-spacing: var(--small-letter-spacing);
 }
-.form input[type=text], .form input[type=tel], .form input[type=url], .form input[type=email], .form input[type=password], .form input[type=file], .form select, .form optgroup, .form textarea {
+.form input[type=text], .form input[type=tel], .form input[type=url], .form input[type=email], .form input[type=password], .form input[type=date], .form input[type=number], .form input[type=file], .form select, .form optgroup, .form textarea {
   display: block;
   width: 100%;
   padding: var(--spacing--x-small);
@@ -1364,7 +1842,7 @@ button, input, select, textarea {
 .form table input, .form table select, .form table textarea {
   border: none;
   border-radius: var(--spacing--x-small);
-  background-color: rgba(80.58, 169.898, 225.42, 0.05);
+  background-color: rgba(43, 53, 70, 0.05);
 }
 .form [type=submit] {
   display: inline-block;
@@ -1397,6 +1875,46 @@ button, input, select, textarea {
 .form [type=submit]:hover, .form [type=submit]:focus {
   background-color: var(--color--primary--active);
   color: var(--color--darkest);
+}
+
+/**
+ * Project - Reserve
+ * ご予約・お問い合わせ (電話 + フォーム)
+ */
+.reserve {
+  display: grid;
+  gap: var(--spacing--large);
+}
+@media (min-width: 900px) {
+  .reserve {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  }
+}
+.reserve__contact > :first-child {
+  margin-block-start: 0;
+}
+.reserve__tel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--x-small);
+  font-size: var(--font-size--x-large);
+}
+.reserve .form {
+  padding: var(--spacing--medium);
+  border-radius: var(--spacing--x-small);
+  background-color: var(--color--lightest);
+  color: var(--color--darkest);
+}
+.reserve .form a, .reserve .form a:active {
+  color: var(--color--darker);
+  text-decoration: none;
+}
+.reserve .form a:hover, .reserve .form a:focus {
+  color: var(--color--primary);
+  text-decoration: underline;
+}
+.reserve .form span.is-required {
+  color: var(--color--darker);
 }
 
 /**
@@ -1444,7 +1962,7 @@ button, input, select, textarea {
   height: 100%;
   align-items: center;
   justify-content: center;
-  background: rgba(38, 38, 38, 0.3);
+  background: rgba(52, 49, 45, 0.3);
   color: var(--color--lightest);
   transition: opacity 0.25s linear;
 }

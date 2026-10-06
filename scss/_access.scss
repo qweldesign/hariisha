@@ -1,0 +1,35 @@
+/**
+ * Project - Access
+ */
+
+.access {
+  display: grid;
+  gap: space("large");
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+
+  .embed {
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  &__address {
+    margin-block-start: 0;
+  }
+
+  &__routes {
+    margin: 0;
+
+    dt {
+      margin-block-start: space();
+      font-weight: 700;
+      color: theme-color("primary");
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+/**
+ * Project - Media Text
+ * 文章と画像を2列で並べる (md未満は1列)
+ */
+
+.mediaText {
+  display: grid;
+  gap: space("large");
+  align-items: center;
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  // 画像を左列に置く
+  &.is-reverse &__media {
+    @media (min-width: breakpoint("md")) {
+      order: -1;
+    }
+  }
+
+  &__text {
+    max-width: 36em;
+
+    > :first-child {
+      margin-block-start: 0;
+    }
+  }
+
+  &__lead {
+    font-family: $font-family-serif;
+    font-size: font-size("x-large");
+    line-height: 1.7;
+  }
+
+  &__label {
+    margin-block-end: 0;
+    font-size: font-size("small");
+    opacity: 0.8;
+  }
+
+  &__note {
+    padding: space() space("medium");
+    border-radius: space("x-small");
+    background-color: theme-color("tertiary");
+    color: color-yiq("tertiary");
+  }
+
+  &__media {
+    margin: 0;
+
+    img {
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+    }
+
+    // 2枚並べる場合
+    &.is-pair {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: space();
+      align-items: end;
+
+      img {
+        aspect-ratio: 4 / 5;
+      }
+    }
+  }
+}

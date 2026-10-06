@@ -1,0 +1,39 @@
+/**
+ * Project - Archive List
+ * レジデンシーの展示実績
+ */
+
+.archiveList {
+  @include list-unstyled();
+  margin: 0;
+  border-block-start: 1px solid rgba(map-get($theme-colors, "lightest"), 0.2);
+
+  &__item {
+    margin: 0;
+    border-block-end: 1px solid rgba(map-get($theme-colors, "lightest"), 0.2);
+  }
+
+  &__link {
+    display: grid;
+    grid-template-columns: 7em minmax(0, 1fr);
+    gap: space("x-small") space("medium");
+    padding-block: space();
+  }
+
+  &__date {
+    font-size: font-size("small");
+  }
+
+  &__title {
+    display: block;
+    color: color-yiq("primary");
+    font-family: $font-family-serif;
+    font-size: font-size("large");
+  }
+
+  &__artist {
+    display: block;
+    color: theme-color("lighter");
+    font-size: font-size("small");
+  }
+}
