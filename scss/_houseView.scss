@@ -1,0 +1,12 @@
+/**
+ * Project - House View
+ */
+
+.houseView {
+  &__lead {
+    margin-block-start: 0;
+    font-family: $font-family-serif;
+    font-size: font-size("x-large");
+    line-height: 1.8;
+  }
+}

@@ -7,7 +7,7 @@
   height: 100%;
 
   &__siteBrand {
-    flex: 0 1 9rem;
+    flex: 0 1 12rem;
     margin: 0;
     text-align: center;
     text-transform: uppercase;
@@ -16,16 +16,9 @@
   &__primaryMenu {
     @include list-unstyled();
     @include row();
-    flex: 0 1 36rem;
+    flex: 0 1 42rem;
     margin: 0;
     text-transform: capitalize;
-  }
-
-  &__socialMenu {
-    @include list-unstyled();
-    @include row();
-    flex: 0 1 9rem;
-    margin: 0;
   }
 
   &__menuItem {
@@ -33,11 +26,6 @@
 
     &.is-current {
       font-weight: 700;
-    }
-
-    &.is-social {
-      width: 3rem;
-      text-align: center;
     }
 
     a {

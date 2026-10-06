@@ -34,7 +34,7 @@
   }
 
   &.is-grid {
-    @include row();
+    @include row(space-around, flex-start);
 
     .postList__item {
       @include col(4, false, "md");

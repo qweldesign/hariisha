@@ -3,7 +3,8 @@
  */
 
 .footer {
-  padding: space("x-large");
+  padding: space("x-large") space("medium");
   @include background($theme-accent);
+  border-block-start: 1px solid theme-color("dark");
   text-align: center;
 }
