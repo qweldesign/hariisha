@@ -152,7 +152,7 @@ export default class Modal {
       // モーダルを開く
       this.modal.classList.remove('is-hidden');
       this.modal.setAttribute('aria-hidden', 'false');
-      this.shown = true;
+      this.isShown = true;
     }
 
     // 画像切り替え
@@ -172,14 +172,14 @@ export default class Modal {
 
   hide(withSync) {
     if (withSync) {
-      history.pushState(null, '', location.pathname);
+      history.pushState(null, '', location.pathname + location.search);
     }
     this.transitionEnd(this.modal, () => {
       this.modal.classList.add('is-hidden');
     }).then(() => {
       this.modal.setAttribute('aria-hidden', 'true');
     });
-    this.shown = false;
+    this.isShown = false;
   }
 
   hashChangeHandler() {
@@ -187,21 +187,29 @@ export default class Modal {
     const index = this.map.findIndex(item => item.hash === hash);
     if (!hash || index === -1) {
       // hash が空 もしくは map に存在しない場合 (Modalと無関係のAnchorに移動する場合)
-      if (this.shown) this.hide(false);
+      if (this.isShown) this.hide(false);
     } else {
       this.change(index, false);
     }
   }
 
-  transitionEnd(elem, func) {
+  transitionEnd(elem, func, timeout = 1000) {
     // CSS遷移の完了を監視
+    // 遷移が発生しない場合でも timeout 後に必ず resolve する
     let callback;
+    let timer;
     const promise = new Promise((resolve) => {
-      callback = () => resolve(elem);
+      callback = (event) => {
+        // 子要素 (.modal__image 等) からバブリングしてきた transitionend は無視
+        if (event && event.target !== elem) return;
+        resolve(elem);
+      };
       elem.addEventListener('transitionend', callback);
+      timer = setTimeout(callback, timeout);
     });
     func();
-    promise.then((elem) => {
+    promise.then(() => {
+      clearTimeout(timer);
       elem.removeEventListener('transitionend', callback);
     });
     return promise;

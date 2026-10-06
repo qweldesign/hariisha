@@ -25,7 +25,7 @@ export default class Fader {
     if (!this.items.length) return;
 
     // オプションをdata属性から取得
-    this.interval = this.elem.dataset.interval || 5000;
+    this.interval = Number(this.elem.dataset.interval) || 5000;
 
     // 状態管理
     this.currentIndex = 0;
@@ -65,7 +65,6 @@ export default class Fader {
     }
 
     // 現アイテムに.is-currrentを付与
-    this.navItems = this.nav.children;
     this.navItems = this.nav.children;
     this.navItems[this.currentIndex].classList.add('is-current');
 

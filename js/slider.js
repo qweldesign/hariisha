@@ -36,7 +36,8 @@ export default class Slider {
     // オプションをdata属性から取得
     this.flickable = this.elem.hasAttribute('data-flickable') || false;
     this.aspectRatio = Number(this.elem.dataset.aspectRatio) || 8 / 5;
-    this.gap = Number(this.elem.dataset.gap) ?? 96;
+    // Number(undefined) は NaN になり ?? では既定値に落ちないため, 変換前に既定値を当てる
+    this.gap = Number(this.elem.dataset.gap ?? 96);
     this.interval = Number(this.elem.dataset.interval) || 3000; // 1000未満を指定すると自動再生しない
     this.duration = Number(this.elem.dataset.duration) || 500;
 
@@ -215,7 +216,9 @@ export default class Slider {
   handleEvents() {
     // タッチデバイスの判定
     const touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0;
-    const myTouch = touchSupported ? 'touchend' : 'click';
+    // タップでも click は発火するため, ボタン類は常に click で扱う
+    // (touchend にすると, タッチ対応PCでマウス操作した際に反応しない)
+    const myTouch = 'click';
 
     // 状態
     this.x = 0;
@@ -295,7 +298,7 @@ export default class Slider {
     // ナビゲーション操作
     this.nav.addEventListener(myTouch, (event) => {
       const target = event.target;
-      if (target.dataset.targetIndex) {
+      if (target.dataset.targetIndex && !this.isAnimated) {
         this.move(target.dataset.targetIndex - this.currentIndex % this.itemsCount);
         this.stopInterval();
       }
@@ -366,6 +369,9 @@ export default class Slider {
           if ((w1 * 2 + w2) / 3 < Math.abs(distance)) size++;
         }
         this.move(size, this.duration / 2); // 既に引っ張ってきているので、半分の時間
+      } else {
+        // 僅かな移動距離の場合は元の位置に戻す
+        this.windowResizeHandler();
       }
     }
   }
