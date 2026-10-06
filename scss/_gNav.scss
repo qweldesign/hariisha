@@ -7,7 +7,7 @@
   height: 100%;
 
   &__siteBrand {
-    flex: 0 1 9rem;
+    flex: 0 1 auto;
     margin: 0;
     text-align: center;
     text-transform: uppercase;
@@ -16,9 +16,13 @@
   &__primaryMenu {
     @include list-unstyled();
     @include row();
-    flex: 0 1 36rem;
+    flex: 0 1 40.5rem;
     margin: 0;
     text-transform: capitalize;
+
+    @media (min-width: breakpoint("lg")) {
+      flex-basis: 45rem;
+    }
   }
 
   &__socialMenu {

@@ -236,7 +236,7 @@ button, input, select, textarea {
   height: 100%;
 }
 .gNav__siteBrand {
-  flex: 0 1 9rem;
+  flex: 0 1 auto;
   margin: 0;
   text-align: center;
   text-transform: uppercase;
@@ -248,9 +248,14 @@ button, input, select, textarea {
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-  flex: 0 1 36rem;
+  flex: 0 1 40.5rem;
   margin: 0;
   text-transform: capitalize;
+}
+@media (min-width: 1200px) {
+  .gNav__primaryMenu {
+    flex-basis: 45rem;
+  }
 }
 .gNav__socialMenu {
   list-style: none;
