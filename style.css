@@ -318,7 +318,7 @@ button, input, select, textarea {
  * Layout - Footer
  */
 .footer {
-  padding: var(--spacing--x-large);
+  padding: var(--spacing--x-large) var(--spacing--medium);
   background-color: var(--color--primary);
   color: var(--color--lightest);
 }
@@ -1183,6 +1183,11 @@ button, input, select, textarea {
   flex-direction: column;
   gap: var(--spacing--small);
 }
+@media (max-width: 899.9px) {
+  .hero__content {
+    text-align: right;
+  }
+}
 .hero__lead {
   margin: 0;
   color: var(--color--secondary);
@@ -1210,9 +1215,15 @@ button, input, select, textarea {
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
   align-items: center;
   gap: var(--spacing--small);
   margin-block: var(--spacing--small);
+}
+@media (max-width: 899.9px) {
+  .hero__actions {
+    justify-content: flex-end;
+  }
 }
 .hero__actions .button {
   margin-inline: 0;
@@ -1225,6 +1236,11 @@ button, input, select, textarea {
   align-items: flex-start;
   justify-content: center;
   gap: var(--spacing--medium);
+}
+@media (max-width: 899.9px) {
+  .hero__visual {
+    order: -1;
+  }
 }
 .hero__caption {
   margin: 0;

@@ -27,6 +27,10 @@
     display: flex;
     flex-direction: column;
     gap: space();
+
+    @media (max-width: breakpoint("md") - 0.1) {
+      text-align: right;
+    }
   }
 
   &__lead {
@@ -59,9 +63,14 @@
   &__actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: center;
     gap: space();
     margin-block: space();
+
+    @media (max-width: breakpoint("md") - 0.1) {
+      justify-content: flex-end;
+    }
 
     .button {
       margin-inline: 0;
@@ -78,6 +87,10 @@
     align-items: flex-start;
     justify-content: center;
     gap: space("medium");
+
+    @media (max-width: breakpoint("md") - 0.1) {
+      order: -1;
+    }
   }
 
   // 縦書きキャプション「海まで徒歩5分」
