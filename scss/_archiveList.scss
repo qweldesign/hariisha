@@ -15,7 +15,7 @@
 
   &__link {
     display: grid;
-    grid-template-columns: 7em minmax(0, 1fr);
+    grid-template-columns: 4.5em minmax(0, 1fr);
     gap: space("x-small") space("medium");
     padding-block: space();
   }
