@@ -49,7 +49,23 @@
           </div>
           <div class="hero__visual">
             <p class="hero__caption visible-md">海まで徒歩５分</p>
-            <img class="hero__image" src="./assets/photos/sea-rocks.jpg" alt="はりいしゃ近くの海に沈む夕日と岩礁">
+            <!-- TODO: 仮の画像 (ページ内の写真を流用). 切り替え間隔は data-interval (ミリ秒) で調整 -->
+            <div class="fader hero__fader" data-gallery="fader" data-interval="6000">
+              <ul class="fader__inner">
+                <li class="fader__item" data-gallery-item>
+                  <img src="./assets/photos/gallery-exterior.jpg" alt="元鍼灸院の洋館を改装したギャラリーの外観" loading="lazy">
+                </li>
+                <li class="fader__item" data-gallery-item>
+                  <img src="./assets/photos/tatami-room.jpg" alt="座卓と座布団が並ぶ畳の座敷" loading="lazy">
+                </li>
+                <li class="fader__item" data-gallery-item>
+                  <img src="./assets/photos/main-house.jpg" alt="縁側と庭のある母屋の外観" loading="lazy">
+                </li>
+                <li class="fader__item" data-gallery-item>
+                  <img src="./assets/photos/sea-rocks.jpg" alt="はりいしゃ近くの海に沈む夕日と岩礁">
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </header>
