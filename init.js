@@ -1,8 +1,8 @@
 // Action Core
 import ActionCore from './js/action-core.js';
 
-// Modal
-import Modal from './js/modal.js';
+// Slider
+import Slider from './js/slider.js';
 
 // Dots
 import Dots from './js/dots.js';
@@ -29,6 +29,6 @@ class AutoCopyright {
 
 // type="module" のスクリプトは HTML の解析後に実行されるため, DOM を待たずに初期化できる
 new ActionCore.Preset();
-new Modal();
+new Slider();
 Dots.init();
 new AutoCopyright(2020, '福井市越前海岸盛り上げ隊');

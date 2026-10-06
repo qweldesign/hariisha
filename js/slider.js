@@ -7,11 +7,11 @@
 
 /**
  * スライドアニメーションで遷移するギャラリー
- * ドラグ, ホイール操作対応
+ * ドラグ, 横方向のホイール (トラックパッドの横スワイプ) 操作対応
  * 
  * 使い方:
  * _slider.scss をバンドルした css を読み込み,
- * 画面幅100%の要素内にギャラリーを配置する
+ * ギャラリーを配置する (現在のアイテムはギャラリー本体の幅の中央に来る)
  * ギャラリー本体 (div等) に [data-gallery="slider"] 属性を付与し,
  * ギャラリーインナーに (ul等) [data-gallery-main] 属性を付与し,
  * ギャラリーアイテムに (li等) [data-gallery-item] 属性を付与する
@@ -61,6 +61,13 @@ export default class Slider {
 
     // リサイズ
     this.windowResizeHandler();
+
+    // 画像の読み込み前はアイテムの幅が確定しないため, 読み込み後に位置を再計算する
+    this.items.forEach((item) => {
+      item.querySelectorAll('img').forEach((img) => {
+        if (!img.complete) img.addEventListener('load', () => this.windowResizeHandler(), { once: true });
+      });
+    });
 
     // 開始
     if (this.interval >= 1000) this.startInterval();
@@ -282,7 +289,9 @@ export default class Slider {
 
       // ホイール操作
       this.inner.addEventListener('wheel', (event) => {
-        this.delta = event.deltaY;
+        // 縦方向のホイールはページのスクロールに任せ, 横方向 (トラックパッドの横スワイプ等) だけを扱う
+        if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) return;
+        this.delta = event.deltaX;
         this.myWheelHandler();
         event.preventDefault();
       });
@@ -397,7 +406,8 @@ export default class Slider {
 
   getAdjustedDistance(index) {
     const len = this.items.length;
-    let result = window.innerWidth / 2;
+    // ギャラリー本体の中央に揃える (画面幅100%で置いた場合は画面の中央)
+    let result = this.elem.clientWidth / 2;
     result -= this.items[index % len].clientWidth / 2;
     for (let i = 0; i > -3; i--) {
       let j = (index + i - 1 + len) % len;

@@ -1,0 +1,63 @@
+/**
+ * Project - House View
+ * 「館内のようす」: 縦書きの見出しと導入文の下に, 画面幅いっぱいのスライダーを置く
+ * (Component - Slider をこのサイト向けに調整)
+ */
+
+.houseView {
+  &__lead {
+    margin-block-start: 0;
+    font-family: $font-family-serif;
+    font-size: font-size("x-large");
+    line-height: 1.7;
+  }
+
+  &__slider {
+    margin-block-start: space("large");
+  }
+
+  .slider {
+    margin-block-start: 0;
+  }
+
+  .slider__item {
+    // 非アクティブなアイテムの透過は, アイテム全体ではなく写真だけに掛ける
+    // (アイテムごと透過すると, 後ろの水玉が透けて見えるため)
+    &:not(.is-current) {
+      opacity: 1;
+    }
+
+    // 写真の下地: セクションと同じ紺を敷き, 透過した写真の後ろに水玉が見えないようにする
+    figure {
+      margin: 0;
+      background-color: theme-color("primary");
+    }
+
+    img {
+      display: block;
+      transition: opacity 0.15s linear;
+    }
+
+    &:not(.is-current) img {
+      opacity: 0.5;
+    }
+  }
+
+  // キャプションは写真の下端に小さく
+  .slider__caption {
+    padding: space("large") space() space("x-small");
+    font-size: font-size("normal");
+    text-align: left;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  // 中央の写真のキャプションだけを表示する
+  .slider__item.is-current .slider__caption {
+    opacity: 1;
+  }
+
+  .sliderNav {
+    margin-block-end: 0;
+  }
+}

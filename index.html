@@ -77,49 +77,59 @@
       </section>
 
       <!-- 館内のようす -->
-      <section id="house" class="section is-navy" data-spy-section data-dots>
+      <section id="house" class="section is-navy houseView" data-spy-section data-dots>
         <div class="section__inner">
           <div class="section__container">
             <h2 class="section__heading" data-readable>館内のようす</h2>
             <div class="section__body" data-readable>
-              <div class="photoGrid" data-gallery="modal">
-                <figure class="photoGrid__item">
-                  <a class="photoGrid__link" href="#house-tatami-room" data-gallery-src="./assets/photos/tatami-room.jpg">
-                    <img src="./assets/photos/tatami-room.jpg" alt="座卓と座布団が並ぶ畳の座敷" loading="lazy">
-                  </a>
-                  <figcaption class="photoGrid__caption">母屋の座敷。続き間を広々と使えます。</figcaption>
-                </figure>
-                <figure class="photoGrid__item is-round">
-                  <a class="photoGrid__link" href="#house-round-window" data-gallery-src="./assets/photos/round-window.jpg">
-                    <img src="./assets/photos/round-window.jpg" alt="丸窓越しに見えるダイニングとキッチン" loading="lazy">
-                  </a>
-                  <figcaption class="photoGrid__caption">丸窓の向こうにダイニング。</figcaption>
-                </figure>
-                <figure class="photoGrid__item">
-                  <a class="photoGrid__link" href="#house-kitchen" data-gallery-src="./assets/photos/kitchen.jpg">
-                    <img src="./assets/photos/kitchen.jpg" alt="タイル張りのアイランドキッチン" loading="lazy">
-                  </a>
-                  <figcaption class="photoGrid__caption">タイル張りのキッチン。</figcaption>
-                </figure>
-                <figure class="photoGrid__item is-round">
-                  <a class="photoGrid__link" href="#house-inner-rooms" data-gallery-src="./assets/photos/inner-rooms.jpg">
-                    <img src="./assets/photos/inner-rooms.jpg" alt="障子を開け放った奥の間をのぞく子ども" loading="lazy">
-                  </a>
-                  <figcaption class="photoGrid__caption">障子を開けると奥まで見通せます。</figcaption>
-                </figure>
-                <figure class="photoGrid__item">
-                  <a class="photoGrid__link" href="#house-narcissus" data-gallery-src="./assets/photos/narcissus.jpg">
-                    <img src="./assets/photos/narcissus.jpg" alt="窓辺のガラスの花器に生けた水仙" loading="lazy">
-                  </a>
-                  <figcaption class="photoGrid__caption">窓辺の水仙は越前海岸の冬の花。</figcaption>
-                </figure>
-                <figure class="photoGrid__item is-round">
-                  <a class="photoGrid__link" href="#house-kumiko" data-gallery-src="./assets/photos/kumiko.jpg">
-                    <img src="./assets/photos/kumiko.jpg" alt="麻の葉模様の組子欄間" loading="lazy">
-                  </a>
-                  <figcaption class="photoGrid__caption">職人の手による麻の葉の組子。</figcaption>
-                </figure>
-              </div>
+              <!-- TODO: 仮の文章 -->
+              <p class="houseView__lead">昭和の手仕事が、<br>いまも息づく家。</p>
+              <p>畳の続き間、丸窓の向こうのダイニング、タイル張りのキッチン、職人の手による組子の欄間。
+                <br>日本建築の母屋と元鍼灸院の洋館、それぞれの趣をお楽しみください。</p>
+            </div>
+          </div>
+          <!-- スライダーは画面幅いっぱいに表示する -->
+          <div class="houseView__slider" data-readable>
+            <!-- 自動再生は data-interval (ミリ秒), 画像の間隔は data-gap (px) で調整 -->
+            <div class="slider" data-gallery="slider" data-flickable data-gap="40" data-interval="5000" data-duration="700">
+              <ul class="slider__inner" data-gallery-main>
+                <li class="slider__item" data-gallery-item>
+                  <figure>
+                    <img src="./assets/photos/tatami-room.jpg" alt="座卓と座布団が並ぶ畳の座敷" width="1440" height="960">
+                    <figcaption class="slider__caption">母屋の座敷。続き間を広々と使えます。</figcaption>
+                  </figure>
+                </li>
+                <li class="slider__item" data-gallery-item>
+                  <figure>
+                    <img src="./assets/photos/round-window.jpg" alt="丸窓越しに見えるダイニングとキッチン" width="750" height="900">
+                    <figcaption class="slider__caption">丸窓の向こうにダイニング。</figcaption>
+                  </figure>
+                </li>
+                <li class="slider__item" data-gallery-item>
+                  <figure>
+                    <img src="./assets/photos/kitchen.jpg" alt="タイル張りのアイランドキッチン" width="1200" height="900">
+                    <figcaption class="slider__caption">タイル張りのキッチン。</figcaption>
+                  </figure>
+                </li>
+                <li class="slider__item" data-gallery-item>
+                  <figure>
+                    <img src="./assets/photos/inner-rooms.jpg" alt="障子を開け放った奥の間をのぞく子ども" width="1080" height="1350">
+                    <figcaption class="slider__caption">障子を開けると奥まで見通せます。</figcaption>
+                  </figure>
+                </li>
+                <li class="slider__item" data-gallery-item>
+                  <figure>
+                    <img src="./assets/photos/narcissus.jpg" alt="窓辺のガラスの花器に生けた水仙" width="1440" height="960">
+                    <figcaption class="slider__caption">窓辺の水仙は越前海岸の冬の花。</figcaption>
+                  </figure>
+                </li>
+                <li class="slider__item" data-gallery-item>
+                  <figure>
+                    <img src="./assets/photos/kumiko.jpg" alt="麻の葉模様の組子欄間" width="1350" height="1080">
+                    <figcaption class="slider__caption">職人の手による麻の葉の組子。</figcaption>
+                  </figure>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
