@@ -7,6 +7,19 @@
 require_once __DIR__ . '/inc/ContentEngine.php';
 require_once __DIR__ . '/inc/partials/site.php';
 
+// お問い合わせの件名 (キー => 表示名. 表示名がそのまま確認画面とメールの件名欄になる)
+// トップページの URL に ?subject=キー を付けると, その件名を選んだ状態でフォームを開ける
+// 例: /?subject=artist-stay#reserve
+$contact_subjects = [
+  'stay'        => 'ゲストハウスの空き状況・ご予約',
+  'gallery'     => 'ギャラリー来館のご予約',
+  'printmaking' => '版画体験のご予約',
+  'artist-stay' => '滞在制作・展示会のご希望',
+  'site'        => '当サイトへのご質問・ご意見',
+  'other'       => 'その他',
+];
+$selected_subject = $_GET['subject'] ?? '';
+
 // お知らせ (最新3件)
 $info = new ContentEngine(['dir' => __DIR__ . '/content/info/']);
 $latest_info = $info->get_posts(1, 3);
@@ -473,8 +486,28 @@ render_header([
                     <td><input id="guestEmail" type="email" name="メールアドレス" autocomplete="email" required></td>
                   </tr>
                   <tr>
-                    <th><label for="stayDate">ご希望の宿泊日</label></th>
-                    <td><input id="stayDate" type="date" name="宿泊希望日"></td>
+                    <th><label for="subject">件名<span class="is-required">*必須</span></label></th>
+                    <td>
+                      <select id="subject" name="件名" required>
+                        <option value="">選択してください</option>
+<?php foreach ($contact_subjects as $key => $label) { ?>
+                        <option value="<?= e($label) ?>"<?= $key === $selected_subject ? ' selected' : '' ?>><?= e($label) ?></option>
+<?php } ?>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th><label for="scheduleStart">ご希望の日程</label></th>
+                    <td>
+                      <!-- 開始日を選ぶと, 終了日はそれより前を選べなくなる (js/contact-form.js) -->
+                      <div class="form__range" data-date-range>
+                        <input id="scheduleStart" type="date" name="ご希望の日程 (開始)" aria-label="ご希望の日程 (開始)" data-date-start>
+                        <span class="form__rangeEnd">
+                          <span class="form__rangeSeparator" aria-hidden="true">〜</span>
+                          <input id="scheduleEnd" type="date" name="ご希望の日程 (終了)" aria-label="ご希望の日程 (終了)" data-date-end>
+                        </span>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <th><label for="guestCount">人数</label></th>

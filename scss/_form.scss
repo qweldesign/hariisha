@@ -22,6 +22,32 @@
     }
   }
 
+  // 期間の入力 (開始日 〜 終了日)
+  // 幅が足りない場合は折り返し, 「〜」は終了日と同じ行に付けて置く
+  &__range {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: space("x-small");
+
+    input {
+      flex: 1 1 9rem;
+      min-width: 0;
+    }
+  }
+
+  &__rangeEnd {
+    display: flex;
+    flex: 1 1 11rem;
+    align-items: center;
+    gap: space("x-small");
+    min-width: 0;
+  }
+
+  &__rangeSeparator {
+    flex: 0 0 auto;
+  }
+
   [type="submit"] {
     display: inline-block;
     width: 14rem;

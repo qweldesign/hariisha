@@ -14,6 +14,8 @@
  * 確認画面: 内容を表示する table 要素に [data-contact-confirm],
  *          送信ボタンに [data-contact-send], 戻るボタンに [data-contact-back] を付与する
  * 項目名は各入力欄の name 属性がそのまま確認画面とメール本文の見出しになる
+ * 期間の入力: [data-date-range] の中に [data-date-start] と [data-date-end] の日付入力を置くと,
+ *            今日より前の日付と, 開始日より前の終了日を選べないようにする
  *
  * オプション:
  * confirmUrl: 確認画面の URL (規定で confirm.html)
@@ -45,6 +47,9 @@ export default class ContactForm {
   }
 
   formInit() {
+    // 期間の入力 (開始日・終了日) の連動
+    this.form.querySelectorAll('[data-date-range]').forEach((range) => this.setupDateRange(range));
+
     // 確認ボタンのイベント登録
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();
@@ -63,6 +68,27 @@ export default class ContactForm {
       // 確認画面へ遷移
       location.href = this.confirmUrl;
     });
+  }
+
+  setupDateRange(range) {
+    const start = range.querySelector('[data-date-start]');
+    const end = range.querySelector('[data-date-end]');
+    if (!start || !end) return;
+
+    // 今日の日付 (ローカル時刻の YYYY-MM-DD)
+    const now = new Date();
+    const today = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    start.min = today;
+    end.min = today;
+
+    // 開始日に合わせて, 終了日の下限を更新する
+    // 開始日より前の終了日が入っていた場合は, 開始日に揃える
+    const update = () => {
+      end.min = start.value || today;
+      if (start.value && end.value && end.value < start.value) end.value = start.value;
+    };
+    start.addEventListener('change', update);
+    update();
   }
 
   confirmInit() {

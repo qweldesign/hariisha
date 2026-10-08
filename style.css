@@ -2004,6 +2004,26 @@ button, input, select, textarea {
   border-radius: var(--spacing--x-small);
   background-color: rgba(43, 53, 70, 0.05);
 }
+.form__range {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing--x-small);
+}
+.form__range input {
+  flex: 1 1 9rem;
+  min-width: 0;
+}
+.form__rangeEnd {
+  display: flex;
+  flex: 1 1 11rem;
+  align-items: center;
+  gap: var(--spacing--x-small);
+  min-width: 0;
+}
+.form__rangeSeparator {
+  flex: 0 0 auto;
+}
 .form [type=submit] {
   display: inline-block;
   width: 14rem;
