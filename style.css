@@ -1150,6 +1150,29 @@ button, input, select, textarea {
   }
 }
 /**
+ * Component - More Link
+ * 砂色の短い罫を添えた, 控えめなテキストリンク (「お知らせ一覧」と同じ見た目)
+ * ボタンほど主張させたくない補助的な導線に使う. 文字色は置かれた場所のリンク色を引き継ぐ
+ */
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--small);
+  font-size: var(--font-size--small);
+}
+.moreLink::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 1.5rem;
+  height: 2px;
+  background-color: var(--color--secondary);
+  transition: width 0.2s ease;
+}
+.moreLink:hover::before, .moreLink:focus-visible::before {
+  width: 2.5rem;
+}
+
+/**
  * Project - Brand
  * サイト名「はりいしゃ」のロゴタイプ
  */
@@ -2072,6 +2095,16 @@ button, input, select, textarea {
 }
 .reserve__contact > :first-child {
   margin-block-start: 0;
+}
+.reserve__artist {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing--x-small);
+  margin-block-start: var(--spacing--large);
+}
+.reserve__artistLead {
+  font-size: var(--font-size--small);
 }
 .reserve__tel {
   display: inline-flex;

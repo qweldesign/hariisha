@@ -382,6 +382,7 @@ render_header([
                 </li>
               </ul>
               <p><a href="https://discoverechizen.com/category/hariisha-residency/">過去の展示をもっと見る</a></p>
+              <p><a class="moreLink" href="<?= path('page/artist-stay/') ?>">滞在制作・展示会をご希望の作家の方へ</a></p>
             </div>
           </div>
         </div>
@@ -473,6 +474,10 @@ render_header([
             <div class="section__body reserve" data-readable>
               <div class="reserve__contact">
                 <p>ゲストハウスとしての空き状況の確認、ギャラリー来館・版画体験のご予約、滞在制作・展示会のご希望、当サイトへの質問・意見など、フォームからお気軽にお問い合わせください。</p>
+                <p class="reserve__artist">
+                  <span class="reserve__artistLead">滞在制作・展示会をご希望の作家の方へ</span>
+                  <a class="moreLink" href="<?= path('page/artist-stay/') ?>">利用条件を見る</a>
+                </p>
               </div>
               <!-- 送信は js/contact-form.js (確認画面 confirm.html → api/send.php) -->
               <form class="form" data-contact-form>
