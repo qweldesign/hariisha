@@ -1358,7 +1358,6 @@ button, input, select, textarea {
 .topInfo__link:hover .topInfo__title, .topInfo__link:focus-visible .topInfo__title {
   color: rgb(81.814159292, 100.8407079646, 133.185840708);
   text-decoration: underline;
-  text-underline-offset: 0.2em;
 }
 .topInfo__date {
   flex: 0 0 auto;
@@ -2319,7 +2318,6 @@ button, input, select, textarea {
 }
 .entry a {
   text-decoration: underline;
-  text-underline-offset: 0.2em;
 }
 .entry strong {
   font-weight: 700;
