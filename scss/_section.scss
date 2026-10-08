@@ -33,6 +33,17 @@ $section-tones: (
     }
   }
 
+  // 水玉 (js/dots.js) の色: 既定の半透明の白は紺地向けのため, 明るい背景では調整する
+  // 砂色の地では白を強めて差し込む光に, クリームの地では白が見えないため紺の影として見せる
+  // ($dots-opacity が掛かるため, 見た目の濃さはここの値 × 0.7 になる)
+  &.is-sand[data-dots] {
+    --dots-color: #{rgba(map-get($theme-colors, "lightest"), 0.55)};
+  }
+
+  &.is-cream[data-dots] {
+    --dots-color: #{rgba(map-get($theme-colors, "primary"), 0.16)};
+  }
+
   &__container {
     @include container();
     // grid で組むため, row/col のガター分の余白をコンテナ側で確保する

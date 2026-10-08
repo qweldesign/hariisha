@@ -1323,6 +1323,12 @@ button, input, select, textarea {
   color: var(--color--lightest);
   text-decoration: underline;
 }
+.section.is-sand[data-dots] {
+  --dots-color: rgba(255, 255, 255, 0.55);
+}
+.section.is-cream[data-dots] {
+  --dots-color: rgba(43, 53, 70, 0.16);
+}
 .section__container {
   width: min(100%, var(--container-width--lg));
   margin-inline: auto;
