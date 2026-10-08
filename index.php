@@ -64,7 +64,7 @@ render_header([
 
 <?php if ($latest_info) { ?>
       <!-- お知らせ (最新3件) -->
-      <section class="topInfo" aria-labelledby="topInfoHeading">
+      <section id="info" class="topInfo" aria-labelledby="topInfoHeading" data-spy-section>
         <div class="topInfo__container">
           <h2 id="topInfoHeading" class="topInfo__heading">お知らせ</h2>
           <ul class="topInfo__list">
