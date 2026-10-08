@@ -24,12 +24,6 @@ const SITE_NAV = [
   'reserve'   => 'ご予約',
 ];
 
-// フッターのリンク (サブページ)
-const FOOTER_NAV = [
-  'info/'       => 'お知らせ',
-  'page/story/' => 'はりいしゃのはなし',
-];
-
 // HTMLエスケープ
 function e(?string $value): string {
   return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
@@ -121,13 +115,6 @@ function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
       <p class="brandLogo">海辺の古民家はりいしゃ</p>
-      <nav aria-label="フッターナビゲーション">
-        <ul class="footer__nav">
-<?php foreach (FOOTER_NAV as $href => $label) { ?>
-          <li class="footer__navItem"><a href="<?= path($href) ?>"><?= e($label) ?></a></li>
-<?php } ?>
-        </ul>
-      </nav>
       <small class="footer__copyright"></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>

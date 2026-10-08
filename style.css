@@ -342,19 +342,6 @@ button, input, select, textarea {
   border-block-start: 1px solid rgba(255, 255, 255, 0.15);
   text-align: center;
 }
-.footer__nav {
-  list-style: none;
-  padding-inline-start: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: var(--spacing--x-small) var(--spacing--large);
-  margin-block: var(--spacing--medium);
-  font-size: var(--font-size--small);
-}
-.footer__navItem {
-  margin: 0;
-}
 
 /**
  * Component - Icon
