@@ -1,6 +1,8 @@
-## QWEL STARTER TEMPLATE
+# 海辺の古民家はりいしゃ
 
-[QWEL.DESIGN](https://qwel.design) のweb開発のためのスターターキット
+ゲストハウス & ギャラリー 海辺の古民家「はりいしゃ」のwebサイト
+
+[https://hariisha.jp](https://hariisha.jp)
 
 ---
 
