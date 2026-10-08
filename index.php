@@ -98,7 +98,7 @@ render_header([
                   <p>作家が滞在して制作し、地域の人たちが集う、この海辺の文化の拠点に、旅の方にも泊まっていただけるようにしました。
                     <br>一度きりの観光ではなく、何度も訪れたくなる居場所として、越前海岸との縁を結んでいただけたら嬉しいです。</p>
                   <p class="mediaText__action">
-                    <a class="button is-primary is-md" href="<?= path('page/story/') ?>">はりいしゃのはなし</a>
+                    <a class="button is-tertiary is-md" href="<?= path('page/story/') ?>">はりいしゃのはなし</a>
                   </p>
                 </div>
                 <figure class="mediaText__media">
