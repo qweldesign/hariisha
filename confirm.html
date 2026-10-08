@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内容確認 | 海辺の古民家 はりいしゃ</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Klee+One:wght@600&display=swap">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico">
+  </head>
+  <body>
+    <div data-scroll-sentinel></div>
+    <header id="header" class="header" data-active-header>
+      <div class="header__container">
+        <nav id="gNav" class="gNav" aria-label="グローバルナビゲーション">
+          <p class="gNav__siteBrand">
+            <a class="brandLogo" href="/">海辺の古民家はりいしゃ</a>
+          </p>
+          <ul class="gNav__primaryMenu visible-md" data-primary-menu>
+            <li class="gNav__menuItem"><a href="./#about">概要</a></li>
+            <li class="gNav__menuItem"><a href="./#space">館内</a></li>
+            <li class="gNav__menuItem"><a href="./#guide">料金</a></li>
+            <li class="gNav__menuItem"><a href="./#stay">滞在</a></li>
+            <li class="gNav__menuItem"><a href="./#gallery">ギャラリー</a></li>
+            <li class="gNav__menuItem"><a href="./#residency">レジデンシー</a></li>
+            <li class="gNav__menuItem"><a href="./#team">運営</a></li>
+            <li class="gNav__menuItem"><a href="./#access">アクセス</a></li>
+            <li class="gNav__menuItem"><a href="./#reserve">ご予約</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main id="main" class="main">
+      <header class="pageHeader">
+        <div class="pageHeader__container">
+          <h1 class="pageHeader__title">内容確認</h1>
+          <p class="pageHeader__lead">以下の内容で送信します。よろしければ「送信する」を押してください。</p>
+        </div>
+      </header>
+      <section class="contactPage">
+        <div class="contactPage__container">
+          <!-- 入力内容は js/contact-form.js が表示する -->
+          <table class="contactPage__table" data-contact-confirm></table>
+          <div class="contactPage__actions">
+            <button class="button is-primary is-md" type="button" data-contact-send>送信する</button>
+            <button class="button is-tertiary is-md" type="button" data-contact-back>入力画面に戻る</button>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer id="footer" class="footer">
+      <p class="brandLogo">海辺の古民家はりいしゃ</p>
+      <small class="footer__copyright"></small>
+    </footer>
+    <script src="./init.js" type="module"></script>
+  </body>
+</html>

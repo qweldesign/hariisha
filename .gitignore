@@ -1,2 +1,8 @@
 # VS code
 .vscode/
+
+# Composer
+vendor/
+
+# お問い合わせフォームの設定ファイル（パスワードを含む）
+.env

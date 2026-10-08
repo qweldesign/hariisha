@@ -439,10 +439,9 @@
             <div class="section__body reserve" data-readable>
               <div class="reserve__contact">
                 <p>空き状況の確認やギャラリーのご来場予約は、フォームからお申込みください。</p>
-                <!-- TODO: メールアドレスのドメイン確認 -->
               </div>
-              <!-- TODO: 送信先 (action) の決定 -->
-              <form class="form">
+              <!-- 送信は js/contact-form.js (確認画面 confirm.html → api/send.php) -->
+              <form class="form" data-contact-form>
                 <table>
                   <tr>
                     <th><label for="guestName">お名前<span class="is-required">*必須</span></label></th>
@@ -450,7 +449,7 @@
                   </tr>
                   <tr>
                     <th><label for="guestEmail">メールアドレス<span class="is-required">*必須</span></label></th>
-                    <td><input id="guestEmail" type="email" name="Email" autocomplete="email" required></td>
+                    <td><input id="guestEmail" type="email" name="メールアドレス" autocomplete="email" required></td>
                   </tr>
                   <tr>
                     <th><label for="stayDate">ご希望の宿泊日</label></th>

@@ -1,0 +1,67 @@
+/**
+ * Project - Contact Page
+ * お問い合わせの確認画面 (confirm.html) と完了画面 (thanks.html)
+ */
+
+// 下層ページの見出し帯 (固定ヘッダーの下に, ファーストビューと同じ紺地で敷く)
+.pageHeader {
+  background-color: theme-color("primary");
+  color: color-yiq("primary");
+
+  &__container {
+    @include container();
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+    padding-block: calc(#{$header-height} + #{space("large")}) space("large");
+  }
+
+  &__title {
+    margin: 0;
+    font-size: font-size("xx-large");
+    letter-spacing: 0.2em;
+  }
+
+  &__lead {
+    margin-block: space() 0;
+  }
+}
+
+.contactPage {
+  &__container {
+    @include container();
+    max-width: 48rem;
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+    padding-block: space("x-large");
+  }
+
+  &__table {
+    @include table();
+    margin-block: 0 space("large");
+
+    th {
+      width: 12rem;
+    }
+
+    // 改行を含む入力 (ご質問・ご要望) をそのまま表示する
+    td {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__note {
+    @include small-text();
+    color: theme-color("darker");
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: space();
+    margin-block-start: space("large");
+
+    .button {
+      margin-inline: 0;
+    }
+  }
+}
