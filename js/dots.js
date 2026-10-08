@@ -18,7 +18,6 @@
  * レイアウト (layout):
  * cloud: 要素の一部 (region) の枠に, 左下→右上の対角線に沿って帯状に散らす (規定)
  * band: 天の川のように, 要素全体に帯状に散らす
- * cluster: SVG (src) の <circle> の配置をそのまま使い, 形だけ木漏れ日の水玉にする
  *
  * パラメータ:
  * すべて Dots.defaults に既定値があり, 次の順に上書きされる
@@ -185,51 +184,9 @@ class BandLayout {
   }
 }
 
-// cluster: SVG の <circle> の配置をそのまま使う
-class ClusterLayout {
-  constructor(dots) {
-    this.dots = dots;
-  }
-
-  async createDots() {
-    const { params } = this.dots;
-    const response = await fetch(params.src);
-    if (!response.ok) throw new Error(response.status);
-    const svg = new DOMParser().parseFromString(await response.text(), 'image/svg+xml').documentElement;
-
-    const viewBox = (svg.getAttribute('viewBox') || '0 0 100 100').split(/[\s,]+/).map(Number);
-    this.viewWidth = viewBox[2];
-    this.viewHeight = viewBox[3];
-
-    return Array.from(svg.querySelectorAll('circle')).map((circle) => ({
-      x: Number(circle.getAttribute('cx')),
-      y: Number(circle.getAttribute('cy')),
-      r: Number(circle.getAttribute('r')),
-      opacity: 1
-    }));
-  }
-
-  resize() {
-    const { width, height, rem, params } = this.dots;
-    this.scale = (params.size * rem) / this.viewWidth;
-    this.offsetX = (width - this.viewWidth * this.scale) * (params.x / 100);
-    this.offsetY = (height - this.viewHeight * this.scale) * (params.y / 100);
-    this.count = this.dots.particles.length;
-  }
-
-  place(dot) {
-    return {
-      x: this.offsetX + dot.x * this.scale,
-      y: this.offsetY + dot.y * this.scale,
-      r: dot.r * this.scale
-    };
-  }
-}
-
 const LAYOUTS = {
   cloud: CloudLayout,
-  band: BandLayout,
-  cluster: ClusterLayout
+  band: BandLayout
 };
 
 export default class Dots {
@@ -239,8 +196,8 @@ export default class Dots {
    */
   static defaults = {
     // 配置
-    layout: 'cloud', // 'cloud' | 'band' | 'cluster'
-    x: 0, // 枠 (cloud) や塊 (cluster) の位置 (横) 0〜100 で, 要素の左端〜右端に接する
+    layout: 'cloud', // 'cloud' | 'band'
+    x: 0, // 枠 (cloud) の位置 (横) 0〜100 で, 要素の左端〜右端に接する
     y: 100, // 同じく (縦) 0〜100 で, 要素の上端〜下端に接する
 
     // 点の数 (cloud, band)
@@ -269,11 +226,7 @@ export default class Dots {
     roughness: 0.015, // 筆のかすかなゆらぎ
     tilt: 35, // 楕円の長軸の傾き (度, 右上がりが正). 木漏れ日のように向きを揃える
     tiltJitter: 30, // 傾きのばらつき (度). 各点 tilt ± tiltJitter/2
-    shapeCount: 24, // 形のバリエーション数
-
-    // SVG の塊 (cluster)
-    src: './assets/dots.svg', // 水玉の座標を読む SVG
-    size: 22 // 塊の幅 (rem)
+    shapeCount: 24 // 形のバリエーション数
   };
 
   constructor(elem, options = {}) {
@@ -315,14 +268,8 @@ export default class Dots {
     return params;
   }
 
-  async init() {
-    try {
-      this.particles = (await this.layout.createDots()).map((dot) => ({ ...dot, ...this.createLook() }));
-    } catch (error) {
-      // 読み込みに失敗した場合は, 水玉を描かない
-      console.warn('Dots: failed to create particles', error);
-      return;
-    }
+  init() {
+    this.particles = this.layout.createDots().map((dot) => ({ ...dot, ...this.createLook() }));
     if (!this.particles.length) return;
 
     this.createShapes();
@@ -397,8 +344,8 @@ export default class Dots {
     this.color = getComputedStyle(this.elem).getPropertyValue('--dots-color').trim() || '#6f7888';
 
     // 長さの単位: rem はルート要素の文字サイズ (モバイルでは流動する), unit は 16px 基準からの倍率
-    this.rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
-    this.unit = this.rem / 16;
+    const rem = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    this.unit = rem / 16;
 
     this.layout.resize();
     this.draw();
