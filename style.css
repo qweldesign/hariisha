@@ -1457,6 +1457,10 @@ button, input, select, textarea {
 .section__body {
   min-width: 0;
 }
+.section__text {
+  max-width: 40em;
+  text-align: justify;
+}
 
 /**
  * Project - Media Text

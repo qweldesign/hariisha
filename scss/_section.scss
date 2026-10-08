@@ -84,4 +84,9 @@ $section-tones: (
   &__body {
     min-width: 0;
   }
+
+  &__text {
+    max-width: 40em;
+    text-align: justify;
+  }
 }

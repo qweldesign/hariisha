@@ -381,7 +381,7 @@ render_header([
           <div class="section__container">
             <h2 class="section__heading" data-readable>運営チーム</h2>
             <div class="section__body" data-readable>
-              <p class="mb-large">海辺の古民家はりいしゃは「福井市越前海岸盛り上げ隊」が運営しています。「福井市越前海岸盛り上げ隊」は、ガラス作家、版画家、漁師、きこり、デザイナー、プログラマーなど、越前海岸エリアで事業を展開する異業種の仲間の集いです。</p>
+              <p class="section__text mb-large">海辺の古民家はりいしゃは「福井市越前海岸盛り上げ隊」が運営しています。「福井市越前海岸盛り上げ隊」は、ガラス作家、版画家、漁師、きこり、デザイナー、プログラマーなど、越前海岸エリアで事業を展開する異業種の仲間の集いです。</p>
               <ul class="memberList">
                 <li class="memberList__item">
                   <img class="memberList__photo" src="./assets/photos/prt00.jpg">
