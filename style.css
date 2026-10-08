@@ -285,6 +285,9 @@ button, input, select, textarea {
 /**
  * Main
  */
+.main {
+  min-height: calc(100vh - 16.5rem);
+}
 .main__container {
   width: min(100%, var(--container-width--md));
   margin-inline: auto;
