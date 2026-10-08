@@ -64,6 +64,10 @@ $section-tones: (
     font-size: font-size("xx-large");
     letter-spacing: 0.24em;
 
+    &.is-reserve {
+      letter-spacing: 0.12em;
+    }
+
     @media (min-width: breakpoint("md")) {
       writing-mode: vertical-rl;
     }

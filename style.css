@@ -1353,6 +1353,9 @@ button, input, select, textarea {
   font-size: var(--font-size--xx-large);
   letter-spacing: 0.24em;
 }
+.section__heading.is-reserve {
+  letter-spacing: 0.12em;
+}
 @media (min-width: 900px) {
   .section__heading {
     writing-mode: vertical-rl;

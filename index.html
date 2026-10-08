@@ -64,8 +64,7 @@
           </div>
           <div class="hero__visual">
             <p class="hero__caption visible-md">海まで徒歩５分</p>
-            <!-- TODO: 仮の画像 (ページ内の写真を流用). 切り替え間隔は data-interval (ミリ秒) で調整 -->
-            <div class="fader hero__fader" data-gallery="fader" data-interval="6000">
+            <div class="fader hero__fader" data-gallery="fader">
               <ul class="fader__inner">
                 <li class="fader__item" data-gallery-item>
                   <img src="./assets/photos/gallery-exterior.jpg" alt="元鍼灸院の洋館を改装したギャラリーの外観" loading="lazy">
@@ -93,10 +92,13 @@
             <div class="section__body" data-readable>
               <div class="mediaText">
                 <div class="mediaText__text">
-                  <p class="mediaText__lead">旧街道に佇む、<br>昭和の手仕事が残る家。</p>
-                  <p>福井市越前海岸の旧街道沿いにある古民家「はりいしゃ」。<br>日本建築の母屋に、西洋風の元鍼灸院が寄り添うように建っています。名前の由来は、この「はりいしゃ（鍼医者）」から。</p>
-                  <p>板張りの床、引き戸のガラス窓、意匠を凝らした柱や建具。<br>地域の仲間たちがクラウドファンディングで資金を集め、自らの手で改修してきました。</p>
-                  <p>定員は4名。海までは歩いて5分です。</p>
+                  <p class="mediaText__lead">旧街道に佇む、<br>ひとと文化が行き交う家。</p>
+                  <p>福井市越前海岸の旧街道沿いにある古民家「はりいしゃ」。
+                    <br>日本建築の母屋に、西洋風の元鍼灸院が寄り添うように建っています。名前の由来は、この「はりいしゃ（鍼医者）」から。</p>
+                  <p>板張りの床、引き戸のガラス窓、意匠を凝らした柱や建具。
+                    <br>地域の仲間たちがクラウドファンディングで資金を集め、自らの手で改修してきました。</p>
+                  <p>作家が滞在して制作し、地域の人たちが集う、この海辺の文化の拠点に、旅の方にも泊まっていただけるようにしました。
+                    <br>一度きりの観光ではなく、何度も訪れたくなる居場所として、越前海岸との縁を結んでいただけたら嬉しいです。</p>
                 </div>
                 <figure class="mediaText__media">
                   <img src="./assets/photos/main-house.jpg" alt="縁側と庭のある母屋の外観" loading="lazy">
@@ -112,9 +114,8 @@
       <section id="space" class="section is-navy houseView" data-spy-section data-dots data-dots-x="100" data-dots-y="0" data-dots-aspect-min="1.02" data-dots-aspect-max="1.12" data-dots-tilt="0" data-dots-tilt-jitter="180">
         <div class="section__inner">
           <div class="section__container">
-            <h2 class="section__heading" data-readable>館内のようす</h2>
+            <h2 class="section__heading" data-readable>館内の様子</h2>
             <div class="section__body" data-readable>
-              <!-- TODO: 仮の文章 -->
               <p class="houseView__lead">昭和の手仕事が、<br>いまも息づく家。</p>
               <p>畳の続き間、丸窓の向こうのダイニング、タイル張りのキッチン、職人の手による組子の欄間。
                 <br>日本建築の母屋と元鍼灸院の洋館、それぞれの趣をお楽しみください。</p>
@@ -122,8 +123,7 @@
           </div>
           <!-- スライダーは画面幅いっぱいに表示する -->
           <div class="houseView__slider" data-readable>
-            <!-- 自動再生は data-interval (ミリ秒), 画像の間隔は data-gap (px) で調整 -->
-            <div class="slider" data-gallery="slider" data-flickable data-gap="40" data-interval="5000" data-duration="700">
+            <div class="slider" data-gallery="slider" data-flickable>
               <ul class="slider__inner" data-gallery-main>
                 <li class="slider__item" data-gallery-item>
                   <figure>
@@ -134,13 +134,13 @@
                 <li class="slider__item" data-gallery-item>
                   <figure>
                     <img src="./assets/photos/round-window.jpg" alt="丸窓越しに見えるダイニングとキッチン" width="750" height="900">
-                    <figcaption class="slider__caption">丸窓の向こうにダイニング。</figcaption>
+                    <figcaption class="slider__caption">丸窓の向こうにダイニングとキッチン。</figcaption>
                   </figure>
                 </li>
                 <li class="slider__item" data-gallery-item>
                   <figure>
                     <img src="./assets/photos/kitchen.jpg" alt="タイル張りのアイランドキッチン" width="1200" height="900">
-                    <figcaption class="slider__caption">タイル張りのキッチン。</figcaption>
+                    <figcaption class="slider__caption">タイル張りのアイランドキッチン。</figcaption>
                   </figure>
                 </li>
                 <li class="slider__item" data-gallery-item>
@@ -175,7 +175,7 @@
             <div class="section__body stayGuide" data-readable>
               <div class="stayGuide__overview">
                 <div>
-                  <h3 class="stayGuide__heading">料金（1泊・税抜）</h3>
+                  <h3 class="stayGuide__heading">料金（1泊）</h3>
                   <table class="priceTable">
                     <tbody>
                       <tr>
@@ -200,7 +200,7 @@
                       </tr>
                     </tbody>
                   </table>
-                  <p class="stayGuide__note">中学生以上は大人料金です。</p>
+                  <p class="stayGuide__note">※ 中学生以上は大人料金、表記はすべて税抜価格です。</p>
                 </div>
                 <dl class="infoList">
                   <dt>定員</dt>
@@ -241,7 +241,7 @@
       <section id="stay" class="section is-sand" data-spy-section data-dots data-dots-x="0" data-dots-y="100" data-dots-aspect-min="1.15" data-dots-aspect-max="1.45" data-dots-tilt="-30">
         <div class="section__inner">
           <div class="section__container">
-            <h2 class="section__heading" data-readable>滞在のたのしみ</h2>
+            <h2 class="section__heading" data-readable>滞在の愉しみ</h2>
             <div class="section__body" data-readable>
               <ul class="postList is-grid">
                 <li class="postList__item">
@@ -251,7 +251,9 @@
                     </figure>
                     <div class="postItem__content">
                       <h3 class="postItem__heading">木版画の体験</h3>
-                      <p>滞在中に木版画の体験もできます。</p>
+                      <p>滞在中に木版画の体験もできます。
+                        <br>※有料・要予約（お問い合わせください）
+                      </p>
                     </div>
                   </article>
                 </li>
@@ -283,7 +285,8 @@
                   <p class="mediaText__label">海辺の小さな展示室</p>
                   <p class="mediaText__lead brandLogo">gallery はりいしゃ</p>
                   <p>元鍼灸院の洋館を改装した展示室で、版画家のコレクションを常設展示しています。</p>
-                  <p class="mediaText__note">ご宿泊以外のお客様のご来場は、完全予約制です。</p>
+                  <p class="mediaText__note">開廊: 第1/第3 日/月 11:00～16:00 (入館料 200円)
+                    <br>宿泊のお客様を除き、上記日程外でのご来場は、予約制です。フォームからお申込みください。</p>
                 </div>
                 <div class="mediaText__media is-pair">
                   <img src="./assets/photos/gallery-exterior.jpg" alt="元鍼灸院の洋館を改装したギャラリーの外観" loading="lazy">
@@ -304,7 +307,7 @@
               <div class="mediaText">
                 <p class="mediaText__lead">越前の風土に触れ、<br>新しい文化の風を起こす。</p>
                 <div class="mediaText__text">
-                  <p>「はりいしゃレジデンシー」は、越前の風土に触れ、地域の特色や魅力と向き合いながら、招聘作家に滞在制作・展示会を行って頂くプログラムです。発表する作品のジャンルは美術・工芸・音楽など、文化活動の域を問いません。滞在制作・展示会のご希望は当サイトのフォームから承ります。</p>
+                  <p>「はりいしゃレジデンシー」は、越前の風土に触れ、地域の特色や魅力と向き合いながら、招聘作家に滞在制作・展示会を行っていただくプログラムです。発表する作品のジャンルは美術・工芸・音楽など、文化活動の域を問いません。滞在制作・展示会のご希望は当サイトのフォームから承ります。</p>
                 </div>
               </div>
               <h3>これまでの展示</h3>
@@ -314,7 +317,7 @@
                     <span class="archiveList__date">2026.06</span>
                     <span>
                       <span class="archiveList__title">波残り（なみのこり）</span>
-                      <span class="archiveList__artist">杉本 奈奈重</span>
+                      <span class="archiveList__artist">木版画家 杉本 奈奈重</span>
                     </span>
                   </a>
                 </li>
@@ -323,7 +326,7 @@
                     <span class="archiveList__date">2025.12</span>
                     <span>
                       <span class="archiveList__title">虹色のしずく</span>
-                      <span class="archiveList__artist">YOKO KAWABATA</span>
+                      <span class="archiveList__artist">虹織り作家 YOKO KAWABATA</span>
                     </span>
                   </a>
                 </li>
@@ -332,7 +335,7 @@
                     <span class="archiveList__date">2025.12</span>
                     <span>
                       <span class="archiveList__title">日本画展 feel</span>
-                      <span class="archiveList__artist">泉 東臣</span>
+                      <span class="archiveList__artist">日本画家 泉 東臣</span>
                     </span>
                   </a>
                 </li>
@@ -377,7 +380,7 @@
           <div class="section__container">
             <h2 class="section__heading" data-readable>運営チーム</h2>
             <div class="section__body" data-readable>
-              <p class="mb-large">海辺の古民家はりいしゃは「福井市越前海岸盛り上げ隊」が運営しています。「福井市越前海岸盛り上げ隊」は、ガラス作家、版画家、漁師、きこり、デザイナー、プログラマーなど、越前海岸エリアで事業を展開する異業種の仲間の集まりです。</p>
+              <p class="mb-large">海辺の古民家はりいしゃは「福井市越前海岸盛り上げ隊」が運営しています。「福井市越前海岸盛り上げ隊」は、ガラス作家、版画家、漁師、きこり、デザイナー、プログラマーなど、越前海岸エリアで事業を展開する異業種の仲間の集いです。</p>
               <ul class="memberList">
                 <li class="memberList__item">
                   <img class="memberList__photo" src="./assets/photos/prt00.jpg">
@@ -424,7 +427,6 @@
             <h2 class="section__heading" data-readable>アクセス</h2>
             <div class="section__body access" data-readable>
               <div class="embed" data-safe-embed>
-                <!-- TODO: 正式な Googleマップの埋め込みコードに差し替え -->
                  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5544.794580500314!2d136.01037282317606!3d36.03719540213307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c9e5af5a570d%3A0x1985eca1de905ca7!2z44Gv44KK44GE44GX44KDIOi2iuWJjea1t-WyuOebm-OCiuS4iuOBkumaiuS6pOa1geaWveiorQ!5e0!3m2!1sja!2sjp!4v1791271954655!5m2!1sja!2sjp" loading="lazy" title="海辺の古民家はりいしゃへのアクセス"></iframe>
               </div>
               <div>
@@ -447,10 +449,10 @@
       <section id="reserve" class="section is-navy" data-spy-section>
         <div class="section__inner">
           <div class="section__container">
-            <h2 class="section__heading" data-readable>ご予約</h2>
+            <h2 class="section__heading is-reserve" data-readable>ご予約・お問い合わせ</h2>
             <div class="section__body reserve" data-readable>
               <div class="reserve__contact">
-                <p>空き状況の確認やギャラリーのご来場予約は、フォームからお申込みください。</p>
+                <p>ゲストハウスとしての空き状況の確認、ギャラリー来館・版画体験のご予約、滞在制作・展示会のご希望、当サイトへの質問・意見など、フォームからお気軽にお問い合わせください。</p>
               </div>
               <!-- 送信は js/contact-form.js (確認画面 confirm.html → api/send.php) -->
               <form class="form" data-contact-form>
