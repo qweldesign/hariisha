@@ -1483,6 +1483,7 @@ button, input, select, textarea {
 }
 .mediaText__text {
   max-width: 36em;
+  text-align: justify;
 }
 .mediaText__text > :first-child {
   margin-block-start: 0;
