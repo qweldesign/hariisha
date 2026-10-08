@@ -1122,7 +1122,7 @@ button, input, select, textarea {
  * 点の色は --dots-color, 全体の透明度は $dots-opacity で指定する
  */
 [data-dots] {
-  --dots-color: #6f7888;
+  --dots-color: rgba(255, 255, 255, 0.337254902);
 }
 
 .dots {
