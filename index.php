@@ -1,51 +1,29 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス＆ギャラリー</title>
-    <meta name="description" content="福井市越前海岸の旧街道に佇む古民家ゲストハウス「はりいしゃ」。海まで徒歩5分。版画家のコレクションを展示するギャラリーと、アーティスト・イン・レジデンスを併設しています。">
-    <link rel="canonical" href="https://hariisha.jp/">
-    <!-- OGP (画像の原稿は tools/ogp.html) -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="海辺の古民家 はりいしゃ">
-    <meta property="og:title" content="海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス＆ギャラリー">
-    <meta property="og:description" content="福井市越前海岸の旧街道に佇む古民家ゲストハウス「はりいしゃ」。海まで徒歩5分。版画家のコレクションを展示するギャラリーと、アーティスト・イン・レジデンスを併設しています。">
-    <meta property="og:url" content="https://hariisha.jp/">
-    <meta property="og:image" content="https://hariisha.jp/assets/ogp.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="紺地に「海辺の古民家 はりいしゃ」の文字と、三角屋根のギャラリーの外観と越前海岸の夕日の写真を丸く切り抜いて配したイメージ">
-    <meta property="og:locale" content="ja_JP">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Klee+One:wght@600&display=swap">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico">
-  </head>
-  <body>
-    <div data-scroll-sentinel></div>
-    <header id="header" class="header" data-active-header>
-      <div class="header__container">
-        <nav id="gNav" class="gNav" aria-label="グローバルナビゲーション">
-          <p class="gNav__siteBrand">
-            <a class="brandLogo" href="/">海辺の古民家はりいしゃ</a>
-          </p>
-          <ul class="gNav__primaryMenu visible-md" data-primary-menu>
-            <li class="gNav__menuItem" data-spy-nav><a href="#about">概要</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#space">館内</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#guide">料金</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#stay">滞在</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#gallery">ギャラリー</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#residency">レジデンシー</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#team">運営</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#access">アクセス</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#reserve">ご予約</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<?php
+/**
+ * トップページ
+ * お知らせ (content/info/) の最新記事を差し込むため PHP にしている
+ * ヘッダー・フッターはサブページと共通 (inc/partials/site.php)
+ */
+require_once __DIR__ . '/inc/ContentEngine.php';
+require_once __DIR__ . '/inc/partials/site.php';
+
+// お知らせ (最新3件)
+$info = new ContentEngine(['dir' => __DIR__ . '/content/info/']);
+$latest_info = $info->get_posts(1, 3);
+
+render_header([
+  'full_title'   => '海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス＆ギャラリー',
+  'title'        => '',
+  'description'  => SITE_DESCRIPTION,
+  'path'         => '',
+  'type'         => 'website',
+  'image'        => 'assets/ogp.jpg',
+  'image_width'  => 1200,
+  'image_height' => 630,
+  'image_alt'    => '紺地に「海辺の古民家 はりいしゃ」の文字と、三角屋根のギャラリーの外観と越前海岸の夕日の写真を丸く切り抜いて配したイメージ',
+  'is_top'       => true,
+]);
+?>
     <main id="main" class="main">
       <!-- ファーストビュー -->
       <header id="hero" class="hero" data-dots>
@@ -84,6 +62,26 @@
         </div>
       </header>
 
+<?php if ($latest_info) { ?>
+      <!-- お知らせ (最新3件) -->
+      <section class="topInfo" aria-labelledby="topInfoHeading">
+        <div class="topInfo__container">
+          <h2 id="topInfoHeading" class="topInfo__heading">お知らせ</h2>
+          <ul class="topInfo__list">
+<?php foreach ($latest_info as $post) { ?>
+            <li class="topInfo__item">
+              <a class="topInfo__link" href="<?= e(path('info/' . rawurlencode($post['slug']) . '/')) ?>">
+                <time class="topInfo__date" datetime="<?= e(date('Y-m-d', strtotime($post['date']))) ?>"><?= e(date('Y.m.d', strtotime($post['date']))) ?></time>
+                <span class="topInfo__title"><?= e($post['title']) ?></span>
+              </a>
+            </li>
+<?php } ?>
+          </ul>
+          <a class="topInfo__more" href="<?= path('info/') ?>">お知らせ一覧</a>
+        </div>
+      </section>
+<?php } ?>
+
       <!-- 古民家に泊まる -->
       <section id="about" class="section is-white" data-spy-section>
         <div class="section__inner">
@@ -99,6 +97,9 @@
                     <br>地域の仲間たちがクラウドファンディングで資金を集め、自らの手で改修してきました。</p>
                   <p>作家が滞在して制作し、地域の人たちが集う、この海辺の文化の拠点に、旅の方にも泊まっていただけるようにしました。
                     <br>一度きりの観光ではなく、何度も訪れたくなる居場所として、越前海岸との縁を結んでいただけたら嬉しいです。</p>
+                  <p class="mediaText__action">
+                    <a class="button is-primary is-md" href="<?= path('page/story/') ?>">はりいしゃのはなし</a>
+                  </p>
                 </div>
                 <figure class="mediaText__media">
                   <img src="./assets/photos/main-house.jpg" alt="縁側と庭のある母屋の外観" loading="lazy">
@@ -492,10 +493,4 @@
         </div>
       </section>
     </main>
-    <footer id="footer" class="footer">
-      <p class="brandLogo">海辺の古民家はりいしゃ</p>
-      <small class="footer__copyright"></small>
-    </footer>
-    <script src="./init.js" type="module"></script>
-  </body>
-</html>
+<?php render_footer(); ?>

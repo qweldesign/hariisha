@@ -38,7 +38,7 @@ summary: "一覧や description に使う要約"
 - `draft: "true"`: 下書き (公開しない)
 - 値の後ろにコメント (`# ...`) は書けない (値の一部として読み込まれる)
 
-原稿用の写真は `content/images/` に置く (記事ごとにディレクトリを分けると管理しやすい. 例: `content/images/yamadayasutaka-2025/01.jpg`)。`content/` は直接のアクセスを禁止しているが, `content/images/` だけは画像の拡張子 (jpg, png, gif, webp, avif, svg) のファイルを公開している。本文中の画像やリンクは `/content/images/...` `/#reserve` のようにサイトのルートからのパスで書く (URL の階層が深いため, `../` のような相対パスは使わない)。ヘッダー・フッター・OGP は `inc/partials/site.php` で共通化している。`content/` と `inc/` は `.htaccess` で直接のアクセスを禁止している (Apache の場合)。
+原稿用の写真は `content/images/` に置く (記事ごとにディレクトリを分けると管理しやすい. 例: `content/images/yamadayasutaka-2025/01.jpg`)。`content/` は直接のアクセスを禁止しているが, `content/images/` だけは画像の拡張子 (jpg, png, gif, webp, avif, svg) のファイルを公開している。本文中の画像やリンクは `/content/images/...` `/#reserve` のようにサイトのルートからのパスで書く (URL の階層が深いため, `../` のような相対パスは使わない)。ヘッダー・フッター・OGP は `inc/partials/site.php` で共通化している (トップページ `index.php` も同じ部品を使い, お知らせの最新3件を差し込んでいる)。`content/` と `inc/` は `.htaccess` で直接のアクセスを禁止している (Apache の場合)。
 
 ---
 

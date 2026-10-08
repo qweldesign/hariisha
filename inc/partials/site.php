@@ -24,6 +24,12 @@ const SITE_NAV = [
   'reserve'   => 'ご予約',
 ];
 
+// フッターのリンク (サブページ)
+const FOOTER_NAV = [
+  'info/'       => 'お知らせ',
+  'page/story/' => 'はりいしゃのはなし',
+];
+
 // HTMLエスケープ
 function e(?string $value): string {
   return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
@@ -43,9 +49,13 @@ function absolute_url(string $path): string {
 /**
  * <head> ~ ヘッダーまで出力
  * $page: title, description, path (サイトのルートからのパス), image, type, noindex
+ *   full_title: <title> をそのまま指定する (トップページ用. 指定がなければ「title | サイト名」)
+ *   image_alt, image_width, image_height: OGP 画像の代替テキストと大きさ
+ *   is_top: トップページ (ナビをページ内リンクにして, ScrollSpy で現在地を示す)
  */
 function render_header(array $page): void {
-  $title = $page['title'] ? $page['title'] . ' | ' . SITE_NAME : SITE_NAME;
+  $title = $page['full_title'] ?? ($page['title'] ? $page['title'] . ' | ' . SITE_NAME : SITE_NAME);
+  $is_top = !empty($page['is_top']);
   $description = $page['description'] ?: SITE_DESCRIPTION;
   $url = absolute_url($page['path'] ?? '/');
   $image = absolute_url($page['image'] ?? '/assets/ogp.jpg');
@@ -68,6 +78,13 @@ function render_header(array $page): void {
     <meta property="og:description" content="<?= e($description) ?>">
     <meta property="og:url" content="<?= e($url) ?>">
     <meta property="og:image" content="<?= e($image) ?>">
+<?php if (!empty($page['image_width'])) { ?>
+    <meta property="og:image:width" content="<?= e((string)$page['image_width']) ?>">
+    <meta property="og:image:height" content="<?= e((string)$page['image_height']) ?>">
+<?php } ?>
+<?php if (!empty($page['image_alt'])) { ?>
+    <meta property="og:image:alt" content="<?= e($page['image_alt']) ?>">
+<?php } ?>
     <meta property="og:locale" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +103,11 @@ function render_header(array $page): void {
           </p>
           <ul class="gNav__primaryMenu visible-md" data-primary-menu>
 <?php foreach (SITE_NAV as $id => $label) { ?>
+<?php if ($is_top) { ?>
+            <li class="gNav__menuItem" data-spy-nav><a href="#<?= $id ?>"><?= e($label) ?></a></li>
+<?php } else { ?>
             <li class="gNav__menuItem"><a href="<?= path() ?>#<?= $id ?>"><?= e($label) ?></a></li>
+<?php } ?>
 <?php } ?>
           </ul>
         </nav>
@@ -100,6 +121,13 @@ function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
       <p class="brandLogo">海辺の古民家はりいしゃ</p>
+      <nav aria-label="フッターナビゲーション">
+        <ul class="footer__nav">
+<?php foreach (FOOTER_NAV as $href => $label) { ?>
+          <li class="footer__navItem"><a href="<?= path($href) ?>"><?= e($label) ?></a></li>
+<?php } ?>
+        </ul>
+      </nav>
       <small class="footer__copyright"></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>

@@ -1,0 +1,2 @@
+# トップページは index.php (お知らせの最新記事を差し込むため)
+DirectoryIndex index.php index.html
