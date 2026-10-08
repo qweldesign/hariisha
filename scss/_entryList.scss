@@ -1,0 +1,66 @@
+/**
+ * Project - Entry List
+ * 投稿 (お知らせ・活動報告) の一覧
+ */
+
+.entryList {
+  @include list-unstyled();
+  margin: 0 0 space("large");
+  border-block-start: 1px solid theme-color("lighter");
+
+  &__item {
+    margin: 0;
+    border-block-end: 1px solid theme-color("lighter");
+  }
+
+  &__link {
+    display: grid;
+    grid-template-columns: 7rem minmax(0, 1fr);
+    gap: space();
+    align-items: start;
+    padding-block: space("medium");
+    color: inherit;
+    text-decoration: none;
+
+    @media (min-width: breakpoint("md")) {
+      grid-template-columns: 13rem minmax(0, 1fr);
+      gap: space("large");
+    }
+
+    &:hover, &:focus-visible {
+      .entryList__title {
+        color: color-activate("primary");
+      }
+
+      .entryList__image img {
+        transform: scale(1.03);
+      }
+    }
+  }
+
+  &__date {
+    display: block;
+    color: theme-color("dark");
+    font-size: font-size("small");
+    letter-spacing: 0.08em;
+  }
+
+  &__title {
+    margin: space("x-small") 0 0;
+    color: theme-color("primary");
+    font-size: font-size("large");
+    line-height: 1.6;
+    transition: color 0.2s ease;
+  }
+
+  &__summary {
+    display: none;
+    margin: space("x-small") 0 0;
+    color: theme-color("darker");
+    font-size: font-size("small");
+
+    @media (min-width: breakpoint("md")) {
+      display: block;
+    }
+  }
+}

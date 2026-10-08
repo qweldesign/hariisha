@@ -1,0 +1,30 @@
+# 活動報告のURLを整える (Apache の mod_rewrite が必要)
+#   /report/              → index.php           (一覧)
+#   /report/page/2/       → index.php?page=2    (一覧の2ページ目以降)
+#   /report/xxx/ → index.php?slug=xxx (個別記事)
+# サイトをドメイン直下以外に置く場合は, RewriteBase と転送先の /report/ を書き換える
+# (inc/partials/site.php の SITE_ROOT も合わせる)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /report/
+
+  # 旧形式のURL (?slug=xxx, ?page=2) で来た場合は, 新しいURLへ恒久的に転送する
+  # (THE_REQUEST を見ることで, 下の内部の書き換えでは転送がループしない)
+  RewriteCond %{THE_REQUEST} \s/report/(?:index\.php)?\?slug=([A-Za-z0-9_-]+)[\s&] [NC]
+  RewriteRule ^ /report/%1/? [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/report/(?:index\.php)?\?page=1[\s&] [NC]
+  RewriteRule ^ /report/? [R=301,L]
+  RewriteCond %{THE_REQUEST} \s/report/(?:index\.php)?\?page=([0-9]+)[\s&] [NC]
+  RewriteRule ^ /report/page/%1/? [R=301,L]
+
+  # 末尾のスラッシュがない場合は付けて転送する (URLの表記を1つに揃える)
+  RewriteRule ^(page/[0-9]+|[A-Za-z0-9_-]+)$ /report/$1/ [R=301,L]
+
+  # ページ送り
+  RewriteRule ^page/([0-9]+)/$ index.php?page=$1 [L,QSA]
+
+  # 個別記事 (slug は英数字, ハイフン, アンダースコア)
+  # ※ slug に "page" は使えない (ページ送りのURLと重なるため)
+  RewriteRule ^([A-Za-z0-9_-]+)/$ index.php?slug=$1 [L,QSA]
+</IfModule>

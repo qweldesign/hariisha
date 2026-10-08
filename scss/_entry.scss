@@ -1,0 +1,136 @@
+/**
+ * Project - Entry
+ * Markdown から変換した本文 (Parsedown の出力) の組版
+ * クラスを付けられない要素ばかりなので, .entry の子孫セレクタで指定する
+ */
+
+.entry {
+  overflow-wrap: anywhere;
+
+  > :first-child {
+    margin-block-start: 0;
+  }
+
+  // 見出し: h2 は砂色の短い罫を添えて, 段落の区切りをはっきりさせる
+  h2 {
+    position: relative;
+    margin-block: space("x-large") space("medium");
+    padding-block-start: space("medium");
+    color: theme-color("primary");
+    font-size: font-size("x-large");
+    letter-spacing: 0.1em;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2.5rem;
+      height: 2px;
+      background-color: theme-color("secondary");
+    }
+  }
+
+  h3 {
+    margin-block: space("large") space();
+    color: theme-color("primary");
+    font-size: font-size("large");
+  }
+
+  h4 {
+    margin-block: space("medium") space("x-small");
+    font-family: $font-family-sans;
+    font-size: font-size("medium");
+  }
+
+  p, ul, ol, table, blockquote, figure {
+    margin-block: 0 space("medium");
+  }
+
+  ul, ol {
+    padding-inline-start: 1.5em;
+
+    li {
+      margin-block: 0 space("x-small");
+    }
+  }
+
+  ul li::marker {
+    color: theme-color("secondary");
+  }
+
+  a {
+    @include link-text();
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin-inline: auto;
+    border-radius: space("x-small");
+  }
+
+  // 引用: 砂色の線と淡い地で, 本文から一段下げる
+  blockquote {
+    margin-inline: 0;
+    padding: space() space("medium");
+    border-inline-start: 3px solid theme-color("secondary");
+    background-color: theme-color("tertiary");
+
+    > :last-child {
+      margin-block-end: 0;
+    }
+  }
+
+  // 表: 縦に積むと見出し行が浮くため, 狭い画面では横スクロールにする
+  table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+    border-collapse: collapse;
+    font-size: font-size("small");
+
+    @media (min-width: breakpoint("sm")) {
+      display: table;
+      width: 100%;
+    }
+  }
+
+  th, td {
+    padding: space() space();
+    border-block-end: 1px solid theme-color("lighter");
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+
+    @media (min-width: breakpoint("sm")) {
+      white-space: normal;
+    }
+  }
+
+  thead th {
+    border-block-end-color: theme-color("secondary");
+    background-color: theme-color("tertiary");
+    color: theme-color("primary");
+  }
+
+  hr {
+    margin-block: space("x-large");
+    border: 0;
+    border-block-start: 1px solid theme-color("lighter");
+  }
+
+  code {
+    padding: 0.1em 0.3em;
+    border-radius: 0.2em;
+    background-color: theme-color("tertiary");
+    font-size: 0.9em;
+  }
+}

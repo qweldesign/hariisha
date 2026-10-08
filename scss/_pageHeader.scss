@@ -1,0 +1,81 @@
+/**
+ * Project - Page Header
+ * 下層ページの見出し帯 (固定ヘッダーの下に, ファーストビューと同じ紺地で敷く)
+ * お問い合わせ, お知らせ, 固定ページで共通
+ */
+
+.pageHeader {
+  background-color: theme-color("primary");
+  color: color-yiq("primary");
+
+  &__container {
+    @include container();
+    padding-block: calc(#{$header-height} + #{space("large")}) space("large");
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+  }
+
+  // 見出しの上の小さな分類 (お知らせ, リポート など)
+  &__label {
+    margin: 0 0 space("x-small");
+    color: theme-color("secondary");
+    font-size: font-size("small");
+    letter-spacing: 0.12em;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: font-size("xx-large");
+    letter-spacing: 0.2em;
+
+    // 記事タイトルは長くなるため, 字間を詰めて折り返しやすくする
+    &.is-article {
+      max-width: 40em;
+      font-size: font-size("x-large");
+      line-height: 1.6;
+      letter-spacing: 0.08em;
+
+      @media (min-width: breakpoint("md")) {
+        font-size: font-size("xx-large");
+      }
+    }
+  }
+
+  &__lead {
+    max-width: 40em;
+    margin-block: space() 0;
+  }
+
+  &__meta {
+    margin-block: space() 0;
+    color: theme-color("secondary");
+    font-size: font-size("small");
+    letter-spacing: 0.08em;
+  }
+
+  // パンくず: 紺地に合わせて控えめに
+  .breadcrumb {
+    margin: 0 0 space("medium");
+    font-size: font-size("small");
+
+    &__item {
+      &:not(.is-current)::after {
+        color: theme-color("dark");
+      }
+
+      a, span {
+        padding: 0;
+        background-color: transparent;
+        font-weight: 400;
+        font-size: inherit;
+      }
+
+      a {
+        @include link-text(theme-color("secondary"), theme-color("lightest"));
+      }
+
+      span {
+        color: theme-color("light");
+      }
+    }
+  }
+}

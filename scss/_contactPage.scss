@@ -1,29 +1,8 @@
 /**
  * Project - Contact Page
  * お問い合わせの確認画面 (confirm.html) と完了画面 (thanks.html)
+ * (見出し帯は Project - Page Header)
  */
-
-// 下層ページの見出し帯 (固定ヘッダーの下に, ファーストビューと同じ紺地で敷く)
-.pageHeader {
-  background-color: theme-color("primary");
-  color: color-yiq("primary");
-
-  &__container {
-    @include container();
-    padding-inline: calc(#{container-pad()} + #{$gutter});
-    padding-block: calc(#{$header-height} + #{space("large")}) space("large");
-  }
-
-  &__title {
-    margin: 0;
-    font-size: font-size("xx-large");
-    letter-spacing: 0.2em;
-  }
-
-  &__lead {
-    margin-block: space() 0;
-  }
-}
 
 .contactPage {
   &__container {
