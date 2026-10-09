@@ -2454,11 +2454,14 @@ button, input, select, textarea {
     gap: var(--spacing--large);
   }
 }
+.entryList__link .entryList__image img {
+  transition: all 0.35s ease;
+}
 .entryList__link:hover .entryList__title, .entryList__link:focus-visible .entryList__title {
   color: rgb(81.814159292, 100.8407079646, 133.185840708);
 }
 .entryList__link:hover .entryList__image img, .entryList__link:focus-visible .entryList__image img {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 .entryList__date {
   display: block;
