@@ -1872,9 +1872,6 @@ button, input, select, textarea {
   gap: var(--spacing--x-small) var(--spacing--medium);
   padding-block: var(--spacing--small);
 }
-.archiveList__date {
-  font-size: var(--font-size--small);
-}
 .archiveList__title {
   display: block;
   color: var(--color--lightest);

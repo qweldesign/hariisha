@@ -24,6 +24,10 @@ $selected_subject = $_GET['subject'] ?? '';
 $info = new ContentEngine(['dir' => __DIR__ . '/content/info/']);
 $latest_info = $info->get_posts(1, 3);
 
+// 活動報告 (最新6件. レジデンシーの「これまでの展示」に使う)
+$report = new ContentEngine(['dir' => __DIR__ . '/content/report/']);
+$latest_report = $report->get_posts(1, 6);
+
 render_header([
   'full_title'   => '海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス＆ギャラリー',
   'title'        => '',
@@ -325,63 +329,19 @@ render_header([
                 </div>
               </div>
               <h3>これまでの展示</h3>
+<?php if ($latest_report) { ?>
               <ul class="archiveList">
+<?php foreach ($latest_report as $post) { ?>
                 <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/naminokori-2026/">
-                    <span class="archiveList__date">2026.06</span>
-                    <span>
-                      <span class="archiveList__title">波残り（なみのこり）</span>
-                      <span class="archiveList__artist">木版画家 杉本 奈奈重</span>
-                    </span>
+                  <a class="archiveList__link" href="<?= e(path('report/' . rawurlencode($post['slug']) . '/')) ?>">
+                    <time class="archiveList__date" datetime="<?= e(ContentEngine::format_date($post['date'] ?? '', true)) ?>"><?= e(ContentEngine::format_date($post['date'] ?? '')) ?></time>
+                    <span class="archiveList__title"><?= e($post['title'] ?? '') ?></span>
                   </a>
                 </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/yoko-kawabata-report/">
-                    <span class="archiveList__date">2025.12</span>
-                    <span>
-                      <span class="archiveList__title">虹色のしずく</span>
-                      <span class="archiveList__artist">虹織り作家 YOKO KAWABATA</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/izumiharuomi-2025/">
-                    <span class="archiveList__date">2025.12</span>
-                    <span>
-                      <span class="archiveList__title">日本画展 feel</span>
-                      <span class="archiveList__artist">日本画家 泉 東臣</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/yamadayasutaka-2025-report/">
-                    <span class="archiveList__date">2025.11</span>
-                    <span>
-                      <span class="archiveList__title">十一月の山の風のなかに</span>
-                      <span class="archiveList__artist">彫刻家 山田 康貴</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/kazutoarizuka-2025/">
-                    <span class="archiveList__date">2025.10</span>
-                    <span>
-                      <span class="archiveList__title">LIMINAL DIVER</span>
-                      <span class="archiveList__artist">彫刻家 蟻塚 知都</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/otoshibumi-2025/">
-                    <span class="archiveList__date">2025.10</span>
-                    <span>
-                      <span class="archiveList__title">海辺のかれら</span>
-                      <span class="archiveList__artist">アニメーション作家 おとしぶみ</span>
-                    </span>
-                  </a>
-                </li>
+<?php } ?>
               </ul>
-              <p><a href="https://discoverechizen.com/category/hariisha-residency/">過去の展示をもっと見る</a></p>
+<?php } ?>
+              <p><a href="<?= path('report/') ?>">過去の展示をもっと見る</a></p>
               <p><a class="moreLink" href="<?= path('page/artist-stay/') ?>">滞在制作・展示会をご希望の作家の方へ</a></p>
             </div>
           </div>
