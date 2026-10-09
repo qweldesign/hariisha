@@ -84,7 +84,7 @@ render_header([
 <?php foreach ($latest_info as $post) { ?>
             <li class="topInfo__item">
               <a class="topInfo__link" href="<?= e(path('info/' . rawurlencode($post['slug']) . '/')) ?>">
-                <time class="topInfo__date" datetime="<?= e(date('Y-m-d', strtotime($post['date']))) ?>"><?= e(date('Y.m.d', strtotime($post['date']))) ?></time>
+                <time class="topInfo__date" datetime="<?= e(ContentEngine::format_date($post['date'] ?? '', true)) ?>"><?= e(ContentEngine::format_date($post['date'] ?? '')) ?></time>
                 <span class="topInfo__title"><?= e($post['title']) ?></span>
               </a>
             </li>

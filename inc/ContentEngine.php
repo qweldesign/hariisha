@@ -77,10 +77,28 @@ class ContentEngine {
     return $this->get_meta('title');
   }
 
-  // 日付取得
-  public function get_date(string $format = 'Y.m.d'): string {
+  // 日付取得 ($format を省略すると, 年月のみの日付 (例: 2022-08) は Y.m, それ以外は Y.m.d で表示する)
+  public function get_date(?string $format = null): string {
     $date = $this->get_meta('date');
-    return $date ? date($format, strtotime($date)) : '';
+    if (!$date) return '';
+    return $format === null ? self::format_date($date) : date($format, strtotime($date));
+  }
+
+  // time 要素の datetime 属性用の日付 (年月のみなら Y-m, それ以外は Y-m-d)
+  public function get_datetime(): string {
+    return self::format_date($this->get_meta('date'), true);
+  }
+
+  // 日付の整形 (一覧など個別記事以外でも使う)
+  // date は 2026-10-09 のほか, 年月のみの 2022-08 も受け付ける
+  public static function format_date(string $date, bool $machine = false): string {
+    $date = trim($date);
+    if ($date === '') return '';
+    $month_only = (bool)preg_match('/^\d{4}-\d{1,2}$/', $date);
+    $format = $machine
+      ? ($month_only ? 'Y-m' : 'Y-m-d')
+      : ($month_only ? 'Y.m' : 'Y.m.d');
+    return date($format, strtotime($date));
   }
 
   // 記事内容取得

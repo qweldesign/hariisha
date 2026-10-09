@@ -6,6 +6,7 @@
  */
 require_once dirname(__DIR__) . '/ContentEngine.php';
 require_once dirname(__DIR__) . '/partials/site.php';
+require_once __DIR__ . '/entryList.php';
 
 /**
  * $options:
@@ -71,7 +72,7 @@ render_header($page);
             <?= $cms->get_breadcrumb() ?>
             <p class="pageHeader__label"><?= e($label) ?></p>
             <h1 class="pageHeader__title is-article"><?= e($cms->get_title()) ?></h1>
-            <p class="pageHeader__meta"><time datetime="<?= e($cms->get_date('Y-m-d')) ?>"><?= e($cms->get_date()) ?></time></p>
+            <p class="pageHeader__meta"><time datetime="<?= e($cms->get_datetime()) ?>"><?= e($cms->get_date()) ?></time></p>
           </div>
         </header>
         <div class="subPage">
@@ -134,26 +135,7 @@ render_header($page);
         <div class="subPage__container is-wide">
 <?php $posts = $cms->get_posts(); ?>
 <?php if ($posts) { ?>
-          <ul class="entryList">
-<?php foreach ($posts as $post) { ?>
-            <li class="entryList__item">
-              <a class="entryList__link" href="<?= e($post_url($post)) ?>">
-                <figure class="entryList__image">
-<?php if (!empty($post['img'])) { ?>
-                  <img src="<?= e(path($post['img'])) ?>" alt="" loading="lazy">
-<?php } ?>
-                </figure>
-                <div class="entryList__content">
-                  <time class="entryList__date" datetime="<?= e(date('Y-m-d', strtotime($post['date']))) ?>"><?= e(date('Y.m.d', strtotime($post['date']))) ?></time>
-                  <h2 class="entryList__title"><?= e($post['title']) ?></h2>
-<?php if (!empty($post['summary'])) { ?>
-                  <p class="entryList__summary"><?= e($post['summary']) ?></p>
-<?php } ?>
-                </div>
-              </a>
-            </li>
-<?php } ?>
-          </ul>
+<?php render_entry_list($posts, $post_url); ?>
           <?= $cms->pagination() ?>
 <?php } else { ?>
           <p class="subPage__empty">現在<?= e($label) ?>はありません。</p>

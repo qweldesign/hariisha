@@ -76,6 +76,20 @@
       span {
         color: theme-color("light");
       }
+
+      // 現在のページ (記事タイトル) は長くなるため, 1行に収めて末尾を省略する
+      // (直下の見出しに全文が出るので, ここでは省略してよい)
+      &.is-current {
+        flex: 0 1 auto;
+        min-width: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+
+        span {
+          display: inline;
+        }
+      }
     }
   }
 }
