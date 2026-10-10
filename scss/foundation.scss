@@ -1,0 +1,27 @@
+@charset "utf-8";
+
+/**
+ * Foundation.css
+ * © 2026 QWEL.DESIGN (https://qwel.design)
+ * Released under the MIT License.
+ * See LICENSE file for details.
+ */
+
+// Customize
+@import "variables";
+
+// Settings
+@import "settings/colorSystem";
+@import "settings/gridSystem";
+@import "settings/typography";
+
+// Mixins
+@import "mixins/background";
+@import "mixins/button";
+@import "mixins/form";
+@import "mixins/table";
+@import "mixins/type";
+
+// Foundation
+@import "root";
+@import "normalize";
