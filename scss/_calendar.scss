@@ -1,0 +1,236 @@
+/**
+ * Project - Calendar
+ * 空き状況カレンダー (js/business-calendar.js)
+ * 紺地のセクションに置く想定. 状態は data-state="1" (予約可) / "0" (予約不可)
+ */
+
+$calendar-sunday:   #f2aaa2;
+$calendar-saturday: #a8c4ea;
+$calendar-unavailable: #b9bcc2; // 予約不可の地 (灰色)
+
+// 白地・灰色の地のセルの中で使う, 日曜・祝日 / 土曜の文字色
+$calendar-sunday-on-light:   #c0392b;
+$calendar-saturday-on-light: #2f62a8;
+
+.calendar {
+  max-width: 26rem;
+  margin-block-start: space("large");
+
+  &__heading {
+    margin: 0 0 space("x-small");
+    color: theme-color("secondary");
+    font-size: font-size("small");
+    letter-spacing: 0.12em;
+  }
+
+  // 前月 / 年月 / 翌月
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: space("x-small");
+  }
+
+  &__current {
+    font-family: $font-family-serif;
+    font-size: font-size("large");
+    letter-spacing: 0.08em;
+  }
+
+  &__prev, &__next {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: 1px solid rgba(map-get($theme-colors, "lightest"), 0.3);
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover, &:focus-visible {
+      background-color: rgba(map-get($theme-colors, "lightest"), 0.12);
+    }
+
+    &[aria-disabled] {
+      opacity: 0.3;
+      cursor: default;
+    }
+  }
+
+  &__view {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 3px;
+    table-layout: fixed;
+
+    th {
+      padding-block: space("x-small");
+      color: theme-color("secondary");
+      font-weight: 400;
+      font-size: font-size("small");
+      text-align: center;
+    }
+
+    td {
+      height: 2.9rem;
+      padding: 0;
+      border-radius: 3px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 1.2;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+
+      // 予約可: 白地に紺の文字と ○
+      &[data-state="1"] {
+        background-color: theme-color("lightest");
+        color: theme-color("primary");
+
+        .calendar__mark::before {
+          content: "○";
+        }
+      }
+
+      // 予約不可: 灰色の地に ×
+      &[data-state="0"] {
+        background-color: $calendar-unavailable;
+        color: theme-color("dark");
+
+        .calendar__mark::before {
+          content: "×";
+        }
+      }
+
+      &.is-past {
+        opacity: 0.5;
+
+        .calendar__mark::before {
+          content: "";
+        }
+      }
+    }
+  }
+
+  &__day, &__mark {
+    display: block;
+  }
+
+  &__day {
+    font-size: font-size("small");
+  }
+
+  &__mark {
+    min-height: 1.2em;
+    font-size: font-size("small");
+  }
+
+  // 日曜・祝日 / 土曜 (data-week: 0 = 日曜, 6 = 土曜)
+  // 見出しは紺地, 日付は白・灰色の地に載るため, それぞれ見やすい色にする
+  &__view th:nth-child(1) {
+    color: $calendar-sunday;
+  }
+
+  &__view th:nth-child(7) {
+    color: $calendar-saturday;
+  }
+
+  td[data-week="0"] .calendar__day, td.is-holiday .calendar__day {
+    color: $calendar-sunday-on-light;
+  }
+
+  td[data-week="6"] .calendar__day {
+    color: $calendar-saturday-on-light;
+  }
+
+  &.is-startOnMon {
+    .calendar__view th:nth-child(1), .calendar__view th:nth-child(7) {
+      color: theme-color("secondary");
+    }
+
+    .calendar__view th:nth-child(7) {
+      color: $calendar-sunday;
+    }
+
+    .calendar__view th:nth-child(6) {
+      color: $calendar-saturday;
+    }
+  }
+
+  &.is-loading .calendar__body {
+    opacity: 0.4;
+  }
+
+  // 凡例
+  &__legend {
+    @include list-unstyled();
+    display: flex;
+    flex-wrap: wrap;
+    gap: space("x-small") space("medium");
+    margin: space("x-small") 0 0;
+    font-size: font-size("small");
+
+    li::before {
+      margin-inline-end: 0.3em;
+    }
+
+    // 凡例の印: セルと同じ地色の小さな四角
+    li::before {
+      content: "";
+      display: inline-block;
+      width: 0.9em;
+      height: 0.9em;
+      border-radius: 2px;
+      vertical-align: -0.1em;
+    }
+
+    .is-available::before {
+      background-color: theme-color("lightest");
+    }
+
+    .is-unavailable::before {
+      background-color: $calendar-unavailable;
+    }
+  }
+
+  &__note {
+    margin: space("x-small") 0 0;
+    color: rgba(map-get($theme-colors, "lightest"), 0.75);
+    font-size: font-size("small");
+  }
+
+  &__error {
+    display: none;
+    margin: space("x-small") 0 0;
+    color: $calendar-sunday;
+    font-size: font-size("small");
+  }
+
+  &.is-error .calendar__error {
+    display: block;
+  }
+
+  // 編集画面: 日付をクリック (Enter / Space) で切り替える
+  &.is-editMode {
+    td[data-date]:not(.is-past) {
+      cursor: pointer;
+
+      &:hover, &:focus-visible {
+        outline: 3px solid theme-color("secondary");
+        outline-offset: 1px;
+      }
+    }
+
+    td.is-saving {
+      opacity: 0.5;
+    }
+
+    td.is-failed {
+      outline: 3px solid $calendar-sunday;
+      outline-offset: 1px;
+    }
+  }
+}

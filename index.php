@@ -438,6 +438,25 @@ render_header([
             <div class="section__body reserve" data-readable>
               <div class="reserve__contact">
                 <p>ゲストハウスとしての空き状況の確認、ギャラリー来館・版画体験のご予約、滞在制作・展示会のご希望、当サイトへの質問・意見など、フォームからお気軽にお問い合わせください。</p>
+                <!-- 空き状況 (js/business-calendar.js が api/calendar.php から読み込んで描く) -->
+                <div class="calendar" data-business-calendar>
+                  <h3 class="calendar__heading">ゲストハウスの空き状況</h3>
+                  <div class="calendar__control">
+                    <button class="calendar__prev" type="button" aria-label="前の月">&lt;</button>
+                    <span class="calendar__current" aria-live="polite"></span>
+                    <button class="calendar__next" type="button" aria-label="次の月">&gt;</button>
+                  </div>
+                  <table class="calendar__view">
+                    <thead class="calendar__head"></thead>
+                    <tbody class="calendar__body"></tbody>
+                  </table>
+                  <ul class="calendar__legend">
+                    <li class="is-available">予約可</li>
+                    <li class="is-unavailable">予約不可</li>
+                  </ul>
+                  <p class="calendar__note">ご予約は、フォームからお問い合わせください。</p>
+                  <p class="calendar__error">空き状況を読み込めませんでした。お手数ですが、フォームからお問い合わせください。</p>
+                </div>
                 <p class="reserve__artist">
                   <span class="reserve__artistLead">滞在制作・展示会をご希望の作家の方へ</span>
                   <a class="moreLink" href="<?= path('page/artist-stay/') ?>">利用条件を見る</a>

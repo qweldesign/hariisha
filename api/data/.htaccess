@@ -1,0 +1,2 @@
+# カレンダーのデータ (SQLite) を Web から直接読めないようにする
+Require all denied

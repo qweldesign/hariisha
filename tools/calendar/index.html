@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>空き状況の編集 | 海辺の古民家 はりいしゃ</title>
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+    <link rel="stylesheet" href="../../style.css">
+    <style>
+      /* 編集画面だけの調整 */
+      .calendarEditor {
+        min-height: 100vh;
+        padding: 2rem 1.25rem;
+        background-color: var(--color--primary);
+        color: var(--color--lightest);
+      }
+
+      .calendarEditor__inner {
+        max-width: 26rem;
+        margin: 0 auto;
+      }
+
+      .calendarEditor .calendar {
+        margin-block-start: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      空き状況の編集画面
+      日付をクリックすると「予約可」⇔「予約不可」が切り替わり, その場で保存される
+      今日より前の日付は変更できない
+      TODO: 公開前にこのディレクトリへ認証 (Basic 認証など) を付ける
+    -->
+    <main class="calendarEditor">
+      <div class="calendarEditor__inner">
+        <h1 class="calendar__heading" style="font-size: 1.25rem;">空き状況の編集</h1>
+        <p class="calendar__note">日付をクリックすると「予約可 ○」と「予約不可 ×」が切り替わり、すぐに保存されます。サイトのトップページにも、そのまま反映されます。</p>
+        <div class="calendar" data-business-calendar="edit">
+          <div class="calendar__control">
+            <button class="calendar__prev" type="button" aria-label="前の月">&lt;</button>
+            <span class="calendar__current" aria-live="polite"></span>
+            <button class="calendar__next" type="button" aria-label="次の月">&gt;</button>
+          </div>
+          <table class="calendar__view">
+            <thead class="calendar__head"></thead>
+            <tbody class="calendar__body"></tbody>
+          </table>
+          <ul class="calendar__legend">
+            <li class="is-available">予約可</li>
+            <li class="is-unavailable">予約不可</li>
+          </ul>
+          <p class="calendar__error">空き状況を読み込めませんでした。時間をおいて、もう一度開いてください。</p>
+        </div>
+        <p class="calendar__note"><a href="../../#reserve" style="color: inherit;">サイトで表示を確認する</a></p>
+      </div>
+    </main>
+    <script type="module">
+      import BusinessCalendar from '../../js/business-calendar.js';
+      new BusinessCalendar({ endpoint: '../../api/calendar.php' });
+    </script>
+  </body>
+</html>

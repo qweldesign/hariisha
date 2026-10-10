@@ -2128,6 +2128,185 @@ button, input, select, textarea {
 }
 
 /**
+ * Project - Calendar
+ * 空き状況カレンダー (js/business-calendar.js)
+ * 紺地のセクションに置く想定. 状態は data-state="1" (予約可) / "0" (予約不可)
+ */
+.calendar {
+  max-width: 26rem;
+  margin-block-start: var(--spacing--large);
+}
+.calendar__heading {
+  margin: 0 0 var(--spacing--x-small);
+  color: var(--color--secondary);
+  font-size: var(--font-size--small);
+  letter-spacing: 0.12em;
+}
+.calendar__control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-block-end: var(--spacing--x-small);
+}
+.calendar__current {
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-size: var(--font-size--large);
+  letter-spacing: 0.08em;
+}
+.calendar__prev, .calendar__next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.calendar__prev:hover, .calendar__prev:focus-visible, .calendar__next:hover, .calendar__next:focus-visible {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.calendar__prev[aria-disabled], .calendar__next[aria-disabled] {
+  opacity: 0.3;
+  cursor: default;
+}
+.calendar__view {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 3px;
+  table-layout: fixed;
+}
+.calendar__view th {
+  padding-block: var(--spacing--x-small);
+  color: var(--color--secondary);
+  font-weight: 400;
+  font-size: var(--font-size--small);
+  text-align: center;
+}
+.calendar__view td {
+  height: 2.9rem;
+  padding: 0;
+  border-radius: 3px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.2;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+.calendar__view td[data-state="1"] {
+  background-color: var(--color--lightest);
+  color: var(--color--primary);
+}
+.calendar__view td[data-state="1"] .calendar__mark::before {
+  content: "○";
+}
+.calendar__view td[data-state="0"] {
+  background-color: #b9bcc2;
+  color: var(--color--dark);
+}
+.calendar__view td[data-state="0"] .calendar__mark::before {
+  content: "×";
+}
+.calendar__view td.is-past {
+  opacity: 0.5;
+}
+.calendar__view td.is-past .calendar__mark::before {
+  content: "";
+}
+.calendar__day, .calendar__mark {
+  display: block;
+}
+.calendar__day {
+  font-size: var(--font-size--small);
+}
+.calendar__mark {
+  min-height: 1.2em;
+  font-size: var(--font-size--small);
+}
+.calendar__view th:nth-child(1) {
+  color: #f2aaa2;
+}
+.calendar__view th:nth-child(7) {
+  color: #a8c4ea;
+}
+.calendar td[data-week="0"] .calendar__day, .calendar td.is-holiday .calendar__day {
+  color: #c0392b;
+}
+.calendar td[data-week="6"] .calendar__day {
+  color: #2f62a8;
+}
+.calendar.is-startOnMon .calendar__view th:nth-child(1), .calendar.is-startOnMon .calendar__view th:nth-child(7) {
+  color: var(--color--secondary);
+}
+.calendar.is-startOnMon .calendar__view th:nth-child(7) {
+  color: #f2aaa2;
+}
+.calendar.is-startOnMon .calendar__view th:nth-child(6) {
+  color: #a8c4ea;
+}
+.calendar.is-loading .calendar__body {
+  opacity: 0.4;
+}
+.calendar__legend {
+  list-style: none;
+  padding-inline-start: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing--x-small) var(--spacing--medium);
+  margin: var(--spacing--x-small) 0 0;
+  font-size: var(--font-size--small);
+}
+.calendar__legend li::before {
+  margin-inline-end: 0.3em;
+}
+.calendar__legend li::before {
+  content: "";
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 2px;
+  vertical-align: -0.1em;
+}
+.calendar__legend .is-available::before {
+  background-color: var(--color--lightest);
+}
+.calendar__legend .is-unavailable::before {
+  background-color: #b9bcc2;
+}
+.calendar__note {
+  margin: var(--spacing--x-small) 0 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: var(--font-size--small);
+}
+.calendar__error {
+  display: none;
+  margin: var(--spacing--x-small) 0 0;
+  color: #f2aaa2;
+  font-size: var(--font-size--small);
+}
+.calendar.is-error .calendar__error {
+  display: block;
+}
+.calendar.is-editMode td[data-date]:not(.is-past) {
+  cursor: pointer;
+}
+.calendar.is-editMode td[data-date]:not(.is-past):hover, .calendar.is-editMode td[data-date]:not(.is-past):focus-visible {
+  outline: 3px solid var(--color--secondary);
+  outline-offset: 1px;
+}
+.calendar.is-editMode td.is-saving {
+  opacity: 0.5;
+}
+.calendar.is-editMode td.is-failed {
+  outline: 3px solid #f2aaa2;
+  outline-offset: 1px;
+}
+
+/**
  * Project - Page Header
  * 下層ページの見出し帯 (固定ヘッダーの下に, ファーストビューと同じ紺地で敷く)
  * お問い合わせ, お知らせ, 固定ページで共通
