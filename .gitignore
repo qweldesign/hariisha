@@ -1,6 +1,10 @@
 # VS code
 .vscode/
 
+# node
+node_modules
+out/
+
 # Composer
 vendor/
 

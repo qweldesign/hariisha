@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>はりいしゃ 三つ折りパンフレット</title>
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Klee+One:wght@600&display=swap">
+    <link rel="stylesheet" href="../../foundation.css">
+    <style>
+      /*
+      * 海辺の古民家はりいしゃ 三つ折りパンフレット (A4 巻き三つ折り)
+      *
+      * 用紙: A4 横 297 x 210mm + 塗り足し 3mm = 303 x 216mm
+      * 面の幅 (仕上がり基準):
+      *   外面 [ 折り込み面 97 | 裏表紙 100 | 表紙 100 ]
+      *   中面 [ 中面左 100 | 中面中央 100 | 折り込み面 97 ]
+      * 折り込み面は内側に巻き込むため 3mm 狭くしている
+      * 外面の左右を入れ替えたら, 中面も左右を入れ替えること (表裏で同じ紙の面が重なるため)
+      *
+      * 画面ではガイド (仕上がり線・折り線・安全域) を表示し,
+      * ?print を付けると (または印刷時は) ガイドを消す
+      */
+      :root {
+        --muted: #5d6573;
+        --bleed: 3mm;
+      }
+
+      @page {
+        size: 303mm 216mm;
+        margin: 0;
+      }
+
+      html, body {
+        margin: 0;
+        padding: 0;
+        background: #888;
+        color: var(--color--primary);
+        font-family: var(--font-family-base);
+        font-size: 9pt;
+        line-height: 1.8;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12mm;
+        padding: 12mm 0;
+      }
+
+      body.is-print {
+        gap: 0;
+        padding: 0;
+        background: none;
+      }
+
+      @media print {
+        html, body { background: none; }
+        body { gap: 0; padding: 0; }
+      }
+
+      .sheetLabel {
+        margin: 0 0 -6mm;
+        color: var(--color--lightest);
+        font-size: 10pt;
+        letter-spacing: 0.1em;
+      }
+
+      .is-print .sheetLabel { display: none; }
+      @media print { .sheetLabel { display: none; } }
+
+      /* 用紙 (塗り足し込み) */
+      .sheet {
+        position: relative;
+        width: 303mm;
+        height: 216mm;
+        overflow: hidden;
+        background: var(--color--lightest);
+        break-after: page;
+      }
+
+      /* 面: 仕上がり位置 (塗り足しの内側) に置く */
+      .panel {
+        position: absolute;
+        top: var(--bleed);
+        height: 210mm;
+      }
+
+      /* 面の背景: 外側の辺は塗り足しまで伸ばす */
+      .panel__bg {
+        position: absolute;
+        inset: 0;
+      }
+
+      .panel.is-left .panel__bg { left: calc(var(--bleed) * -1); }
+      .panel.is-right .panel__bg { right: calc(var(--bleed) * -1); }
+      .panel .panel__bg { top: calc(var(--bleed) * -1); bottom: calc(var(--bleed) * -1); }
+
+      .is-navy .panel__bg { background: var(--color--primary); }
+      .is-sand .panel__bg { background: var(--color--secondary); }
+      .is-white .panel__bg { background: var(--color--lightest); }
+
+      .is-navy { color: var(--color--lightest); }
+
+      /* 配置用 (面の左上を原点に mm で置く) */
+      .abs { position: absolute; z-index: 10; }
+
+      .photo {
+        display: block;
+        object-fit: cover;
+      }
+
+      .circle { border-radius: 50%; }
+
+      /* 水玉 (木漏れ日): 面ごとに data-dots で流れ (楕円の群れ) を指定する (下の script) */
+      .dots {
+        position: absolute;
+        z-index: 5; /* 背景より上, 写真・文字 (.abs: 10) より下 */
+        overflow: visible;
+        pointer-events: none;
+      }
+
+      /* ガイド */
+      .guide { position: absolute; pointer-events: none; z-index: 10; }
+      .guide.is-trim { inset: var(--bleed); outline: 0.2mm solid red; }
+      .guide.is-fold { top: 0; bottom: 0; width: 0; border-left: 0.2mm dashed green; }
+      .guide.is-safe { border: 0.2mm dotted blue; }
+      .is-print .guide { display: none; }
+      @media print { .guide { display: none; } }
+
+      /* ===== 外面 ===== */
+
+      .cover__band {
+        position: absolute;
+        top: calc(var(--bleed) * -1);
+        bottom: calc(var(--bleed) * -1);
+        width: 29mm;
+        background: var(--color--secondary);
+
+        &.left {
+          left: 0;
+        }
+
+        &.right {
+          right: 0;
+        }
+      }
+
+      .cover__title {
+        width: 60mm;
+        margin: 0;
+        color: var(--color--lightest);
+        font-weight: 400;
+        text-align: center;
+      }
+
+      .cover__en {
+        display: block;
+        color: var(--color--secondary);
+        font-family: var(--font-family-base);
+        font-weight: 400;
+        font-size: 12pt;
+        line-height: 1.2;
+        letter-spacing: 0.02em;
+      }
+
+      .cover__ja {
+        display: block;
+        margin-top: 3mm;
+        font-family: var(--heading-font-family);
+        font-size: 24pt;
+        line-height: 1.2;
+        letter-spacing: 0.04em;
+      }
+
+      .cover__name {
+        display: block;
+        margin-top: 3mm;
+        font-family: "Klee One", cursive;;
+        font-size: 18pt;
+        line-height: 1.2;
+        letter-spacing: 0.48em;
+        text-indent: 0.48em;
+      }
+
+      .lead {
+        margin: 0;
+        font-family: var(--heading-font-family);
+        font-size: 13.5pt;
+        line-height: 1.5;
+        letter-spacing: 0.08em;
+
+        &.left {
+          text-align: left;
+        }
+
+        &.center {
+          text-align: center;
+        }
+
+        &.right {
+          text-align: right;
+        }
+      }
+
+      .catch {
+        margin: 0;
+        font-family: var(--font-family-base);
+        font-size: 9pt;
+        line-height: 1.8;
+        letter-spacing: 0.08em;
+
+        &.left {
+          text-align: left;
+        }
+
+        &.center {
+          text-align: center;
+        }
+
+        &.right {
+          text-align: right;
+        }
+      }
+
+      /* ===== 中面 ===== */
+
+      /* ギャラリー */
+      .gallery__sub {
+        margin: 0;
+        font-family: var(--heading-font-family);
+        font-weight: 600;
+        font-size: 12pt;
+        letter-spacing: 0.16em;
+      }
+
+      .gallery__logo {
+        display: block;
+        width: 60mm;
+      }
+
+      .gallery__text {
+        margin: 0;
+        font-size: 9pt;
+        line-height: 1.8;
+      }
+
+      .open {
+        padding-block: 6mm;
+        background: var(--color--primary);
+        color: var(--color--lightest);
+        font-size: 9pt;
+        line-height: 2.1;
+        text-align: center;
+      }
+
+      /* 縦書きのコピー */
+      .vertical {
+        margin: 0;
+        writing-mode: vertical-rl;
+        font-family: var(--heading-font-family);
+        font-size: 12pt;
+        letter-spacing: 0.24em;
+      }
+
+      /* QRコード */
+      .qr-codes {
+        position: absolute;
+        left: 0;
+        bottom: 8mm;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100mm;
+        height: 27mm;
+        padding-inline: 3mm;
+      }
+      .qr-code {
+        flex: 0 0 22.5mm;
+      }
+
+      /* ご宿泊について */
+      .stay__heading {
+        margin: 0;
+        font-family: var(--heading-font-family);
+        font-weight: 600;
+        font-size: 12pt;
+        letter-spacing: 0.16em;
+        text-align: center;
+      }
+
+      .stay__sub {
+        margin: 4.5mm 0 0;
+        padding-bottom: 0.6mm;
+        border-bottom: 0.25mm solid var(--color--secondary);
+        font-weight: 700;
+        font-size: 7.5pt;
+        letter-spacing: 0.08em;
+      }
+
+      .price {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 7.5pt;
+        line-height: 1.5;
+      }
+
+      .price th, .price td {
+        padding: 1mm 0;
+        border-bottom: 0.25mm dotted #b9b6a6;
+        font-weight: 400;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .price td {
+        white-space: nowrap;
+        text-align: right;
+      }
+
+      .note {
+        margin: 0;
+        color: var(--muted);
+        font-size: 6pt;
+        line-height: 1.5;
+      }
+
+      .info {
+        display: grid;
+        grid-template-columns: 24mm 1fr;
+        gap: 0.75mm 3mm;
+        margin: 0;
+        font-size: 7.5pt;
+        line-height: 1.5;
+      }
+
+      .info dt { font-weight: 700; }
+      .info dd { margin: 0; }
+
+      .access__routes {
+        display: grid;
+        grid-template-columns: 12mm 1fr;
+        gap: 0.75mm 3mm;
+        margin: 0 0 3mm;
+        font-size: 7.5pt;
+        line-height: 1.5;
+      }
+
+      .access__routes dt { font-weight: 700; white-space: nowrap; }
+      .access__routes dd { margin: 0; }
+
+      .access__address {
+        margin: 0;
+        font-size: 7.5pt;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ============ 外面 ============ -->
+    <p class="sheetLabel">外面（左：折り込み面 97mm ／ 中央：裏表紙 100mm ／ 右：表紙 100mm）</p>
+    <section class="sheet" aria-label="外面">
+
+      <!-- 折り込み面 (仕上がり x: 0〜97) -->
+      <div class="panel is-left is-navy" style="left: 3mm; width: 97mm;" data-dots='[{"x":75,"y":186,"rx":12,"ry":24,"rotate":36,"count":20}]' data-dots-seed="11">
+        <div class="panel__bg"></div>
+        <img class="abs photo" src="../../assets/photos/round-window.jpg" alt="丸窓越しのキッチン" style="left: 8mm; top: -3mm; width: 78mm; height: 94mm;">
+        <img class="abs photo" src="../../assets/photos/kitchen.jpg" alt="キッチン" style="left: 26mm; top: 87mm; width: 66mm; height: 49.5mm;">
+        <img class="abs photo circle" src="../../assets/photos/kumiko.jpg" alt="組子細工" style="left: 12mm; top: 159mm; width: 42mm; height: 42mm;">
+        <p class="abs catch right" style="left: 5mm; top: 144mm; width: 87mm;">
+          使い心地の良いアイランド・キッチンで
+          <br>調理を楽しめます
+        </p>
+      </div>
+
+      <!-- 裏表紙 (仕上がり x: 97〜197) -->
+      <div class="panel is-navy" style="left: 100mm; width: 100mm;">
+        <div class="panel__bg"></div>
+        <div class="cover__band right"></div>
+        <img class="abs photo" src="../../assets/photos/tatami-room.jpg" alt="続き間の和室" style="left: 20mm; top: -3mm; width: 80mm; height: 60mm;">
+        <img class="abs photo" src="../../assets/photos/main-house.jpg" alt="母屋と庭" style="left: 0; top: 138mm; width: 100mm; height: 75mm;">
+        <p class="abs lead" style="left: 5mm; top: 67.5mm; width: 90mm;">
+          旧街道に佇む、
+          <br>ひとと文化が行き交う家。
+        </p>
+        <p class="abs catch" style="left: 5mm; top: 90mm; width: 90mm;">
+          築100年以上の平屋の古民家を
+          <br>地域を考える人たちが集まって
+          <br>セルフ・リノベーションした施設です
+          <br>&nbsp;
+          <br>アーティストも泊まる海辺の古民家での
+          <br>滞在を楽しみませんか
+        </p>
+      </div>
+
+      <!-- 表紙 (仕上がり x: 197〜297) -->
+      <div class="panel is-right is-navy" style="left: 200mm; width: 100mm;" data-dots='[{"x":48,"y":144,"rx":63,"ry":15,"rotate":-42,"count":60}]' data-dots-seed="11">
+        <div class="panel__bg"></div>
+        <div class="cover__band left"></div>
+        <h1 class="abs cover__title" style="top: 9mm; right: 9mm">
+          <span class="cover__en">Guest house & Gallery</span>
+          <span class="cover__ja">海辺の古民家</span>
+          <span class="cover__name">はりいしゃ</span>
+        </h1>
+        <img class="abs photo" src="../../assets/photos/gallery-exterior.jpg" alt="三角屋根のギャラリー" style="left: 9mm; top: 48mm; width: 66mm; height: 66mm; border-radius: 50%;">
+        <img class="abs photo circle" src="../../assets/photos/inner-rooms.jpg" alt="奥の間" style="left: 48mm; top: 159mm; width: 42mm; height: 42mm;">
+      </div>
+
+      <div class="guide is-trim"></div>
+      <div class="guide is-fold" style="left: 100mm;"></div>
+      <div class="guide is-fold" style="left: 200mm;"></div>
+      <div class="guide is-safe" style="left: 8mm; top: 8mm; width: 87mm; height: 200mm;"></div>
+      <div class="guide is-safe" style="left: 105mm; top: 8mm; width: 90mm; height: 200mm;"></div>
+      <div class="guide is-safe" style="left: 205mm; top: 8mm; width: 90mm; height: 200mm;"></div>
+    </section>
+
+    <!-- ============ 中面 ============ -->
+    <p class="sheetLabel">中面（左：ギャラリー 100mm ／ 中央 100mm ／ 右：折り込み面 97mm）</p>
+    <section class="sheet" aria-label="中面">
+
+      <!-- 中面左 (仕上がり x: 0〜100): 表紙の裏 -->
+      <div class="panel is-left is-sand" style="left: 3mm; width: 100mm;" data-dots='[{"x":54,"y":69,"rx":48,"ry":9,"rotate":-15,"count":30}]' data-dots-seed="11">
+        <div class="panel__bg"></div>
+        <p class="abs gallery__sub" style="left: 12mm; top: 9mm;">海辺の小さな展示室</p>
+        <img class="abs gallery__logo" src="../../assets/logo/gallery-hariisha.svg" alt="gallery はりいしゃ" style="left: 12mm; top: 18mm;">
+        <p class="abs gallery__text" style="left: 11mm; top: 36mm; width:81mm;">
+          元鍼灸院の洋館を改装した展示室で、
+          <br>版画家のコレクションや、地域での活動を通じて
+          <br>生まれた作品を常設展示しています。
+          <br>宿泊のお客様を除き、下記日程外でのご来場は、
+          <br>予約制です。</p>
+        <img class="abs photo circle" src="../../assets/photos/collection.jpg" alt="切り絵の作品" style="left: 40mm; top: 78mm; width: 54mm; height: 54mm;">
+        <div class="abs open circle" style="left: 6mm; top: 90mm; width: 42mm; height: 42mm;">
+          開廊:
+          <br>毎月 第1・第3 日・月
+          <br>時間: 11:00 - 16:00
+          <br>入館: 200円
+        </div>
+        <img class="abs photo" src="../../assets/photos/gallery.jpg" alt="光が差し込むギャラリー" style="left: -3mm; top: 138mm; width: 103mm; height: 75mm;">
+      </div>
+
+      <!-- 中面中央 (仕上がり x: 100〜200) -->
+      <div class="panel is-navy" style="left: 103mm; width: 100mm;" data-dots='[{"x":21,"y":63,"rx":12,"ry":24,"rotate":24,"count":20}]' data-dots-seed="1">
+        <div class="panel__bg"></div>
+        <img class="abs photo circle" src="../../assets/photos/sea-rocks.jpg" alt="越前海岸の夕景" style="left: 36mm; top: 9mm; width: 54mm; height: 54mm;">
+        <img class="abs photo" src="../../assets/photos/narcissus.jpg" alt="水仙とガラスの花器" style="left: 35mm; top: 72mm; width: 60mm; height: 40mm;">
+        <img class="abs photo" src="../../assets/photos/woodblock-print.jpg" alt="木版画の体験" style="left: 5mm; top: 123mm; width: 60mm; height: 40mm;">
+        <p class="abs vertical" style="left: 15mm; top: 12mm;">海まで徒歩５分</p>
+        <p class="abs vertical" style="left: 78mm; top: 120mm;">木版画体験もできます</p>
+        <div class="qr-codes">
+          <figure class="qr-code">
+            <img  src="./assets/qr-code-main.png" alt="QRコード - website">
+            <figcaption>Website</figcaption>
+          </figure>
+          <figure class="qr-code">
+            <img src="./assets/qr-code-instagram.png" alt="QRコード - Instagram">
+            <figcaption>Instagram</figcaption>
+          </figure>
+          <figure class="qr-code">
+            <img src="./assets/qr-code-line.png" alt="QRコード - LINE友達追加">
+            <figcaption>LINE</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <!-- 折り込み面 (仕上がり x: 200〜297) -->
+      <div class="panel is-right is-white" style="left: 203mm; width: 97mm;" data-dots='[{"x":84,"y":15,"rx":9,"ry":15,"rotate":-27,"count":15}]' data-dots-seed="21">
+        <div class="panel__bg"></div>
+        <div class="abs" style="left: 8mm; top: 9mm; width: 81mm;">
+          <h2 class="stay__heading">ご宿泊について</h2>
+
+          <h3 class="stay__sub">料金（1泊・税抜）</h3>
+          <table class="price">
+            <tbody>
+              <tr><th scope="row">基本料金（1〜2名）</th><td>25,000円</td></tr>
+              <tr><th scope="row">夏休期・休祝日前日（1〜2名）</th><td>30,000円</td></tr>
+              <tr><th scope="row">3名以降 1名追加ごと（時期問わず）</th><td>+5,000円</td></tr>
+              <tr><th scope="row">小学生</th><td>3,000円／名</td></tr>
+              <tr><th scope="row">未就学児（添い寝）</th><td>無料</td></tr>
+            </tbody>
+          </table>
+          <p class="note">※ 中学生以上は大人料金となります。</p>
+
+          <h3 class="stay__sub">ご利用案内</h3>
+          <dl class="info">
+            <dt>定員</dt><dd>4名</dd>
+            <dt>チェックイン</dt><dd>14:00〜17:00</dd>
+            <dt>チェックアウト</dt><dd>10:00</dd>
+            <dt>駐車場</dt><dd>敷地内2台まで無料</dd>
+          </dl>
+
+          <h3 class="stay__sub">キャンセルについて</h3>
+          <dl class="info">
+            <dt>8日前まで</dt><dd>無料</dd>
+            <dt>7日前〜2日前</dt><dd>宿泊料金の50%</dd>
+            <dt>前日・当日・不泊</dt><dd>宿泊料金の100%</dd>
+          </dl>
+
+          <h3 class="stay__sub">アクセス</h3>
+          <dl class="access__routes">
+            <dt>バス</dt><dd>福井駅から越前海岸ブルーラインで1時間20分</dd>
+            <dt>お車</dt><dd>敦賀IC、または鯖江ICから50〜60分</dd>
+            <dt>駐車場</dt><dd>敷地内に2台. 海水浴場横のトイレ前にも駐車可能</dd>
+          </dl>
+          <img class="photo" src="./assets/map.jpg" alt="周辺地図" style="width: 80mm; height: 64mm; object-fit: contain;">
+          <p class="access__address">〒910-3553 福井県福井市 蒲生町1-42</p>
+        </div>
+      </div>
+
+      <div class="guide is-trim"></div>
+      <div class="guide is-fold" style="left: 103mm;"></div>
+      <div class="guide is-fold" style="left: 203mm;"></div>
+      <div class="guide is-safe" style="left: 8mm; top: 8mm; width: 90mm; height: 200mm;"></div>
+      <div class="guide is-safe" style="left: 108mm; top: 8mm; width: 90mm; height: 200mm;"></div>
+      <div class="guide is-safe" style="left: 208mm; top: 8mm; width: 87mm; height: 200mm;"></div>
+    </section>
+
+    <script>
+      // ?print でガイドを消す (画像書き出し用)
+      if (new URLSearchParams(location.search).has('print')) {
+        document.body.classList.add('is-print');
+      }
+    </script>
+    <script>
+      /*
+       * 水玉 (木漏れ日のような歪んだ円) を, 楕円形の流れに沿って散らす
+       *
+       * 面 (.panel) に data-dots で流れを JSON で指定する. 座標は面の左上を原点とした mm
+       *   x, y: 流れの中心 / rx, ry: 楕円の半径 (長い方が流れの向き)
+       *   rotate: 楕円の傾き (度. 時計回り) / count: 水玉の数
+       *   例: data-dots='[{"x":54,"y":69,"rx":48,"ry":9,"rotate":-15,"count":30}]'
+       * data-dots-seed: 乱数の種 (同じ値なら毎回同じ配置. 散り方を変えたいときは値を変える)
+       * data-dots-color: 色 (省略時は面の地色に合わせる)
+       * data-dots-tilt: 粒を伸ばす向き (度. 省略時は TILT)
+       *
+       * 水玉は楕円の中に一様に散らし, 大きさもばらばらにする
+       * 写真・文字 (.abs の中の文字は1行ずつ) には重ねず, 折り線から離す
+       * 砂色の帯 (.cover__band) の上の水玉は砂地の色にし, 帯の縁にはかけない
+       */
+      (function () {
+        const GAP = 1.2;       // 写真・文字との間隔 (mm)
+        const FOLD_GAP = 1.5;  // 折り線との間隔 (mm)
+        const DOT_GAP = 0.75;   // 水玉どうしの間隔 (mm)
+        const R_MIN = 0.75;     // 水玉の半径 (mm)
+        const R_MAX = 1.5;
+        // 粒の向き: 木漏れ日のように, どの粒も少しだけ同じ向きに伸ばす
+        const TILT = -36;          // 伸ばす向き (度. 時計回り)
+        const TILT_JITTER = 6;    // 向きのばらつき (± 度)
+        const ASPECT_MIN = 1.2;   // 縦横比 (1 で真円. 大きいほど細長い)
+        const ASPECT_MAX = 1.5;
+        const COLORS = {
+          navy: '#5d6572',
+          sand: '#e7e2cd',
+          white: '#e7e8ea',
+        };
+
+        // 再現できる乱数
+        function random(seed) {
+          let s = seed >>> 0;
+          return function () {
+            s = (s + 0x6D2B79F5) >>> 0;
+            let t = s;
+            t = Math.imul(t ^ (t >>> 15), t | 1);
+            t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+            return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+          };
+        }
+
+        // 少し歪ませた円のパス
+        // tilt: 伸ばす向き (度). 面積が変わらないよう, 長い方を伸ばした分だけ短い方を縮める
+        function blob(rand, cx, cy, r, tilt) {
+          const n = 7;
+          const start = rand() * Math.PI * 2;
+          const aspect = ASPECT_MIN + rand() * (ASPECT_MAX - ASPECT_MIN);
+          const sx = Math.sqrt(aspect), sy = 1 / Math.sqrt(aspect);
+          const t = (tilt + (rand() * 2 - 1) * TILT_JITTER) * Math.PI / 180;
+          const cos = Math.cos(t), sin = Math.sin(t);
+          const pts = [];
+          for (let i = 0; i < n; i++) {
+            const a = start + (i / n) * Math.PI * 2;
+            const rr = r * (0.88 + rand() * 0.2);
+            const lx = Math.cos(a) * rr * sx, ly = Math.sin(a) * rr * sy;
+            pts.push([cx + lx * cos - ly * sin, cy + lx * sin + ly * cos]);
+          }
+          let d = 'M' + pts[0][0].toFixed(2) + ',' + pts[0][1].toFixed(2);
+          for (let i = 0; i < n; i++) {
+            const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+            d += 'C' + (p1[0] + (p2[0] - p0[0]) / 6).toFixed(2) + ',' + (p1[1] + (p2[1] - p0[1]) / 6).toFixed(2)
+              + ' ' + (p2[0] - (p3[0] - p1[0]) / 6).toFixed(2) + ',' + (p2[1] - (p3[1] - p1[1]) / 6).toFixed(2)
+              + ' ' + p2[0].toFixed(2) + ',' + p2[1].toFixed(2);
+          }
+          return d + 'Z';
+        }
+
+        // 点から図形までの距離 (mm. 図形の中なら負)
+        function distance(x, y, shape) {
+          if (shape.round) {
+            const rx = shape.w / 2, ry = shape.h / 2;
+            const dx = (x - (shape.x + rx)) / rx, dy = (y - (shape.y + ry)) / ry;
+            return (Math.hypot(dx, dy) - 1) * Math.min(rx, ry);
+          }
+          const dx = Math.max(shape.x - x, 0, x - (shape.x + shape.w));
+          const dy = Math.max(shape.y - y, 0, y - (shape.y + shape.h));
+          return dx === 0 && dy === 0 ? -1 : Math.hypot(dx, dy);
+        }
+
+        // 避ける図形: 写真・図形は外形, 文字は1行ずつの範囲
+        function obstacles(panel, pb, mm) {
+          const shapes = [];
+          const push = function (r, round) {
+            if (!r.width || !r.height) return;
+            shapes.push({ x: (r.left - pb.left) / mm, y: (r.top - pb.top) / mm, w: r.width / mm, h: r.height / mm, round: round });
+          };
+          panel.querySelectorAll('.abs, .qr-codes').forEach(function (el) {
+            const isText = /^(P|H1|H2|H3|DIV)$/.test(el.tagName) && !el.classList.contains('circle')
+              && !el.classList.contains('qr-codes') && !el.querySelector('img');
+            if (isText) {
+              const range = document.createRange();
+              range.selectNodeContents(el);
+              Array.from(range.getClientRects()).forEach(function (r) { push(r, false); });
+            } else {
+              push(el.getBoundingClientRect(), el.classList.contains('circle') || getComputedStyle(el).borderRadius === '50%');
+            }
+          });
+          return shapes;
+        }
+
+        // 砂色の帯 (.cover__band): 帯の上にも水玉を置けるが, 帯の縁をまたがせない
+        function bands(panel, pb, mm) {
+          return Array.from(panel.querySelectorAll('.cover__band')).map(function (el) {
+            const r = el.getBoundingClientRect();
+            return { x: (r.left - pb.left) / mm, y: (r.top - pb.top) / mm, w: r.width / mm, h: r.height / mm };
+          });
+        }
+
+        // 帯の内側にいるときの, 帯の縁までの距離 (外側なら負)
+        function inset(x, y, b) {
+          return Math.min(x - b.x, b.x + b.w - x, y - b.y, b.y + b.h - y);
+        }
+
+        function layout(panel) {
+          const flows = JSON.parse(panel.dataset.dots || '[]');
+          if (!flows.length) return;
+          const pb = panel.getBoundingClientRect();
+          const mm = pb.width / parseFloat(panel.style.width); // px / mm
+          const W = pb.width / mm, H = pb.height / mm;
+          const isLeft = panel.classList.contains('is-left');
+          const isRight = panel.classList.contains('is-right');
+          const tone = panel.classList.contains('is-navy') ? 'navy' : panel.classList.contains('is-sand') ? 'sand' : 'white';
+          const color = panel.dataset.dotsColor || COLORS[tone];
+          const tilt = panel.dataset.dotsTilt !== undefined ? parseFloat(panel.dataset.dotsTilt) : TILT;
+          const rand = random(parseInt(panel.dataset.dotsSeed || '1', 10));
+          const shapes = obstacles(panel, pb, mm);
+          const bandShapes = bands(panel, pb, mm);
+
+          // 置ける範囲: 折り線からは離し, 外側の辺は塗り足しまで
+          const minX = isLeft ? -3 : FOLD_GAP, maxX = isRight ? W + 3 : W - FOLD_GAP;
+          const minY = -3, maxY = H + 3;
+
+          const dots = [];
+          flows.forEach(function (f) {
+            const a = (f.rotate || 0) * Math.PI / 180;
+            const cos = Math.cos(a), sin = Math.sin(a);
+            let placed = 0;
+            for (let tries = 0; tries < f.count * 80 && placed < f.count; tries++) {
+              // 楕円の中に一様に散らす
+              const u = rand() * 2 - 1, v = rand() * 2 - 1;
+              if (u * u + v * v > 1) continue;
+              const lx = u * f.rx, ly = v * f.ry;
+              const x = f.x + lx * cos - ly * sin;
+              const y = f.y + lx * sin + ly * cos;
+              const r = R_MIN + rand() * (R_MAX - R_MIN);
+              if (x < minX + r || x > maxX - r || y < minY + r || y > maxY - r) continue;
+              if (shapes.some(function (s) { return distance(x, y, s) < r + GAP; })) continue;
+              // 帯の上なら帯の色に合わせ, 帯の縁にかかるものは置かない
+              const band = bandShapes.find(function (b) { return inset(x, y, b) > 0; });
+              if (band ? inset(x, y, band) < r + GAP : bandShapes.some(function (b) { return distance(x, y, b) < r + GAP; })) continue;
+              if (dots.some(function (d) { return Math.hypot(d.x - x, d.y - y) < d.r + r + DOT_GAP; })) continue;
+              dots.push({ x: x, y: y, r: r, color: band ? COLORS.sand : color });
+              placed++;
+            }
+          });
+
+          const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('class', 'dots');
+          svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+          svg.setAttribute('aria-hidden', 'true');
+          svg.style.cssText = 'left:0;top:0;width:' + W + 'mm;height:' + H + 'mm;';
+          svg.innerHTML = dots.map(function (d) {
+            return '<path d="' + blob(rand, d.x, d.y, d.r, tilt) + '" fill="' + d.color + '"/>';
+          }).join('');
+          panel.appendChild(svg);
+        }
+
+        function run() {
+          document.querySelectorAll('.panel[data-dots]').forEach(layout);
+          document.documentElement.dataset.dotsReady = 'true';
+        }
+
+        // 文字の大きさが決まってから (フォント読み込み後に) 配置する
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(run);
+      })();
+    </script>
+  </body>
+</html>
