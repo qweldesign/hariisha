@@ -18,7 +18,7 @@ $contact_subjects = [
   'site'        => '当サイトへのご質問・ご意見',
   'other'       => 'その他',
 ];
-$selected_subject = $_GET['subject'] ?? '';
+$selected_subject = $_GET['subject'] ?? 'stay';
 
 // お知らせ (最新3件)
 $info = new ContentEngine(['dir' => __DIR__ . '/content/info/']);
@@ -219,17 +219,21 @@ render_header([
                     </tbody>
                   </table>
                   <p class="stayGuide__note">※ 中学生以上は大人料金、表記はすべて税抜価格です。</p>
+                  <p class="stayGuide__note">※ 宿泊者様以外での母屋とキッチンのご利用には、追加料金が発生します。</p>
                 </div>
-                <dl class="infoList">
-                  <dt>定員</dt>
-                  <dd>4名</dd>
-                  <dt>チェックイン</dt>
-                  <dd>14:00〜17:00</dd>
-                  <dt>チェックアウト</dt>
-                  <dd>10:00</dd>
-                  <dt>駐車場</dt>
-                  <dd>敷地内2台まで無料</dd>
-                </dl>
+                <div>
+                  <dl class="infoList">
+                    <dt>定員</dt>
+                    <dd>4名</dd>
+                    <dt>チェックイン</dt>
+                    <dd>14:00〜17:00</dd>
+                    <dt>チェックアウト</dt>
+                    <dd>10:00</dd>
+                    <dt>駐車場</dt>
+                    <dd>敷地内2台まで無料</dd>
+                  </dl>
+                  <a class="button is-primary is-md my-large" href="./?subject=stay#reserve">ご予約フォームへ</a>
+                </div>
               </div>
               <div>
                 <h3 class="stayGuide__heading">キャンセルについて</h3>
@@ -303,8 +307,8 @@ render_header([
                   <p class="mediaText__label">海辺の小さな展示室</p>
                   <p class="mediaText__lead brandLogo">gallery はりいしゃ</p>
                   <p>元鍼灸院の洋館を改装した展示室で、版画家のコレクションを常設展示しています。</p>
-                  <p class="mediaText__note">開廊: 第1/第3 日/月 11:00～16:00 (入館料 200円)
-                    <br>宿泊のお客様を除き、上記日程外でのご来場は、予約制です。フォームからお申込みください。</p>
+                  <p class="mediaText__note">開館: 毎月 第1・第3 日・月 11:00～16:00 (入館料 200円)
+                    <br>宿泊のお客様を除き、上記日程外でのご来館は、予約制です。フォームからお申込みください。</p>
                 </div>
                 <div class="mediaText__media is-pair">
                   <img src="./assets/photos/gallery-exterior.jpg" alt="元鍼灸院の洋館を改装したギャラリーの外観" loading="lazy">
