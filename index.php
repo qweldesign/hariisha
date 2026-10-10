@@ -477,7 +477,6 @@ render_header([
                     <th><label for="subject">件名<span class="is-required">*必須</span></label></th>
                     <td>
                       <select id="subject" name="件名" required>
-                        <option value="">選択してください</option>
 <?php foreach ($contact_subjects as $key => $label) { ?>
                         <option value="<?= e($label) ?>"<?= $key === $selected_subject ? ' selected' : '' ?>><?= e($label) ?></option>
 <?php } ?>
