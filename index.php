@@ -305,8 +305,10 @@ render_header([
               <div class="mediaText is-reverse">
                 <div class="mediaText__text">
                   <p class="mediaText__label">海辺の小さな展示室</p>
-                  <p class="mediaText__lead brandLogo">gallery はりいしゃ</p>
-                  <p>元鍼灸院の洋館を改装した展示室で、版画家のコレクションを常設展示しています。</p>
+                  <p class="mediaText__lead brandLogo">
+                    <img src="./assets/logo/gallery-hariisha.svg" alt="ギャラリーはりいしゃ - ロゴ">
+                  </p>
+                  <p>元鍼灸院の洋館を改装した展示室で、版画家のコレクションや、地域活動を通じて生まれた作品を常設展示しています。</p>
                   <p class="mediaText__note">開館: 毎月 第1・第3 日・月 11:00～16:00 (入館料 200円)
                     <br>宿泊のお客様を除き、上記日程外でのご来館は、予約制です。フォームからお申込みください。</p>
                 </div>

@@ -113,7 +113,7 @@ function render_header(array $page): void {
 function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
-      <p class="brandLogo">海辺の古民家はりいしゃ</p>
+      <p>海辺の古民家はりいしゃ</p>
       <small class="footer__copyright"></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>
