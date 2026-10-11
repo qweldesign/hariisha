@@ -29,7 +29,7 @@ $report = new ContentEngine(['dir' => __DIR__ . '/content/report/']);
 $latest_report = $report->get_posts(1, 6);
 
 render_header([
-  'full_title'   => '海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス＆ギャラリー',
+  'full_title'   => '海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス&ギャラリー',
   'title'        => '',
   'description'  => SITE_DESCRIPTION,
   'path'         => '',
@@ -51,7 +51,7 @@ render_header([
               <span class="hero__jp"><span>海辺</span>の<span>古民家</span></span>
               <span class="hero__name">はりいしゃ</span>
             </h1>
-            <p class="hero__copy">アーティストも泊まる海辺の古民家での<br>滞在を楽しみませんか。</p>
+            <p class="hero__copy">アーティストも泊まる海辺の古民家で<br>滞在を楽しみませんか。</p>
             <div class="hero__actions">
               <a class="button is-secondary is-md" href="#reserve">空き状況を問い合わせる</a>
               <a class="button is-primary is-sm" href="#guide">料金を見る</a>
@@ -368,7 +368,7 @@ render_header([
               <div class="mediaText">
                 <p class="mediaText__lead">過疎の波に立ち向かう<br>福井市越前海岸盛り上げ隊</p>
                 <div class="mediaText__text">
-                  <p>海辺の古民家はりいしゃは「福井市越前海岸盛り上げ隊」が運営しています。「福井市越前海岸盛り上げ隊」は、地域の過疎の波に立ち向かうために結成した、ガラス作家、版画家、漁師、きこり、デザイナー、プログラマーなど、越前海岸エリアで事業を展開する異業種の仲間の集いです。</p>
+                  <p>海辺の古民家 はりいしゃは「福井市越前海岸盛り上げ隊」が運営しています。「福井市越前海岸盛り上げ隊」は、地域の過疎の波に立ち向かうために結成した、ガラス作家、版画家、漁師、きこり、デザイナー、プログラマーなど、越前海岸エリアで事業を展開する異業種の仲間の集いです。</p>
                 </div>
               </div>
               <p class="section__text mb-large"></p>
@@ -418,17 +418,18 @@ render_header([
             <h2 class="section__heading" data-readable>アクセス</h2>
             <div class="section__body access" data-readable>
               <div class="embed" data-safe-embed>
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5544.794580500314!2d136.01037282317606!3d36.03719540213307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c9e5af5a570d%3A0x1985eca1de905ca7!2z44Gv44KK44GE44GX44KDIOi2iuWJjea1t-WyuOebm-OCiuS4iuOBkumaiuS6pOa1geaWveiorQ!5e0!3m2!1sja!2sjp!4v1791271954655!5m2!1sja!2sjp" loading="lazy" title="海辺の古民家はりいしゃへのアクセス"></iframe>
+                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5544.794580500314!2d136.01037282317606!3d36.03719540213307!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5ff8c9e5af5a570d%3A0x1985eca1de905ca7!2z44Gv44KK44GE44GX44KDIOi2iuWJjea1t-WyuOebm-OCiuS4iuOBkumaiuS6pOa1geaWveiorQ!5e0!3m2!1sja!2sjp!4v1791271954655!5m2!1sja!2sjp" loading="lazy" title="海辺の古民家 はりいしゃへのアクセス"></iframe>
               </div>
               <div>
+                <h3 class="access__sub">海辺の古民家 はりいしゃ</h3>
                 <p class="access__address">〒910-3553 福井県福井市蒲生町1-42</p>
                 <dl class="access__routes">
                   <dt>バス</dt>
                   <dd>福井駅から越前海岸ブルーラインで1時間20分</dd>
                   <dt>お車</dt>
-                  <dd>敦賀IC、または鯖江ICから50〜60分</dd>
+                  <dd>敦賀IC, または鯖江ICから50〜60分</dd>
                   <dt>駐車場</dt>
-                  <dd>敷地内に2台。海水浴場横のトイレ前にも駐車できます。</dd>
+                  <dd>敷地内に2台. 海水浴場横のトイレ前にも駐車できます.</dd>
                 </dl>
               </div>
             </div>

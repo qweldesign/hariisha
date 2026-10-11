@@ -1958,6 +1958,9 @@ button, input, select, textarea {
 .access__address {
   margin-block-start: 0;
 }
+.access__sub {
+  font-weight: 700;
+}
 .access__routes {
   margin: 0;
 }
