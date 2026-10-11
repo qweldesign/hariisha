@@ -46,10 +46,10 @@ render_header([
       <header id="hero" class="hero" data-dots>
         <div class="hero__container">
           <div class="hero__content">
-            <p class="hero__lead">Guest house & Gallery</p>
+            <p class="hero__en">Guest house & Gallery</p>
             <h1 class="hero__title">
-              <span>海辺の古民家</span>
-              <span>はりいしゃ</span>
+              <span class="hero__jp"><span>海辺</span>の<span>古民家</span></span>
+              <span class="hero__name">はりいしゃ</span>
             </h1>
             <p class="hero__copy">アーティストも泊まる海辺の古民家での<br>滞在を楽しみませんか。</p>
             <div class="hero__actions">

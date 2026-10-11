@@ -166,16 +166,20 @@
         font-weight: 400;
         font-size: 12pt;
         line-height: 1.2;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.04em;
       }
 
       .cover__ja {
         display: block;
         margin-top: 3mm;
         font-family: var(--heading-font-family);
-        font-size: 24pt;
+        font-size: 18pt;
         line-height: 1.2;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.16em;
+
+        span {
+          font-size: 24pt;
+        }
       }
 
       .cover__name {
@@ -184,8 +188,8 @@
         font-family: "Klee One", cursive;;
         font-size: 18pt;
         line-height: 1.2;
-        letter-spacing: 0.48em;
-        text-indent: 0.48em;
+        letter-spacing: 0.32em;
+        text-indent: 0.32em;
       }
 
       .lead {
@@ -404,7 +408,7 @@
         <div class="cover__band left"></div>
         <h1 class="abs cover__title" style="top: 9mm; right: 9mm">
           <span class="cover__en">Guest house & Gallery</span>
-          <span class="cover__ja">海辺の古民家</span>
+          <span class="cover__ja"><span>海辺</span>の<span>古民家</span></span>
           <span class="cover__name">はりいしゃ</span>
         </h1>
         <img class="abs photo" src="../../assets/photos/gallery-exterior.jpg" alt="三角屋根のギャラリー" style="left: 9mm; top: 48mm; width: 66mm; height: 66mm; border-radius: 50%;">
@@ -469,7 +473,7 @@
       </div>
 
       <!-- 折り込み面 (仕上がり x: 200〜297) -->
-      <div class="panel is-right is-white" style="left: 203mm; width: 97mm;" data-dots='[{"x":84,"y":15,"rx":9,"ry":15,"rotate":-27,"count":15}]' data-dots-seed="21">
+      <div class="panel is-right is-white" style="left: 203mm; width: 97mm;">
         <div class="panel__bg"></div>
         <div class="abs" style="left: 8mm; top: 9mm; width: 81mm;">
           <h2 class="stay__heading">ご宿泊について</h2>
