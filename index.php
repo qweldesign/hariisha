@@ -193,7 +193,7 @@ render_header([
             <div class="section__body stayGuide" data-readable>
               <div class="stayGuide__overview">
                 <div>
-                  <h3 class="stayGuide__heading">料金（1泊）</h3>
+                  <h3 class="stayGuide__heading">料金（1泊・税抜）</h3>
                   <table class="priceTable">
                     <tbody>
                       <tr>
@@ -218,8 +218,12 @@ render_header([
                       </tr>
                     </tbody>
                   </table>
-                  <p class="stayGuide__note">※ 中学生以上は大人料金、表記はすべて税抜価格です。</p>
-                  <p class="stayGuide__note">※ 宿泊者様以外での母屋とキッチンのご利用には、追加料金が発生します。</p>
+                  <ul class="stayGuide__note">
+                    <li>中学生以上は大人料金です。</li>
+                    <li>当宿ではお食事の提供は致しておりません。</li>
+                    <li>最寄りのコンビニ・スーパーまでは車で25分程かかります。</li>
+                    <li>宿泊者様以外での母屋とキッチンのご利用には、追加料金が発生します。</li>
+                  </ul>
                 </div>
                 <div>
                   <dl class="infoList">
