@@ -1,7 +1,7 @@
 <?php
 /**
- * サブページ (お知らせ・固定ページ) 共通の設定と部品
- * トップページ (index.html) と同じヘッダー・フッターを出力する
+ * 全ページ (トップ, 投稿, 固定ページ, お問い合わせの確認・完了画面) 共通の設定と部品
+ * ヘッダー・フッターを出力する
  */
 
 // サイト共通の設定
@@ -46,9 +46,9 @@ function absolute_url(string $path): string {
  *   is_top: トップページ (ナビをページ内リンクにして, ScrollSpy で現在地を示す)
  */
 function render_header(array $page): void {
-  $title = $page['full_title'] ?? ($page['title'] ? $page['title'] . ' | ' . SITE_NAME : SITE_NAME);
+  $title = $page['full_title'] ?? (!empty($page['title']) ? $page['title'] . ' | ' . SITE_NAME : SITE_NAME);
   $is_top = !empty($page['is_top']);
-  $description = $page['description'] ?: SITE_DESCRIPTION;
+  $description = ($page['description'] ?? '') ?: SITE_DESCRIPTION;
   $url = absolute_url($page['path'] ?? '/');
   $image = absolute_url($page['image'] ?? '/assets/ogp.jpg');
   ?>

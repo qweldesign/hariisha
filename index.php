@@ -477,7 +477,7 @@ render_header([
                   <a class="moreLink" href="<?= path('page/artist-stay/') ?>">利用条件を見る</a>
                 </p>
               </div>
-              <!-- 送信は js/contact-form.js (確認画面 confirm.html → api/send.php) -->
+              <!-- 送信は js/contact-form.js (確認画面 confirm.php → api/send.php) -->
               <form class="form" data-contact-form>
                 <table>
                   <tr>

@@ -18,16 +18,16 @@
  *            今日より前の日付と, 開始日より前の終了日を選べないようにする
  *
  * オプション:
- * confirmUrl: 確認画面の URL (規定で confirm.html)
- * thanksUrl: 完了画面の URL (規定で thanks.html)
+ * confirmUrl: 確認画面の URL (規定で confirm.php)
+ * thanksUrl: 完了画面の URL (規定で thanks.php)
  * formUrl: 確認画面に入力内容がない場合 (直接開いた・送信済み) に戻す入力画面の URL (規定で ./)
  * endpoint: 送信先の API (規定で ./api/send.php)
  */
 export default class ContactForm {
   constructor(options = {}) {
     // オプション
-    this.confirmUrl = options.confirmUrl || 'confirm.html';
-    this.thanksUrl = options.thanksUrl || 'thanks.html';
+    this.confirmUrl = options.confirmUrl || 'confirm.php';
+    this.thanksUrl = options.thanksUrl || 'thanks.php';
     this.formUrl = options.formUrl || './';
     this.endpoint = options.endpoint || './api/send.php';
 
