@@ -200,11 +200,11 @@ render_header([
                         <td>25,000円</td>
                       </tr>
                       <tr>
-                        <th scope="row">夏休期・休祝日前日（1〜2名）</th>
+                        <th scope="row">夏休み期間・休祝日前日（1〜2名）</th>
                         <td>30,000円</td>
                       </tr>
                       <tr>
-                        <th scope="row">3名以降 1名追加ごと（時期問わず）</th>
+                        <th scope="row">3名目以降 1名につき（時期問わず）</th>
                         <td>+5,000円</td>
                       </tr>
                       <tr>
@@ -218,11 +218,13 @@ render_header([
                     </tbody>
                   </table>
                   <ul class="stayGuide__note">
+                    <li>全室禁煙・ペット同伴不可です。</li>
                     <li>中学生以上は大人料金です。</li>
                     <li>当宿ではお食事の提供は致しておりません。</li>
                     <li>最寄りのコンビニ・スーパーまでは車で25分程かかります。</li>
                     <li>宿泊者様以外での母屋とキッチンのご利用には、追加料金が発生します。</li>
                   </ul>
+                  <p class="pl-small"><a class="moreLink" href="<?= path('page/stay-guide/') ?>">ご宿泊のお客様へ: 館内のご利用案内</a></p>
                 </div>
                 <div>
                   <dl class="infoList">
