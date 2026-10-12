@@ -13,13 +13,11 @@ const SITE_DESCRIPTION = '福井市越前海岸の旧街道に佇む古民家ゲ
 
 // グローバルナビ (トップページのセクションへのリンク)
 const SITE_NAV = [
-  'about'     => '宿泊',
-  'space'     => '館内',
+  'info'      => 'お知らせ',
+  'about'     => '泊まる',
   'guide'     => '料金',
-  'stay'      => '滞在',
   'gallery'   => 'ギャラリー',
   'residency' => 'レジデンシー',
-  'team'      => '運営',
   'access'    => 'アクセス',
   'reserve'   => 'ご予約'
 ];
