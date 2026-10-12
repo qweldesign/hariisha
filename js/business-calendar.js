@@ -15,6 +15,8 @@
  *   .calendar__prev / .calendar__next (前月・翌月のボタン), .calendar__current (表示中の年月)
  *   table の thead.calendar__head と tbody.calendar__body
  * 編集する画面では [data-business-calendar="edit"] とする. 日付をクリックすると状態が切り替わり, API に保存される
+ *   編集はパスワードでロックしている. 中に form[data-calendar-lock] (input[type="password"] を含む) を置くと,
+ *   API で確かめて正しければロックを外す (.is-editMode). パスワードはタブを閉じるまで SessionStorage に覚える
  *
  * オプション:
  * endpoint: API の URL (規定で ./api/calendar.php)
@@ -25,6 +27,7 @@
  */
 
 const STATE_LABELS = ['予約不可', '予約可'];
+const LOCK_STORAGE_KEY = 'business-calendar-password';
 
 export default class BusinessCalendar {
   constructor(options = {}) {
@@ -49,7 +52,10 @@ export default class BusinessCalendar {
       ? ['月', '火', '水', '木', '金', '土', '日']
       : ['日', '月', '火', '水', '木', '金', '土'];
     if (this.startOnMon) this.elem.classList.add('is-startOnMon');
-    if (this.editable) this.elem.classList.add('is-editMode');
+
+    // 編集のロック (ロックを外すまでは表示だけ)
+    this.password = null;
+    this.lockForm = this.elem.querySelector('[data-calendar-lock]');
 
     // 今月から表示する. 今月より前には戻れないようにする
     const today = new Date();
@@ -60,6 +66,59 @@ export default class BusinessCalendar {
     this.makeHead();
     this.render();
     this.handleEvents();
+    if (this.editable) this.setupLock();
+  }
+
+  // ロックを外しているか
+  get isUnlocked() {
+    return this.password !== null;
+  }
+
+  // パスワードが正しいか API で確かめる
+  async verify(password) {
+    try {
+      const body = new FormData();
+      body.set('password', password);
+      const res = await fetch(`${this.endpoint}?method=auth`, { method: 'POST', body });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  setupLock() {
+    const form = this.lockForm;
+    if (form) {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const input = form.querySelector('input[type="password"]');
+        const ok = await this.verify(input.value);
+        form.classList.toggle('is-failed', !ok);
+        if (ok) this.unlock(input.value);
+        input.value = '';
+      });
+    }
+
+    // 同じタブで入力済みなら, そのまま外す
+    let saved = null;
+    try { saved = sessionStorage.getItem(LOCK_STORAGE_KEY); } catch (e) { /* 使えない環境では毎回入力 */ }
+    if (saved) this.verify(saved).then((ok) => ok ? this.unlock(saved) : this.lock());
+  }
+
+  unlock(password) {
+    this.password = password;
+    try { sessionStorage.setItem(LOCK_STORAGE_KEY, password); } catch (e) { /* 覚えられなくても編集はできる */ }
+    this.elem.classList.add('is-editMode');
+    if (this.lockForm) this.lockForm.hidden = true;
+    this.render();
+  }
+
+  lock() {
+    this.password = null;
+    try { sessionStorage.removeItem(LOCK_STORAGE_KEY); } catch (e) { /* 何もしない */ }
+    this.elem.classList.remove('is-editMode');
+    if (this.lockForm) this.lockForm.hidden = false;
+    this.render();
   }
 
   // 'YYYY-MM-DD' (端末の時刻で). 文字列のまま大小比較できる
@@ -117,11 +176,11 @@ export default class BusinessCalendar {
     if (this.editable) {
       this.body.addEventListener('click', (event) => {
         const cell = event.target.closest('[data-date]');
-        if (cell) this.toggle(cell);
+        if (cell && this.isUnlocked) this.toggle(cell);
       });
       this.body.addEventListener('keydown', (event) => {
         const cell = event.target.closest('[data-date]');
-        if (cell && (event.key === 'Enter' || event.key === ' ')) {
+        if (cell && this.isUnlocked && (event.key === 'Enter' || event.key === ' ')) {
           event.preventDefault();
           this.toggle(cell);
         }
@@ -185,7 +244,7 @@ export default class BusinessCalendar {
           td.classList.add('is-holiday');
           td.title = holidays[date];
         }
-        if (this.editable && !isPast) td.tabIndex = 0;
+        if (this.isUnlocked && !isPast) td.tabIndex = 0;
         td.innerHTML = `<span class="calendar__day">${day}</span><span class="calendar__mark" aria-hidden="true"></span>`;
         this.label(td);
         tr.appendChild(td);
@@ -215,7 +274,10 @@ export default class BusinessCalendar {
       const body = new FormData();
       body.set('date', cell.dataset.date);
       body.set('state', state);
+      body.set('password', this.password);
       const res = await fetch(`${this.endpoint}?method=update`, { method: 'POST', body });
+      // パスワードが変わった場合などは, ロックし直して入力してもらう
+      if (res.status === 401) this.lock();
       if (!res.ok) throw new Error(res.status);
     } catch (e) {
       // 保存できなければ元に戻す

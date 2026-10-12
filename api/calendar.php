@@ -5,15 +5,18 @@
  *
  * 取得: GET  api/calendar.php?method=fetch&year=2026&month=10
  *       → [{"date":"2026-10-12","state":0}, ...] (登録のある日だけ. 登録のない日は JS 側の既定値)
- * 更新: POST api/calendar.php?method=update  (date=2026-10-12, state=0|1)
+ * 更新: POST api/calendar.php?method=update  (date=2026-10-12, state=0|1, password=編集用のパスワード)
+ * 確認: POST api/calendar.php?method=auth    (password=編集用のパスワード) → 正しければ 200, 違えば 401
  *
  * 状態 (state): 0 = 予約不可, 1 = 予約可
  * データは api/data/calendar.sqlite (初回に自動で作成. data/.htaccess で直接のアクセスを禁止)
  *
- * TODO: 更新には認証を付ける (今は同じサイトからの送信かどうかしか確かめていない)
+ * 更新には, api/.env の CALENDAR_PASSWORD と同じパスワードが要る (編集画面 tools/calendar/ で入力する)
+ * あわせて, 同じサイトのページからの送信かも確かめる
  */
 
 require_once __DIR__ . '/lib/request.php';
+require_once __DIR__ . '/lib/env.php';
 
 // 過ぎた日の判定を日本時間で行う
 date_default_timezone_set('Asia/Tokyo');
@@ -38,6 +41,29 @@ function db(): PDO {
   return $pdo;
 }
 
+// 編集用のパスワードが正しいか (api/.env の CALENDAR_PASSWORD と比べる)
+// 設定がない場合は, 誰も編集できないようにする
+function is_valid_password(string $password): bool {
+  try {
+    $expected = env_required(load_env(__DIR__ . '/.env'), 'CALENDAR_PASSWORD');
+  } catch (RuntimeException $e) {
+    error_log('空き状況カレンダーの設定エラー: ' . $e->getMessage());
+    return false;
+  }
+  return hash_equals($expected, $password);
+}
+
+// 更新・確認の共通のチェック (POST, 同じサイトから, パスワード)
+function require_editor(): void {
+  if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(405, ['error' => 'POST only']);
+  if (!is_same_site()) respond(403, ['error' => 'forbidden']);
+  if (!is_valid_password((string)($_POST['password'] ?? ''))) {
+    // 総当たりで試されにくいよう, 間違えたときは少し待たせる
+    sleep(1);
+    respond(401, ['error' => 'invalid password']);
+  }
+}
+
 $method = $_GET['method'] ?? '';
 
 try {
@@ -53,9 +79,13 @@ try {
     respond(200, $rows);
   }
 
+  if ($method === 'auth') {
+    require_editor();
+    respond(200, ['ok' => true]);
+  }
+
   if ($method === 'update') {
-    if ($_SERVER['REQUEST_METHOD'] !== 'POST') respond(405, ['error' => 'POST only']);
-    if (!is_same_site()) respond(403, ['error' => 'forbidden']);
+    require_editor();
 
     $date = $_POST['date'] ?? '';
     $state = (int) ($_POST['state'] ?? -1);

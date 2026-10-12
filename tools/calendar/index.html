@@ -26,6 +26,49 @@
       .calendarEditor .calendar {
         margin-block-start: 1.5rem;
       }
+
+      /* 編集のロック */
+      .calendarLock {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem 0.75rem;
+        margin-block-end: 1rem;
+      }
+
+      .calendarLock[hidden] {
+        display: none;
+      }
+
+      .calendarLock__input {
+        width: 10rem;
+        margin-inline-start: 0.5rem;
+        padding: 0.25rem 0.5rem;
+        border: 1px solid var(--color--lighter);
+        border-radius: 0.25rem;
+        background-color: var(--color--lightest);
+        color: var(--color--darkest);
+      }
+
+      .calendarLock__button {
+        padding: 0.3rem 1rem;
+        border: 0;
+        border-radius: 0.25rem;
+        background-color: var(--color--secondary);
+        color: var(--color--primary);
+        cursor: pointer;
+      }
+
+      .calendarLock__error {
+        display: none;
+        flex-basis: 100%;
+        margin: 0;
+        color: #f2aaa2;
+      }
+
+      .calendarLock.is-failed .calendarLock__error {
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -33,13 +76,20 @@
       空き状況の編集画面
       日付をクリックすると「予約可」⇔「予約不可」が切り替わり, その場で保存される
       今日より前の日付は変更できない
-      TODO: 公開前にこのディレクトリへ認証 (Basic 認証など) を付ける
+      編集にはパスワード (api/.env の CALENDAR_PASSWORD) が要る. 入力するまでは表示だけ
     -->
     <main class="calendarEditor">
       <div class="calendarEditor__inner">
         <h1 class="calendar__heading" style="font-size: 1.25rem;">空き状況の編集</h1>
         <p class="calendar__note">日付をクリックすると「予約可 ○」と「予約不可 ×」が切り替わり、すぐに保存されます。サイトのトップページにも、そのまま反映されます。</p>
         <div class="calendar" data-business-calendar="edit">
+          <form class="calendarLock" data-calendar-lock>
+            <label class="calendarLock__label">パスワード
+              <input class="calendarLock__input" type="password" name="password" autocomplete="current-password" required>
+            </label>
+            <button class="calendarLock__button" type="submit">編集する</button>
+            <p class="calendarLock__error">パスワードが違います。</p>
+          </form>
           <div class="calendar__control">
             <button class="calendar__prev" type="button" aria-label="前の月">&lt;</button>
             <span class="calendar__current" aria-live="polite"></span>
