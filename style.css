@@ -505,7 +505,9 @@ button, input, select, textarea {
   list-style: none;
   display: flex;
   flex-flow: row wrap;
+  margin: 0 0 var(--spacing--medium);
   padding: 0;
+  font-size: var(--font-size--small);
 }
 .breadcrumb__item {
   flex: 0 0 auto;
@@ -517,16 +519,31 @@ button, input, select, textarea {
 }
 .breadcrumb__item a, .breadcrumb__item span {
   display: inline-block;
-  font-weight: 600;
-  font-style: normal;
-  font-size: 0.875rem;
-  color: var(--color--darker);
-  background-color: rgba(216, 208, 174, 0.15);
-  padding: 0 0.2em;
-  border-radius: 0.2em;
+  padding: 0;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: inherit;
+}
+.breadcrumb__item a, .breadcrumb__item a:active {
+  color: var(--color--secondary);
+  text-decoration: none;
+}
+.breadcrumb__item a:hover, .breadcrumb__item a:focus {
+  color: var(--color--lightest);
+  text-decoration: underline;
 }
 .breadcrumb__item span {
-  background-color: rgba(43, 53, 70, 0.1);
+  color: var(--color--light);
+}
+.breadcrumb__item.is-current {
+  flex: 0 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.breadcrumb__item.is-current span {
+  display: inline;
 }
 
 /**
@@ -1269,6 +1286,93 @@ button, input, select, textarea {
 }
 
 /**
+ * Project - Top Info
+ * トップページのファーストビュー直下に置く, お知らせの最新記事の帯
+ */
+.topInfo {
+  padding-block: var(--spacing--large);
+  border-block-end: 1px solid var(--color--lighter);
+  background-color: var(--color--tertiary);
+}
+.topInfo__container {
+  width: min(100%, var(--container-width--lg));
+  margin-inline: auto;
+  padding-inline: var(--container-pad--lg);
+  display: grid;
+  gap: var(--spacing--small) var(--spacing--large);
+  align-items: start;
+  padding-block: var(--spacing--medium);
+  padding-inline: calc(var(--container-pad--lg) + 0.75rem);
+}
+@media (min-width: 900px) {
+  .topInfo__container {
+    grid-template-columns: 6rem minmax(0, 1fr) auto;
+    align-items: center;
+  }
+}
+.topInfo__heading {
+  margin: 0;
+  color: var(--color--primary);
+  font-size: var(--font-size--large);
+  letter-spacing: 0.2em;
+}
+.topInfo__list {
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+}
+.topInfo__item {
+  margin: 0;
+}
+.topInfo__item + .topInfo__item {
+  border-block-start: 1px dashed rgba(43, 53, 70, 0.15);
+}
+.topInfo__link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 var(--spacing--medium);
+  padding-block: var(--spacing--x-small);
+  color: inherit;
+  text-decoration: none;
+}
+.topInfo__link:hover .topInfo__title, .topInfo__link:focus-visible .topInfo__title {
+  color: rgb(81.814159292, 100.8407079646, 133.185840708);
+  text-decoration: underline;
+}
+.topInfo__date {
+  flex: 0 0 auto;
+  color: var(--color--dark);
+  font-size: var(--font-size--small);
+  letter-spacing: 0.08em;
+}
+.topInfo__title {
+  min-width: 0;
+  color: var(--color--primary);
+  transition: color 0.2s ease;
+}
+.topInfo__more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--small);
+  justify-self: end;
+  color: var(--color--primary);
+  font-size: var(--font-size--small);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.topInfo__more::before {
+  content: "";
+  width: 1.5rem;
+  height: 2px;
+  background-color: var(--color--secondary);
+  transition: width 0.2s ease;
+}
+.topInfo__more:hover::before, .topInfo__more:focus-visible::before {
+  width: 2.5rem;
+}
+
+/**
  * Project - Section
  * md以上では見出しを縦組みにして左列に置く (パンフレットの縦書きを踏襲)
  */
@@ -1679,37 +1783,75 @@ button, input, select, textarea {
 .postList.is-grid .postItem__more {
   text-align: center;
 }
-.postList.is-list .postList__item {
-  margin-block-end: var(--spacing--medium);
-  padding-block-end: var(--spacing--medium);
-  border-block-end: 1px solid var(--color--dark);
+.postList.is-list {
+  margin: 0 0 var(--spacing--large);
+  border-block-start: 1px solid var(--color--lighter);
 }
-.postList.is-list .postList__item:last-child {
-  border: 0;
+.postList.is-list .postList__item {
+  margin: 0;
+  border-block-end: 1px solid var(--color--lighter);
 }
 .postList.is-list .postItem {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
+  position: relative;
+  padding-block: var(--spacing--large);
+}
+@media (min-width: 900px) {
+  .postList.is-list .postItem {
+    display: grid;
+    grid-template-columns: 13rem minmax(0, 1fr);
+    gap: var(--spacing--large);
+    align-items: start;
+    padding-block: var(--spacing--medium);
+  }
 }
 .postList.is-list .postItem__image {
-  flex-grow: 3;
-  flex-shrink: 3;
-  flex-basis: 18rem;
+  margin: 0 0 var(--spacing--small);
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+@media (min-width: 900px) {
+  .postList.is-list .postItem__image {
+    margin: 0;
+  }
+}
+.postList.is-list .postItem__image img {
   width: 100%;
-  padding-inline: var(--container-pad--sm);
+  height: 100%;
+  aspect-ratio: auto;
+  transition: transform 0.35s ease;
+}
+.postList.is-list .postItem__content:first-child {
+  grid-column: 1/-1;
+}
+.postList.is-list .postItem__info {
   margin: 0;
+  color: var(--color--dark);
+  letter-spacing: 0.08em;
 }
-.postList.is-list .postItem__content {
-  flex-grow: 6;
-  flex-shrink: 6;
-  flex-basis: 36rem;
-  width: 100%;
-  padding-inline: var(--container-pad--sm);
+.postList.is-list .postItem__heading {
+  margin: var(--spacing--x-small) 0 0;
+  font-size: var(--font-size--large);
+  line-height: 1.6;
 }
-.postList.is-list .postItem__more {
-  text-align: right;
+.postList.is-list .postItem__link {
+  color: var(--color--primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.postList.is-list .postItem__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.postList.is-list .postItem__excerpt {
+  margin: var(--spacing--x-small) 0 0;
+  color: var(--color--darker);
+}
+.postList.is-list .postItem:hover .postItem__link, .postList.is-list .postItem:focus-within .postItem__link {
+  color: rgb(81.814159292, 100.8407079646, 133.185840708);
+}
+.postList.is-list .postItem:hover .postItem__image img, .postList.is-list .postItem:focus-within .postItem__image img {
+  transform: scale(1.05);
 }
 
 /**
@@ -1731,9 +1873,6 @@ button, input, select, textarea {
   grid-template-columns: 4.5em minmax(0, 1fr);
   gap: var(--spacing--x-small) var(--spacing--medium);
   padding-block: var(--spacing--small);
-}
-.archiveList__date {
-  font-size: var(--font-size--small);
 }
 .archiveList__title {
   display: block;
@@ -2165,6 +2304,7 @@ button, input, select, textarea {
 /**
  * Project - Page Header
  * 下層ページの見出し帯 (固定ヘッダーの下に, ファーストビューと同じ紺地で敷く)
+ * お問い合わせ, お知らせ, 固定ページで共通
  */
 .pageHeader {
   background-color: var(--color--primary);
@@ -2177,13 +2317,37 @@ button, input, select, textarea {
   padding-block: calc(4.5rem + var(--spacing--large)) var(--spacing--large);
   padding-inline: calc(var(--container-pad--lg) + 0.75rem);
 }
+.pageHeader__label {
+  margin: 0 0 var(--spacing--x-small);
+  color: var(--color--secondary);
+  font-size: var(--font-size--small);
+  letter-spacing: 0.12em;
+}
 .pageHeader__title {
   margin: 0;
   font-size: var(--font-size--xx-large);
   letter-spacing: 0.2em;
 }
+.pageHeader__title.is-article {
+  max-width: 40em;
+  font-size: var(--font-size--x-large);
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+}
+@media (min-width: 900px) {
+  .pageHeader__title.is-article {
+    font-size: var(--font-size--xx-large);
+  }
+}
 .pageHeader__lead {
+  max-width: 40em;
   margin-block: var(--spacing--small) 0;
+}
+.pageHeader__meta {
+  margin-block: var(--spacing--small) 0;
+  color: var(--color--secondary);
+  font-size: var(--font-size--small);
+  letter-spacing: 0.08em;
 }
 
 /**
@@ -2247,6 +2411,212 @@ button, input, select, textarea {
 }
 .contactPage__actions .button {
   margin-inline: 0;
+}
+
+/**
+ * Project - Sub Page
+ * お知らせ・固定ページの本文エリア
+ */
+.subPage__container {
+  width: min(100%, var(--container-width--lg));
+  margin-inline: auto;
+  padding-inline: var(--container-pad--lg);
+  max-width: 48rem;
+  padding-block: var(--spacing--x-large);
+  padding-inline: calc(var(--container-pad--lg) + 0.75rem);
+}
+.subPage__container.is-wide {
+  max-width: 60rem;
+}
+.subPage__image {
+  margin: 0 0 var(--spacing--large);
+}
+.subPage__image img {
+  width: 100%;
+}
+.subPage__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing--small);
+  margin-block-start: var(--spacing--large);
+}
+.subPage__actions .button {
+  margin-inline: 0;
+}
+.subPage__empty {
+  text-align: center;
+  color: var(--color--darker);
+}
+
+/**
+ * Project - Entry
+ * Markdown から変換した本文 (Parsedown の出力) の組版
+ * クラスを付けられない要素ばかりなので, .entry の子孫セレクタで指定する
+ */
+.entry {
+  overflow-wrap: anywhere;
+}
+.entry > :first-child {
+  margin-block-start: 0;
+}
+.entry h2 {
+  position: relative;
+  margin-block: var(--spacing--x-large) var(--spacing--medium);
+  padding-block-start: var(--spacing--medium);
+  color: var(--color--primary);
+  font-size: var(--font-size--x-large);
+  letter-spacing: 0.1em;
+}
+.entry h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background-color: var(--color--secondary);
+}
+.entry h3 {
+  margin-block: var(--spacing--large) var(--spacing--small);
+  color: var(--color--primary);
+  font-size: var(--font-size--large);
+}
+.entry h4 {
+  margin-block: var(--spacing--medium) var(--spacing--x-small);
+  font-family: '"Zen Kaku Gothic New"', '"Hiragino Sans"', '"游ゴシック"', '"Yu Gothic"', sans-serif;
+  font-size: var(--font-size--medium);
+}
+.entry p, .entry ul, .entry ol, .entry table, .entry blockquote, .entry figure {
+  margin-block: 0 var(--spacing--medium);
+}
+.entry ul, .entry ol {
+  padding-inline-start: 1.5em;
+}
+.entry ul li, .entry ol li {
+  margin-block: 0 var(--spacing--x-small);
+}
+.entry ul li::marker {
+  color: var(--color--secondary);
+}
+.entry a, .entry a:active {
+  color: var(--color--darker);
+  text-decoration: none;
+}
+.entry a:hover, .entry a:focus {
+  color: var(--color--primary);
+  text-decoration: underline;
+}
+.entry a {
+  text-decoration: underline;
+}
+.entry strong {
+  font-weight: 700;
+}
+.entry img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--spacing--x-small);
+}
+.entry blockquote {
+  margin-inline: 0;
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-inline-start: 3px solid var(--color--secondary);
+  background-color: var(--color--tertiary);
+}
+.entry blockquote > :last-child {
+  margin-block-end: 0;
+}
+.entry table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size--small);
+}
+@media (min-width: 600px) {
+  .entry table {
+    display: table;
+    width: 100%;
+  }
+}
+.entry th, .entry td {
+  padding: var(--spacing--small) var(--spacing--small);
+  border-block-end: 1px solid var(--color--lighter);
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+@media (min-width: 600px) {
+  .entry th, .entry td {
+    white-space: normal;
+  }
+}
+.entry thead th {
+  border-block-end-color: var(--color--secondary);
+  background-color: var(--color--tertiary);
+  color: var(--color--primary);
+}
+.entry hr {
+  margin-block: var(--spacing--x-large);
+  border: 0;
+  border-block-start: 1px solid var(--color--lighter);
+}
+.entry code {
+  padding: 0.1em 0.3em;
+  border-radius: 0.2em;
+  background-color: var(--color--tertiary);
+  font-size: 0.9em;
+}
+
+/**
+ * Project - Post Nav
+ * 投稿 (お知らせ・活動報告) の前後の記事へのリンク
+ */
+.postNav {
+  display: grid;
+  gap: var(--spacing--small);
+  margin-block-start: var(--spacing--x-large);
+  padding-block-start: var(--spacing--large);
+  border-block-start: 1px solid var(--color--lighter);
+}
+@media (min-width: 600px) {
+  .postNav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+.postNav__link {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--x-small);
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-radius: var(--spacing--x-small);
+  background-color: var(--color--tertiary);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.postNav__link:hover, .postNav__link:focus-visible {
+  background-color: var(--color--secondary);
+}
+.postNav__link.is-next {
+  text-align: right;
+}
+@media (min-width: 600px) {
+  .postNav__link.is-next {
+    grid-column: 2;
+  }
+}
+.postNav__label {
+  color: var(--color--darker);
+  font-size: var(--font-size--small);
+}
+.postNav__title {
+  color: var(--color--primary);
+  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  line-height: 1.6;
 }
 
 /**

@@ -1,0 +1,19 @@
+# 固定ページのURLを整える (Apache の mod_rewrite が必要)
+#   /page/story/ → index.php?slug=story
+# サイトをドメイン直下以外に置く場合は, RewriteBase と転送先の /page/ を書き換える
+# (inc/partials/site.php の SITE_ROOT も合わせる)
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /page/
+
+  # 旧形式のURL (?slug=xxx) で来た場合は, 新しいURLへ恒久的に転送する
+  RewriteCond %{THE_REQUEST} \s/page/(?:index\.php)?\?slug=([A-Za-z0-9_-]+)[\s&] [NC]
+  RewriteRule ^ /page/%1/? [R=301,L]
+
+  # 末尾のスラッシュがない場合は付けて転送する
+  RewriteRule ^([A-Za-z0-9_-]+)$ /page/$1/ [R=301,L]
+
+  # 固定ページ (slug は英数字, ハイフン, アンダースコア)
+  RewriteRule ^([A-Za-z0-9_-]+)/$ index.php?slug=$1 [L,QSA]
+</IfModule>

@@ -1,0 +1,52 @@
+/**
+ * Project - Post Nav
+ * 投稿 (お知らせ・活動報告) の前後の記事へのリンク
+ */
+
+.postNav {
+  display: grid;
+  gap: space();
+  margin-block-start: space("x-large");
+  padding-block-start: space("large");
+  border-block-start: 1px solid theme-color("lighter");
+
+  @media (min-width: breakpoint("sm")) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: space("x-small");
+    padding: space() space("medium");
+    border-radius: space("x-small");
+    background-color: theme-color("tertiary");
+    color: inherit;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+
+    &:hover, &:focus-visible {
+      background-color: theme-color("secondary");
+    }
+
+    // 古い記事 (次) は右列に置き, 右寄せにする
+    &.is-next {
+      text-align: right;
+
+      @media (min-width: breakpoint("sm")) {
+        grid-column: 2;
+      }
+    }
+  }
+
+  &__label {
+    color: theme-color("darker");
+    font-size: font-size("small");
+  }
+
+  &__title {
+    color: theme-color("primary");
+    font-family: $font-family-serif;
+    line-height: 1.6;
+  }
+}

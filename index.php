@@ -1,38 +1,45 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>海辺の古民家 はりいしゃ | 福井市越前海岸のゲストハウス&ギャラリー</title>
-    <meta name="description" content="福井市越前海岸の旧街道に佇む古民家ゲストハウス「はりいしゃ」。海まで徒歩5分。版画家のコレクションを展示するギャラリーと、アーティスト・イン・レジデンスを併設しています。">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Klee+One:wght@600&display=swap">
-    <link rel="stylesheet" href="./style.css">
-    <link rel="icon" href="./favicon.ico">
-  </head>
-  <body>
-    <div data-scroll-sentinel></div>
-    <header id="header" class="header" data-active-header>
-      <div class="header__container">
-        <nav id="gNav" class="gNav" aria-label="グローバルナビゲーション">
-          <p class="gNav__siteBrand">
-            <a href="/">海辺の古民家はりいしゃ</a>
-          </p>
-          <ul class="gNav__primaryMenu visible-md" data-primary-menu>
-            <li class="gNav__menuItem" data-spy-nav><a href="#about">宿泊</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#space">館内</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#guide">料金</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#stay">滞在</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#gallery">ギャラリー</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#residency">レジデンシー</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#team">運営</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#access">アクセス</a></li>
-            <li class="gNav__menuItem" data-spy-nav><a href="#reserve">ご予約</a></li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<?php
+/**
+ * トップページ
+ * お知らせ (content/info/) の最新記事を差し込むため PHP にしている
+ * ヘッダー・フッターはサブページと共通 (inc/partials/site.php)
+ */
+require_once __DIR__ . '/inc/ContentEngine.php';
+require_once __DIR__ . '/inc/partials/site.php';
+
+// お問い合わせの件名 (キー => 表示名. 表示名がそのまま確認画面とメールの件名欄になる)
+// トップページの URL に ?subject=キー を付けると, その件名を選んだ状態でフォームを開ける
+// 例: /?subject=artist-stay#reserve
+$contact_subjects = [
+  'stay'         => 'ゲストハウスの空き状況・ご予約',
+  'gallery'      => 'ギャラリー来館のご予約',
+  'printmaking'  => '版画体験のご予約',
+  'artist-stay'  => '滞在制作・展示会のご希望',
+  'other'        => 'ご質問・ご意見・その他'
+];
+$selected_subject = $_GET['subject'] ?? 'stay';
+
+// お知らせ (最新3件)
+$info = new ContentEngine(['dir' => __DIR__ . '/content/info/']);
+$latest_info = $info->get_posts(1, 3);
+
+// 活動報告 (最新6件. レジデンシーの「これまでの展示」に使う)
+$report = new ContentEngine(['dir' => __DIR__ . '/content/report/']);
+$latest_report = $report->get_posts(1, 6);
+
+render_header([
+  'full_title'   => '海辺の古民家はりいしゃ | 福井市越前海岸のゲストハウス&ギャラリー',
+  'title'        => '',
+  'description'  => SITE_DESCRIPTION,
+  'path'         => '',
+  'type'         => 'website',
+  'image'        => 'assets/ogp.jpg',
+  'image_width'  => 1200,
+  'image_height' => 630,
+  'image_alt'    => '紺地に「海辺の古民家 はりいしゃ」の文字と、三角屋根のギャラリーの外観と越前海岸の夕日の写真を丸く切り抜いて配したイメージ',
+  'is_top'       => true,
+]);
+?>
     <main id="main" class="main">
       <!-- ヒーロー -->
       <header id="hero" class="hero" data-dots>
@@ -71,6 +78,26 @@
         </div>
       </header>
 
+<?php if ($latest_info) { ?>
+      <!-- お知らせ (最新3件) -->
+      <section id="info" class="topInfo" aria-labelledby="topInfoHeading" data-spy-section>
+        <div class="topInfo__container">
+          <h2 id="topInfoHeading" class="topInfo__heading">お知らせ</h2>
+          <ul class="topInfo__list">
+<?php foreach ($latest_info as $post) { ?>
+            <li class="topInfo__item">
+              <a class="topInfo__link" href="<?= e(path('info/' . rawurlencode($post['slug']) . '/')) ?>">
+                <time class="topInfo__date" datetime="<?= e(ContentEngine::format_date($post['date'] ?? '', true)) ?>"><?= e(ContentEngine::format_date($post['date'] ?? '')) ?></time>
+                <span class="topInfo__title"><?= e($post['title']) ?></span>
+              </a>
+            </li>
+<?php } ?>
+          </ul>
+          <a class="topInfo__more" href="<?= path('info/') ?>">お知らせ一覧</a>
+        </div>
+      </section>
+<?php } ?>
+
       <!-- 古民家に泊まる -->
       <section id="about" class="section is-white" data-spy-section>
         <div class="section__inner">
@@ -103,7 +130,6 @@
           <div class="section__container">
             <h2 class="section__heading" data-readable>館内の様子</h2>
             <div class="section__body" data-readable>
-              <!-- TODO: 仮の文章 -->
               <p class="houseView__lead">昭和の手仕事が、<br>いまも息づく家。</p>
               <p>畳の続き間、丸窓の向こうのダイニング、タイル張りのキッチン、職人の手による組子の欄間。
                 <br>日本建築の母屋と元鍼灸院の洋館、それぞれの趣をお楽しみください。</p>
@@ -196,16 +222,19 @@
                     <li>宿泊者様以外での母屋とキッチンのご利用には、追加料金が発生します。</li>
                   </ul>
                 </div>
-                <dl class="infoList">
-                  <dt>定員</dt>
-                  <dd>4名</dd>
-                  <dt>チェックイン</dt>
-                  <dd>14:00〜17:00</dd>
-                  <dt>チェックアウト</dt>
-                  <dd>10:00</dd>
-                  <dt>駐車場</dt>
-                  <dd>敷地内2台まで無料</dd>
-                </dl>
+                <div>
+                  <dl class="infoList">
+                    <dt>定員</dt>
+                    <dd>4名</dd>
+                    <dt>チェックイン</dt>
+                    <dd>14:00〜17:00</dd>
+                    <dt>チェックアウト</dt>
+                    <dd>10:00</dd>
+                    <dt>駐車場</dt>
+                    <dd>敷地内2台まで無料</dd>
+                  </dl>
+                  <a class="button is-primary is-md my-large" href="./?subject=stay#reserve">ご予約フォームへ</a>
+                </div>
               </div>
               <div>
                 <h3 class="stayGuide__heading">キャンセルについて</h3>
@@ -230,7 +259,7 @@
         </div>
       </section>
 
-      <!-- 滞在の愉しみ -->
+      <!-- 滞在のたのしみ -->
       <!-- 水玉 (午後): 少し伸びた光だまりを, 右下がりに左下へ -->
       <section id="stay" class="section is-sand" data-spy-section data-dots data-dots-x="0" data-dots-y="100" data-dots-aspect-min="1.15" data-dots-aspect-max="1.45" data-dots-tilt="-30">
         <div class="section__inner">
@@ -306,72 +335,28 @@
                   <p>「はりいしゃレジデンシー」は、越前の風土に触れ、地域の特色や魅力と向き合いながら、招聘作家に滞在制作・展示会を行っていただくプログラムです。発表する作品のジャンルは美術・工芸・音楽など、文化活動の域を問いません。滞在制作・展示会のご希望は当サイトのフォームから承ります。</p>
                 </div>
               </div>
-              <h3>これまでの展示</h3>
+              <h3>これまでの活動報告</h3>
+<?php if ($latest_report) { ?>
               <ul class="archiveList">
+<?php foreach ($latest_report as $post) { ?>
                 <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/naminokori-2026/">
-                    <span class="archiveList__date">2026.06</span>
-                    <span>
-                      <span class="archiveList__title">波残り（なみのこり）</span>
-                      <span class="archiveList__artist">木版画家 杉本 奈奈重</span>
-                    </span>
+                  <a class="archiveList__link" href="<?= e(path('report/' . rawurlencode($post['slug']) . '/')) ?>">
+                    <time class="archiveList__date" datetime="<?= e(ContentEngine::format_date($post['date'] ?? '', true)) ?>"><?= e(ContentEngine::format_date($post['date'] ?? '')) ?></time>
+                    <span class="archiveList__title"><?= e($post['title'] ?? '') ?></span>
                   </a>
                 </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/yoko-kawabata-report/">
-                    <span class="archiveList__date">2025.12</span>
-                    <span>
-                      <span class="archiveList__title">虹色のしずく</span>
-                      <span class="archiveList__artist">虹織り作家 YOKO KAWABATA</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/izumiharuomi-2025/">
-                    <span class="archiveList__date">2025.12</span>
-                    <span>
-                      <span class="archiveList__title">日本画展 feel</span>
-                      <span class="archiveList__artist">日本画家 泉 東臣</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/yamadayasutaka-2025-report/">
-                    <span class="archiveList__date">2025.11</span>
-                    <span>
-                      <span class="archiveList__title">十一月の山の風のなかに</span>
-                      <span class="archiveList__artist">彫刻家 山田 康貴</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/kazutoarizuka-2025/">
-                    <span class="archiveList__date">2025.10</span>
-                    <span>
-                      <span class="archiveList__title">LIMINAL DIVER</span>
-                      <span class="archiveList__artist">彫刻家 蟻塚 知都</span>
-                    </span>
-                  </a>
-                </li>
-                <li class="archiveList__item">
-                  <a class="archiveList__link" href="https://discoverechizen.com/blog-and-news/otoshibumi-2025/">
-                    <span class="archiveList__date">2025.10</span>
-                    <span>
-                      <span class="archiveList__title">海辺のかれら</span>
-                      <span class="archiveList__artist">アニメーション作家 おとしぶみ</span>
-                    </span>
-                  </a>
-                </li>
+<?php } ?>
               </ul>
-              <p><a href="https://discoverechizen.com/category/hariisha-residency/">過去の展示をもっと見る</a></p>
+<?php } ?>
+              <p><a href="<?= path('report/') ?>">過去の活動報告をもっと見る</a></p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 運営チーム -->
+      <!-- 運営 -->
       <!-- 水玉 (夕方): 細長く伸びた影を, 少なめに右下へ -->
-      <section id="team" class="section is-cream" data-spy-section data-dots data-dots-x="100" data-dots-y="100" data-dots-aspect-min="1.4" data-dots-aspect-max="1.7" data-dots-tilt="-15" data-dots-count="70">
+      <section id="team" class="section is-cream" data-spy-section data-dots data-dots-x="100" data-dots-y="75" data-dots-aspect-min="1.4" data-dots-aspect-max="1.7" data-dots-tilt="-15" data-dots-count="70">
         <div class="section__inner">
           <div class="section__container">
             <h2 class="section__heading" data-readable>運営チーム</h2>
@@ -490,11 +475,9 @@
                     <th><label for="subject">件名<span class="is-required">*必須</span></label></th>
                     <td>
                       <select id="subject" name="件名" required>
-                        <option value="stay">ゲストハウスの空き状況・ご予約</option>
-                        <option value="gallery">ギャラリー来館のご予約</option>
-                        <option value="printmaking">版画体験のご予約</option>
-                        <option value="artist-stay">滞在制作・展示会のご希望</option>
-                        <option value="other">ご質問・ご意見・その他</option>
+<?php foreach ($contact_subjects as $key => $label) { ?>
+                        <option value="<?= e($label) ?>"<?= $key === $selected_subject ? ' selected' : '' ?>><?= e($label) ?></option>
+<?php } ?>
                       </select>
                     </td>
                   </tr>
@@ -534,10 +517,4 @@
         </div>
       </section>
     </main>
-    <footer id="footer" class="footer">
-      <p>海辺の古民家 はりいしゃ</p>
-      <small class="footer__copyright"></small>
-    </footer>
-    <script src="./init.js" type="module"></script>
-  </body>
-</html>
+<?php render_footer(); ?>

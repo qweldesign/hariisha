@@ -48,31 +48,90 @@
     }
   }
 
+  // 縦に並べる一覧 (お知らせ・活動報告)
+  // スマホは1カラム (画像の下にテキスト), md 以上は2カラム (画像の右にテキスト)
+  // 記事全体をクリックできるよう, 見出しのリンク (.postItem__link) を記事の大きさまで広げる
   &.is-list {
-    .postList__item {
-      margin-block-end: space("medium");
-      padding-block-end: space("medium");
-      border-block-end: 1px solid theme-color('dark');
+    margin: 0 0 space("large");
+    border-block-start: 1px solid theme-color("lighter");
 
-      &:last-child {
-        border: 0;
-      }
+    .postList__item {
+      margin: 0;
+      border-block-end: 1px solid theme-color("lighter");
     }
 
     .postItem {
-      @include row(center);
+      position: relative;
+      padding-block: space("large");
 
+      @media (min-width: breakpoint("md")) {
+        display: grid;
+        grid-template-columns: 13rem minmax(0, 1fr);
+        gap: space("large");
+        align-items: start;
+        padding-block: space("medium");
+      }
+
+      // アイキャッチ画像 (横長に切り抜いて, 高さを揃える)
       &__image {
-        @include col(3, true);
+        margin: 0 0 space();
+        aspect-ratio: 4 / 3;
+        overflow: hidden;
+
+        @media (min-width: breakpoint("md")) {
+          margin: 0;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          aspect-ratio: auto;
+          transition: transform 0.35s ease;
+        }
+      }
+
+      // 画像がない記事は, テキストを全幅にする
+      &__content:first-child {
+        grid-column: 1 / -1;
+      }
+
+      &__info {
         margin: 0;
+        color: theme-color("dark");
+        letter-spacing: 0.08em;
       }
 
-      &__content {
-        @include col(6, true);
+      &__heading {
+        margin: space("x-small") 0 0;
+        font-size: font-size("large");
+        line-height: 1.6;
       }
 
-      &__more {
-        text-align: right;
+      &__link {
+        color: theme-color("primary");
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+        }
+      }
+
+      &__excerpt {
+        margin: space("x-small") 0 0;
+        color: theme-color("darker");
+      }
+
+      &:hover, &:focus-within {
+        .postItem__link {
+          color: color-activate("primary");
+        }
+
+        .postItem__image img {
+          transform: scale(1.05);
+        }
       }
     }
   }
