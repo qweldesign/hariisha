@@ -1,7 +1,7 @@
 <?php
 /**
  * トップページ
- * お知らせ (content/info/) の最新記事を差し込むため PHP にしている
+ * お知らせと活動報告の最新記事を差し込むため PHP にしている
  * ヘッダー・フッターはサブページと共通 (inc/partials/site.php)
  */
 require_once __DIR__ . '/inc/partials/site.php';
@@ -22,7 +22,7 @@ $selected_subject = $_GET['subject'] ?? 'stay';
 $info = new ContentEngine(['dir' => __DIR__ . '/content/info/']);
 $latest_info = $info->get_posts(1, 3);
 
-// 活動報告 (最新6件. レジデンシーの「これまでの展示」に使う)
+// 活動報告 (最新6件)
 $report = new ContentEngine(['dir' => __DIR__ . '/content/report/']);
 $latest_report = $report->get_posts(1, 6);
 

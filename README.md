@@ -42,6 +42,30 @@ summary: "一覧や description に使う要約"
 
 ---
 
+## お問い合わせフォーム
+
+トップページのフォーム → 確認画面 `confirm.php` → 送信 `api/send.php` (PHPMailer) → 完了画面 `thanks.php`。入力内容は SessionStorage で確認画面へ受け渡す (`js/contact-form.js`)。
+
+- `api/` で `composer install` を実行して PHPMailer を入れる
+- `api/.env.example` を `api/.env` にコピーし, SMTP などの設定を書く (`.env` は Git に含めない)
+- トップページの URL に `?subject=キー#reserve` を付けると, 件名を選んだ状態でフォームを開ける (キーは `index.php` の `$contact_subjects`)
+
+## 空き状況カレンダー
+
+トップページのカレンダー (`js/business-calendar.js`) は `api/calendar.php` から空き状況を読み込む。データは `api/data/calendar.sqlite` (初回に自動で作成. Git に含めない)。状態は 予約可 / 予約不可 の2通りで, 登録のない日は予約可になる。
+
+編集は `tools/calendar/` で行う。パスワード (`api/.env` の `CALENDAR_PASSWORD`) を入力すると, 日付をクリックして状態を切り替えられる (その場で保存される)。パスワードはタブを閉じるまで SessionStorage に保持する。`CALENDAR_PASSWORD` を設定しないと, 誰も編集できない。
+
+## 制作用ツール (`tools/`)
+
+| ツール | 内容 |
+| --- | --- |
+| `tools/calendar/` | 空き状況の編集 |
+| `tools/leaflet/` | 三つ折りリーフレット (詳しくは `tools/leaflet/README.md`) |
+| `tools/ogp/` | OGP 画像 (`assets/ogp.jpg`) の制作 |
+
+---
+
 ## ライセンス | License
 
 MIT License
