@@ -1968,6 +1968,67 @@ button, input, select, textarea {
 }
 
 /**
+ * Project - Banner Area
+ */
+.bannerArea {
+  margin-block-start: var(--spacing--large);
+}
+.bannerArea__sub {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing--small);
+  font-size: var(--font-size--normal);
+}
+.bannerArea__sub::before {
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background-color: var(--color--light);
+}
+.bannerArea__content {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+@media (min-width: 600px) {
+  .bannerArea__item {
+    flex-grow: 3;
+    flex-shrink: 3;
+    flex-basis: 18rem;
+  }
+}
+.bannerArea__item {
+  width: 100%;
+  padding-inline: var(--container-pad--sm);
+  display: block;
+  padding-inline: 0;
+  border-radius: var(--spacing--x-small);
+  overflow: hidden;
+  transition: opacity 0.35s ease;
+}
+.bannerArea__item:hover {
+  opacity: 0.7;
+}
+@media (min-width: 600px) {
+  .bannerArea__description {
+    flex-grow: 3;
+    flex-shrink: 3;
+    flex-basis: 18rem;
+  }
+}
+.bannerArea__description {
+  width: 100%;
+  padding-inline: var(--container-pad--sm);
+  padding-inline: var(--spacing--medium);
+  color: var(--color--darker);
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  letter-spacing: var(--small-letter-spacing);
+}
+
+/**
  * Project - Access
  */
 .access {

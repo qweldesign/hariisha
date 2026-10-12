@@ -405,6 +405,15 @@ render_header([
                   </div>
                 </li>
               </ul>
+              <div class="bannerArea">
+                <h3 class="bannerArea__sub">関連する取り組み</h3>
+                <div class="bannerArea__content">
+                  <a class="bannerArea__item" href="https://kunimi.life" target="_blank">
+                    <img src="./assets/banners/kunimi-life.jpg" alt="国見 海・人・暮らし相談室 (kunimi.life) - バナー">
+                  </a>
+                  <p class="bannerArea__description">盛り上げ隊メンバーの一部も関与する、福井市国見地区での暮らしと移住に関する相談窓口です。空き家を巡るツアーも開催しています。</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

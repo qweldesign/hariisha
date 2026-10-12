@@ -1,0 +1,46 @@
+/**
+ * Project - Banner Area
+ */
+
+.bannerArea {
+  margin-block-start: space("large");
+
+  &__sub {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing--small);
+    font-size: font-size("normal");
+
+    &::before {
+      content: "";
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background-color: theme-color("light");
+    }
+  }
+
+  &__content {
+    @include row(space-around, center);
+  }
+
+  &__item {
+    @include col(3, true, "sm");
+    display: block;
+    padding-inline: 0;
+    border-radius: space("x-small");
+    overflow: hidden;
+    transition: opacity 0.35s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__description {
+    @include col(3, true, "sm");
+    padding-inline: space("medium");
+    color: theme-color("darker");
+    @include small-text();
+  }
+}
