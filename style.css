@@ -998,7 +998,7 @@ button, input, select, textarea {
 }
 @media (min-width: 900px) {
   .slider {
-    height: 24rem;
+    height: 27rem;
   }
 }
 .slider__inner {
@@ -1031,7 +1031,7 @@ button, input, select, textarea {
 @media (min-width: 900px) {
   .slider__item img {
     width: auto;
-    height: 24rem;
+    height: 27rem;
   }
 }
 .slider__caption {
@@ -1093,11 +1093,11 @@ button, input, select, textarea {
   height: 0.5rem;
   margin: 0.5rem;
   border-radius: 50%;
-  background-color: var(--color--primary);
+  background-color: #d8d0ae;
   cursor: pointer;
 }
 .sliderNav__item:not(.is-current) {
-  background-color: var(--color--darker);
+  background-color: #6f7888;
 }
 
 /**
@@ -1374,6 +1374,8 @@ button, input, select, textarea {
 
 /**
  * Project - House View
+ * 「館内の様子」: 縦書きの見出しと導入文の下に, 画面幅いっぱいのスライダーを置く
+ * (Component - Slider をこのサイト向けに調整)
  */
 .houseView__lead {
   margin-block-start: 0;
@@ -1381,48 +1383,38 @@ button, input, select, textarea {
   font-size: var(--font-size--x-large);
   line-height: 1.8;
 }
-
-/**
- * Project - Photo Grid
- * 館内写真の一覧 (クリックで Modal 表示)
- */
-.photoGrid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--spacing--medium) var(--spacing--small);
-  margin-block: var(--spacing--large);
+.houseView__slider {
+  margin-block-start: var(--spacing--large);
 }
-@media (min-width: 900px) {
-  .photoGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--spacing--large) var(--spacing--medium);
-  }
+.houseView .slider {
+  margin-block-start: 0;
 }
-.photoGrid__item {
+.houseView .slider__item:not(.is-current) {
+  opacity: 1;
+}
+.houseView .slider__item figure {
   margin: 0;
+  background-color: var(--color--primary);
 }
-.photoGrid__link {
+.houseView .slider__item img {
   display: block;
-  overflow: hidden;
+  transition: opacity 0.15s linear;
 }
-.photoGrid__link img {
-  aspect-ratio: 4/5;
-  -o-object-fit: cover;
-     object-fit: cover;
-  transition: transform 0.5s ease;
+.houseView .slider__item:not(.is-current) img {
+  opacity: 0.5;
 }
-.photoGrid__link:hover img, .photoGrid__link:focus-visible img {
-  transform: scale(1.05);
-}
-.photoGrid__item.is-round .photoGrid__link {
-  border-radius: 50%;
-}
-.photoGrid__item.is-round .photoGrid__link img {
-  aspect-ratio: 1;
-}
-.photoGrid__caption {
-  margin-block-start: var(--spacing--small);
+.houseView .slider__caption {
+  padding: var(--spacing--large) var(--spacing--small) var(--spacing--x-small);
+  font-size: var(--font-size--normal);
   text-align: left;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.houseView .slider__item.is-current .slider__caption {
+  opacity: 1;
+}
+.houseView .sliderNav {
+  margin-block-end: 0;
 }
 
 /**
