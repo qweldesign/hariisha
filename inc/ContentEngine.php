@@ -15,7 +15,7 @@ require_once __DIR__ . '/ContentNavigation.php';
 require_once __DIR__ . '/Parsedown.php';
 
 class ContentEngine {
-  protected int $count;
+  protected ?int $count;
   protected int $page;
   protected array $posts = [];
   protected ?array $article = null;
@@ -24,12 +24,13 @@ class ContentEngine {
   /**
    * オプション:
    * dir: Markdown を置くディレクトリ (規定で content/)
-   * count: 一覧の1ページあたりの件数 (規定で 10)
+   * count: 一覧の1ページあたりの件数 (規定で 10. null を指定すると全件を1ページに出す)
    * navigation: パンくずの表記 (ContentNavigation のオプション)
    */
   public function __construct(array $options = []) {
     $slug = $_GET['slug'] ?? null;
-    $this->count = max(1, (int)($_GET['count'] ?? $options['count'] ?? 10));
+    $count = array_key_exists('count', $options) ? $options['count'] : 10;
+    $this->count = $count === null ? null : max(1, (int)$count);
     $this->page  = max(1, (int)($_GET['page'] ?? 1));
     $this->navigation = $options['navigation'] ?? [];
 
@@ -39,9 +40,10 @@ class ContentEngine {
     // 全記事取得
     $this->posts = $loader->load();
 
-    // 個別記事取得
+    // 個別記事取得 (読み込み済みの記事から探す)
     if ($this->is_single()) {
-      $this->article = $loader->find((string)$slug);
+      $index = array_search((string)$slug, array_column($this->posts, 'slug'), true);
+      $this->article = $index === false ? null : $this->posts[$index];
     }
   }
 
@@ -64,6 +66,7 @@ class ContentEngine {
   public function get_posts(?int $page = null, ?int $count = null): array {
     $page  = $page  ?? $this->page;
     $count = $count ?? $this->count;
+    if ($count === null) return $page === 1 ? $this->posts : [];
     return array_slice($this->posts, $count * ($page - 1), $count);
   }
 
@@ -127,7 +130,7 @@ class ContentEngine {
   // ページネーション生成
   public function pagination(): string {
     $currentPage = $this->page;
-    $totalPages  = (int)ceil(count($this->posts) / $this->count);
+    $totalPages  = $this->count === null ? 1 : (int)ceil(count($this->posts) / $this->count);
 
     $nav = new ContentNavigation($this->navigation);
 

@@ -1,14 +1,23 @@
 <?php
 /**
  * 全ページ (トップ, 投稿, 固定ページ, お問い合わせの確認・完了画面) 共通の設定と部品
- * ヘッダー・フッターを出力する
+ * ヘッダー・フッターの出力と, URL・日付の表記をまとめている
  */
+require_once dirname(__DIR__) . '/ContentEngine.php';
+
+// 日付の判定・表示は日本時間で行う (サーバーの設定が UTC でもずれないように)
+date_default_timezone_set('Asia/Tokyo');
 
 // サイト共通の設定
 const SITE_NAME = '海辺の古民家はりいしゃ';
 const SITE_URL  = 'https://hariisha.jp';
 // サイトのルートのパス (ドメイン直下に置く前提. 例えば /hariisha/ に置く場合はここと .htaccess を書き換える)
 const SITE_ROOT = '/';
+// 運営者 (フッターの著作権表示) と, 著作権表示の開始年
+const SITE_OWNER = '福井市越前海岸盛り上げ隊';
+const SITE_START_YEAR = 2020;
+// OGP 画像の既定値 (記事にアイキャッチがない場合など)
+const SITE_OGP_IMAGE = 'assets/ogp.jpg';
 const SITE_DESCRIPTION = '福井市越前海岸の旧街道に佇む古民家ゲストハウス「はりいしゃ」。海まで徒歩5分。版画家のコレクションを展示するギャラリーと、アーティスト・イン・レジデンスを併設しています。';
 
 // グローバルナビ (トップページのセクションへのリンク)
@@ -38,6 +47,25 @@ function absolute_url(string $path): string {
   return preg_match('#^https?://#', $path) ? $path : SITE_URL . path($path);
 }
 
+// 記事の URL (例: /info/website-open/). $type は投稿タイプ (info, report, page)
+function post_url(string $type, array $post): string {
+  return path($type . '/' . rawurlencode($post['slug'] ?? '') . '/');
+}
+
+// 記事の日付の time 要素 (年月のみの日付にも対応する. 日付がなければ空文字)
+function date_tag(?string $date, string $class = ''): string {
+  if (!$date) return '';
+  $class_attr = $class !== '' ? ' class="' . e($class) . '"' : '';
+  return '<time' . $class_attr . ' datetime="' . e(ContentEngine::format_date($date, true)) . '">'
+    . e(ContentEngine::format_date($date)) . '</time>';
+}
+
+// 著作権表示の年 (例: 2020 - 2026. 開始年と同じ年は範囲表記にしない)
+function copyright_years(): string {
+  $current = (int)date('Y');
+  return SITE_START_YEAR < $current ? SITE_START_YEAR . ' - ' . $current : (string)$current;
+}
+
 /**
  * <head> ~ ヘッダーまで出力
  * $page: title, description, path (サイトのルートからのパス), image, type, noindex
@@ -50,7 +78,7 @@ function render_header(array $page): void {
   $is_top = !empty($page['is_top']);
   $description = ($page['description'] ?? '') ?: SITE_DESCRIPTION;
   $url = absolute_url($page['path'] ?? '/');
-  $image = absolute_url($page['image'] ?? '/assets/ogp.jpg');
+  $image = absolute_url(($page['image'] ?? '') ?: SITE_OGP_IMAGE);
   ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -113,7 +141,7 @@ function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
       <p>海辺の古民家 はりいしゃ</p>
-      <small class="footer__copyright"></small>
+      <small class="footer__copyright">&copy; <?= e(copyright_years()) ?> <?= e(SITE_OWNER) ?></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>
   </body>

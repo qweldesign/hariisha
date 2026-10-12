@@ -4,7 +4,6 @@
  * お知らせ (content/info/) の最新記事を差し込むため PHP にしている
  * ヘッダー・フッターはサブページと共通 (inc/partials/site.php)
  */
-require_once __DIR__ . '/inc/ContentEngine.php';
 require_once __DIR__ . '/inc/partials/site.php';
 
 // お問い合わせの件名 (キー => 表示名. 表示名がそのまま確認画面とメールの件名欄になる)
@@ -33,7 +32,7 @@ render_header([
   'description'  => SITE_DESCRIPTION,
   'path'         => '',
   'type'         => 'website',
-  'image'        => 'assets/ogp.jpg',
+  'image'        => SITE_OGP_IMAGE,
   'image_width'  => 1200,
   'image_height' => 630,
   'image_alt'    => '紺地に「海辺の古民家 はりいしゃ」の文字と、三角屋根のギャラリーの外観と越前海岸の夕日の写真を丸く切り抜いて配したイメージ',
@@ -86,8 +85,8 @@ render_header([
           <ul class="topInfo__list">
 <?php foreach ($latest_info as $post) { ?>
             <li class="topInfo__item">
-              <a class="topInfo__link" href="<?= e(path('info/' . rawurlencode($post['slug']) . '/')) ?>">
-                <time class="topInfo__date" datetime="<?= e(ContentEngine::format_date($post['date'] ?? '', true)) ?>"><?= e(ContentEngine::format_date($post['date'] ?? '')) ?></time>
+              <a class="topInfo__link" href="<?= e(post_url('info', $post)) ?>">
+                <?= date_tag($post['date'] ?? '', 'topInfo__date') ?>
                 <span class="topInfo__title"><?= e($post['title']) ?></span>
               </a>
             </li>
@@ -343,8 +342,8 @@ render_header([
               <ul class="archiveList">
 <?php foreach ($latest_report as $post) { ?>
                 <li class="archiveList__item">
-                  <a class="archiveList__link" href="<?= e(path('report/' . rawurlencode($post['slug']) . '/')) ?>">
-                    <time class="archiveList__date" datetime="<?= e(ContentEngine::format_date($post['date'] ?? '', true)) ?>"><?= e(ContentEngine::format_date($post['date'] ?? '')) ?></time>
+                  <a class="archiveList__link" href="<?= e(post_url('report', $post)) ?>">
+                    <?= date_tag($post['date'] ?? '', 'archiveList__date') ?>
                     <span class="archiveList__title"><?= e($post['title'] ?? '') ?></span>
                   </a>
                 </li>

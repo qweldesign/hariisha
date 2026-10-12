@@ -13,6 +13,11 @@
  * TODO: 更新には認証を付ける (今は同じサイトからの送信かどうかしか確かめていない)
  */
 
+require_once __DIR__ . '/lib/request.php';
+
+// 過ぎた日の判定を日本時間で行う
+date_default_timezone_set('Asia/Tokyo');
+
 const CALENDAR_DB = __DIR__ . '/data/calendar.sqlite';
 const CALENDAR_STATES = [0, 1];
 
@@ -29,18 +34,8 @@ function db(): PDO {
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   // 1日につき1件だけ持つ (更新は上書き)
-  $pdo->exec('CREATE TABLE IF NOT EXISTS t_status (date TEXT PRIMARY KEY, state INTEGER NOT NULL)');
+  $pdo->exec('CREATE TABLE IF NOT EXISTS t_status (date TEXT PRIMARY KEY, state INTEGER NOT NULL CHECK (state IN (0, 1)))');
   return $pdo;
-}
-
-// 同じサイトのページから送られたか (Origin / Referer のホストがこのサイトと同じか)
-function is_same_site(): bool {
-  $host = $_SERVER['HTTP_HOST'] ?? '';
-  $source = $_SERVER['HTTP_ORIGIN'] ?? ($_SERVER['HTTP_REFERER'] ?? '');
-  $parts = parse_url($source);
-  if ($host === '' || empty($parts['host'])) return false;
-  $source_host = $parts['host'] . (isset($parts['port']) ? ':' . $parts['port'] : '');
-  return strcasecmp($source_host, $host) === 0;
 }
 
 $method = $_GET['method'] ?? '';
@@ -51,8 +46,9 @@ try {
     $month = (int) ($_GET['month'] ?? date('n'));
     if ($month < 1 || $month > 12 || $year < 2000 || $year > 2100) respond(400, ['error' => 'invalid month']);
 
-    $stmt = db()->prepare('SELECT date, state FROM t_status WHERE substr(date, 1, 7) = :ym ORDER BY date');
-    $stmt->execute([':ym' => sprintf('%04d-%02d', $year, $month)]);
+    // 日付は YYYY-MM-DD の文字列なので, 月の初日〜末日で範囲検索できる (主キーの索引が効く)
+    $stmt = db()->prepare('SELECT date, state FROM t_status WHERE date BETWEEN :first AND :last ORDER BY date');
+    $stmt->execute([':first' => sprintf('%04d-%02d-01', $year, $month), ':last' => sprintf('%04d-%02d-31', $year, $month)]);
     $rows = array_map(fn($row) => ['date' => $row['date'], 'state' => (int) $row['state']], $stmt->fetchAll());
     respond(200, $rows);
   }

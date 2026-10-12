@@ -24,15 +24,6 @@ class ContentLoader {
     return $articles;
   }
 
-  // slug が一致する記事を取得
-  public function find(string $slug): ?array {
-    foreach (glob("$this->dir/*.md") as $file) {
-      $parsed = $this->parse($file);
-      if ($parsed && !$this->isDraft($parsed) && ($parsed['slug'] ?? null) === $slug) return $parsed;
-    }
-    return null;
-  }
-
   protected function isDraft(array $article): bool {
     return ($article['draft'] ?? 'false') === 'true';
   }

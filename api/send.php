@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/lib/env.php';
+require __DIR__ . '/lib/request.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -15,7 +16,6 @@ $env_path = __DIR__ . '/.env';
 try {
   $env = load_env($env_path);
   $site_title      = env_required($env, 'SITE_TITLE');
-  $site_url        = env_required($env, 'SITE_URL');
   $admin_email     = env_required($env, 'ADMIN_EMAIL');
   $smtp = [
     'host'   => env_required($env, 'SMTP_HOST'),
@@ -34,20 +34,25 @@ try {
   exit;
 }
 
-// Originチェック & Refererチェック (CSRF対策)
-$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-$referer = $_SERVER['HTTP_REFERER'] ?? '';
-// Originが不正 OR Refererが不正 → 弾く
-if (
-  ($origin && strpos($origin, $site_url) !== 0) ||
-  ($referer && strpos($referer, $site_url) !== 0)
-) {
+// POST 以外は受け付けない
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+  http_response_code(405);
+  exit;
+}
+
+// Origin / Referer チェック (CSRF対策)
+// どちらも送られてこない場合も弾く (同じサイトのページからの fetch なら Origin が付く)
+if (!is_same_site()) {
   http_response_code(403);
   exit;
 }
 
-// データ取得
+// データ取得 (JSON として読めなければ弾く)
 $data = json_decode(file_get_contents('php://input'), true);
+if (!is_array($data)) {
+  http_response_code(400);
+  exit;
+}
 
 // バリデーション
 foreach($require_fields as $key) {
@@ -57,8 +62,8 @@ foreach($require_fields as $key) {
   }
 }
 
-// Emailの厳密バリデーション
-if (!filter_var($data[$Email], FILTER_VALIDATE_EMAIL)) {
+// Emailの厳密バリデーション (項目がない・文字列でない場合も弾く)
+if (!is_string($data[$Email] ?? null) || !filter_var($data[$Email], FILTER_VALIDATE_EMAIL)) {
   http_response_code(400);
   exit;
 }
@@ -85,7 +90,8 @@ try {
   $mail1->send();
 
 } catch (Exception $e) {
-  // 管理者宛が失敗したらエラー
+  // 管理者宛が失敗したらエラー (原因はサーバーのログに残す)
+  error_log('お問い合わせメールの送信失敗: ' . $e->getMessage());
   http_response_code(500);
   exit;
 }
@@ -112,12 +118,12 @@ function postToMail(array $post) {
   $body = '';
 
   foreach ($post as $key => $value) {
-    if ($key === 'csrf_token') continue;
-
     // 配列対応
     if (is_array($value)) {
-      $value = implode(', ', $value);
+      $value = implode(', ', array_filter($value, 'is_scalar'));
     }
+    // 入れ子のデータなど, 文字にできない値は含めない
+    if (!is_scalar($value)) continue;
 
     $body .= "{$key}: {$value}\n";
   }

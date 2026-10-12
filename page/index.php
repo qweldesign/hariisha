@@ -5,7 +5,6 @@
  * URL は page/.htaccess のリライトで index.php?slug=xxx に振り分ける
  * 一覧は件数が少ない想定なので, ページ送りをせず全件を表示する
  */
-require_once dirname(__DIR__) . '/inc/ContentEngine.php';
 require_once dirname(__DIR__) . '/inc/partials/site.php';
 require_once dirname(__DIR__) . '/inc/templates/postList.php';
 
@@ -13,7 +12,7 @@ const PAGE_LIST_LABEL = 'ページ一覧';
 
 $cms = new ContentEngine([
   'dir'   => dirname(__DIR__) . '/content/page/',
-  'count' => 100,
+  'count' => null, // 全件を1ページに出す
   'navigation' => [
     'topLabel'    => 'トップ',
     'topPath'     => path(),
@@ -21,9 +20,6 @@ $cms = new ContentEngine([
     'subdirPath'  => path('page/')
   ]
 ]);
-
-// ページの URL
-$page_url = fn(array $post): string => path('page/' . rawurlencode($post['slug']) . '/');
 
 if (!$cms->is_single()) {
   // 一覧
@@ -41,7 +37,7 @@ if (!$cms->is_single()) {
     'title'       => $cms->get_title(),
     'description' => $cms->get_meta('summary'),
     'path'        => 'page/' . rawurlencode($cms->get_meta('slug')) . '/',
-    'image'       => $cms->get_meta('img', '/assets/ogp.jpg'),
+    'image'       => $cms->get_meta('img'),
   ];
 }
 
@@ -82,7 +78,7 @@ render_header($page);
       </header>
       <div class="subPage">
         <div class="subPage__container is-wide">
-<?php render_post_list($cms->get_posts(), $page_url, false); ?>
+<?php render_post_list($cms->get_posts(), 'page', false); ?>
         </div>
       </div>
 <?php } else { ?>
