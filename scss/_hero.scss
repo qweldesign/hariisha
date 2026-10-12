@@ -102,10 +102,36 @@
     writing-mode: vertical-rl;
   }
 
-  &__image {
+  // 丸く切り抜いたフェーダーギャラリー
+  // Component - Fader は画面全体の背景として作られているため, ここで丸い枠に収める
+  &__fader {
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: auto;
+    flex: 0 0 auto;
     width: min(30rem, 72vw);
+    height: auto;
     aspect-ratio: 1;
-    border-radius: 50%;
-    object-fit: cover;
+    // ナビ (.faderNav) を円の下に置く分の余白
+    margin-block-end: 2.5rem;
+
+    .fader__inner {
+      overflow: hidden;
+      border-radius: 50%;
+      // 切り替え時に紺地が透けて見えないよう, 下地を敷く
+      background-color: theme-color("primary");
+    }
+
+    .fader__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .faderNav {
+      bottom: -2.5rem;
+      margin: 0 auto;
+    }
   }
 }

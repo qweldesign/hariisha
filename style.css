@@ -892,11 +892,11 @@ button, input, select, textarea {
   height: 0.5rem;
   margin: 0.5rem;
   border-radius: 50%;
-  background-color: var(--color--primary);
+  background-color: #d8d0ae;
   cursor: pointer;
 }
 .faderNav__item:not(.is-current) {
-  background-color: var(--color--lighter);
+  background-color: #6f7888;
 }
 
 /**
@@ -1227,12 +1227,31 @@ button, input, select, textarea {
   letter-spacing: 0.24em;
   writing-mode: vertical-rl;
 }
-.hero__image {
+.hero__fader {
+  position: relative;
+  top: auto;
+  left: auto;
+  z-index: auto;
+  flex: 0 0 auto;
   width: min(30rem, 72vw);
+  height: auto;
   aspect-ratio: 1;
+  margin-block-end: 2.5rem;
+}
+.hero__fader .fader__inner {
+  overflow: hidden;
   border-radius: 50%;
+  background-color: var(--color--primary);
+}
+.hero__fader .fader__item img {
+  width: 100%;
+  height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+}
+.hero__fader .faderNav {
+  bottom: -2.5rem;
+  margin: 0 auto;
 }
 
 /**

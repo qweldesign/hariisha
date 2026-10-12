@@ -37,6 +37,10 @@ $heading-typography: (
   letter-spacing:    0.08em
 );
 
+// フェーダー (_fader.scss): 紺地のファーストビューで使うため, ナビの色を明るくする
+$gallery-nav-color:        #6f7888; // 紺地になじむグレー (水玉と同じ色)
+$gallery-nav-active-color: #d8d0ae; // 砂色
+
 // スライダー (_slider.scss): 紺地の「館内のようす」で使うため, ナビの色を明るくする
 $slider-height:            27rem;
 $slider-nav-color:         #6f7888; // 紺地になじむグレー (水玉と同じ色)
