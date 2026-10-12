@@ -44,6 +44,15 @@
     opacity: 0.7;
   }
 
+  // 本文の下のボタン (左揃え)
+  &__action {
+    margin-block-start: space("large");
+
+    .button {
+      margin-inline: 0;
+    }
+  }
+
   &__note {
     padding: space() space("medium");
     border-radius: space("x-small");

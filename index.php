@@ -113,6 +113,9 @@ render_header([
                     <br>地域の仲間たちがクラウドファンディングで資金を集め、自らの手で改修してきました。</p>
                   <p>作家が滞在して制作し、地域の人たちが集う、この海辺の文化の拠点に、旅の方にも泊まっていただけるようにしました。
                     <br>一度きりの観光ではなく、何度も訪れたくなる居場所として、越前海岸との縁を結んでいただけたら嬉しいです。</p>
+                  <p class="mediaText__action">
+                    <a class="button is-tertiary is-md" href="<?= path('page/story/') ?>">はりいしゃのはなし</a>
+                  </p>
                 </div>
                 <figure class="mediaText__media">
                   <img src="./assets/photos/main-house.jpg" alt="縁側と庭のある母屋の外観" loading="lazy">
@@ -349,6 +352,7 @@ render_header([
               </ul>
 <?php } ?>
               <p><a href="<?= path('report/') ?>">過去の活動報告をもっと見る</a></p>
+              <p><a class="moreLink" href="<?= path('page/artist-stay/') ?>">滞在制作・展示会をご希望の作家の方へ</a></p>
             </div>
           </div>
         </div>
@@ -459,6 +463,10 @@ render_header([
                   <p class="calendar__note">ご予約は、フォームからお問い合わせください。</p>
                   <p class="calendar__error">空き状況を読み込めませんでした。お手数ですが、フォームからお問い合わせください。</p>
                 </div>
+                <p class="reserve__artist">
+                  <span class="reserve__artistLead">滞在制作・展示会をご希望の作家の方へ</span>
+                  <a class="moreLink" href="<?= path('page/artist-stay/') ?>">利用条件を見る</a>
+                </p>
               </div>
               <!-- 送信は js/contact-form.js (確認画面 confirm.html → api/send.php) -->
               <form class="form" data-contact-form>

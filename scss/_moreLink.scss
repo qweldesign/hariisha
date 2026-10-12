@@ -1,0 +1,27 @@
+/**
+ * Component - More Link
+ * 砂色の短い罫を添えた, 控えめなテキストリンク (「お知らせ一覧」と同じ見た目)
+ * ボタンほど主張させたくない補助的な導線に使う. 文字色は置かれた場所のリンク色を引き継ぐ
+ */
+
+.moreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: space();
+  font-size: font-size("small");
+
+  &::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 1.5rem;
+    height: 2px;
+    background-color: theme-color("secondary");
+    transition: width 0.2s ease;
+  }
+
+  &:hover, &:focus-visible {
+    &::before {
+      width: 2.5rem;
+    }
+  }
+}
