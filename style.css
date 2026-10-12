@@ -2193,14 +2193,14 @@ button, input, select, textarea {
 .reserve__contact > :first-child {
   margin-block-start: 0;
 }
-.reserve__artist {
+.reserve__guide {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing--x-small);
   margin-block-start: var(--spacing--large);
 }
-.reserve__artistLead {
+.reserve__guideLead {
   font-size: var(--font-size--small);
 }
 .reserve__tel {
@@ -2457,7 +2457,7 @@ button, input, select, textarea {
 
 /**
  * Project - Contact Page
- * お問い合わせの確認画面 (confirm.html) と完了画面 (thanks.html)
+ * お問い合わせの確認画面 (confirm.php) と完了画面 (thanks.php)
  */
 .contactPage__container {
   width: min(100%, var(--container-width--lg));

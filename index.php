@@ -473,8 +473,12 @@ render_header([
                   <p class="calendar__note">ご予約は、フォームからお問い合わせください。</p>
                   <p class="calendar__error">空き状況を読み込めませんでした。お手数ですが、フォームからお問い合わせください。</p>
                 </div>
-                <p class="reserve__artist">
-                  <span class="reserve__artistLead">滞在制作・展示会をご希望の作家の方へ</span>
+                <p class="reserve__guide">
+                  <span class="reserve__guideLead">ご宿泊のお客様へ</span>
+                  <a class="moreLink" href="<?= path('page/stay-guide/') ?>">館内のご利用案内を見る</a>
+                </p>
+                <p class="reserve__guide">
+                  <span class="reserve__guideLead">滞在制作・展示会をご希望の作家の方へ</span>
                   <a class="moreLink" href="<?= path('page/artist-stay/') ?>">利用条件を見る</a>
                 </p>
               </div>
