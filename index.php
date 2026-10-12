@@ -215,6 +215,10 @@ render_header([
                         <th scope="row">未就学児（添い寝）</th>
                         <td>無料</td>
                       </tr>
+                      <tr>
+                        <th scope="row">連泊（2泊目以降）</th>
+                        <td>20%引き</td>
+                      </tr>
                     </tbody>
                   </table>
                   <ul class="stayGuide__note">
