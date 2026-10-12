@@ -1137,7 +1137,13 @@ button, input, select, textarea {
   position: relative;
   background-color: var(--color--primary);
   color: var(--color--lightest);
+  font-size: 1rem;
   overflow: hidden;
+}
+@media (min-width: 900px) {
+  .hero {
+    font-size: min(1vw, 12px);
+  }
 }
 .hero__container {
   width: min(100%, var(--container-width--lg));
@@ -1169,22 +1175,29 @@ button, input, select, textarea {
 .hero__lead {
   margin: 0;
   color: var(--color--secondary);
-  font-size: var(--font-size--large);
+  font-size: 1.5em;
+  letter-spacing: 0.04em;
 }
 .hero__title {
   margin: 0;
   font-weight: 500;
-  font-size: 2.25rem;
-  line-height: 1.2;
-  letter-spacing: 0.08em;
+  font-size: 2.25em;
+  line-height: 1.5;
+  letter-spacing: 0.16em;
 }
 @media (min-width: 900px) {
   .hero__title {
-    font-size: 3rem;
+    font-size: 3em;
   }
 }
 .hero__title > span {
   display: block;
+}
+.hero__title > span:nth-child(2) {
+  letter-spacing: 0.32em;
+}
+.hero__title > span > span {
+  font-size: 1.33em;
 }
 .hero__copy {
   margin: var(--spacing--small) 0 0;
@@ -1205,6 +1218,7 @@ button, input, select, textarea {
 }
 .hero__actions .button {
   margin-inline: 0;
+  font-size: var(--font-size--normal);
 }
 .hero__actions .button.is-primary {
   box-shadow: inset 0 0 0 1px var(--color--light);
@@ -1223,8 +1237,8 @@ button, input, select, textarea {
 .hero__caption {
   margin: 0;
   font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
-  font-size: var(--font-size--large);
-  letter-spacing: 0.24em;
+  font-size: 1.5em;
+  letter-spacing: 0.32em;
   writing-mode: vertical-rl;
 }
 .hero__fader {

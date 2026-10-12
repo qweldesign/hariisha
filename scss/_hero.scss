@@ -6,7 +6,12 @@
   position: relative;
   background-color: theme-color("primary");
   color: color-yiq("primary");
+  font-size: 1rem;
   overflow: hidden;
+
+  @media (min-width: breakpoint("md")) {
+    font-size: min(1vw, 12px);
+  }
 
   &__container {
     @include container();
@@ -36,22 +41,31 @@
   &__lead {
     margin: 0;
     color: theme-color("secondary");
-    font-size: font-size("large");
+    font-size: 1.5em;
+    letter-spacing: 0.04em;
   }
 
   &__title {
     margin: 0;
     font-weight: 500;
-    font-size: 2.25rem;
-    line-height: 1.2;
-    letter-spacing: 0.08em;
+    font-size: 2.25em;
+    line-height: 1.5;
+    letter-spacing: 0.16em;
 
     @media (min-width: breakpoint("md")) {
-      font-size: 3rem;
+      font-size: 3em;
     }
 
     & > span {
       display: block;
+
+      &:nth-child(2) {
+        letter-spacing: 0.32em;
+      }
+
+      & > span {
+        font-size: 1.33em;
+      }
     }
   }
 
@@ -74,6 +88,7 @@
 
     .button {
       margin-inline: 0;
+      font-size: font-size("normal");
     }
 
     // 紺地に紺のボタンが沈まないよう, 枠線を付ける
@@ -97,8 +112,8 @@
   &__caption {
     margin: 0;
     font-family: $font-family-serif;
-    font-size: font-size("large");
-    letter-spacing: 0.24em;
+    font-size: 1.5em;
+    letter-spacing: 0.32em;
     writing-mode: vertical-rl;
   }
 
