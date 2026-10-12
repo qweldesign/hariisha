@@ -6,3 +6,6 @@ vendor/
 
 # 環境設定
 .env
+
+# データベース
+api/data/*.sqlite

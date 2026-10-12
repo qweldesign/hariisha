@@ -13,6 +13,9 @@ import Dots from './js/dots.js';
 // Contact Form
 import ContactForm from './js/contact-form.js';
 
+// Business Calendar (空き状況)
+import BusinessCalendar from './js/business-calendar.js';
+
 /**
  * Auto Copyright
  * © 2026 QWEL.DESIGN (https://qwel.design)
@@ -39,4 +42,5 @@ new Fader();
 new Slider();
 Dots.init();
 new ContactForm({ formUrl: './#reserve' });
+new BusinessCalendar();
 new AutoCopyright(2020, '福井市越前海岸盛り上げ隊');
