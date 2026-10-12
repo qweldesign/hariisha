@@ -1,0 +1,45 @@
+/**
+ * Project - Contact Page
+ * お問い合わせの確認画面 (confirm.html) と完了画面 (thanks.html)
+ */
+
+.contactPage {
+  &__container {
+    @include container();
+    max-width: 48rem;
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+    padding-block: space("x-large");
+  }
+
+  &__table {
+    @include table();
+    margin-block: 0 space("large");
+
+    th {
+      width: 12rem;
+    }
+
+    // 改行を含む入力 (ご質問・ご要望) をそのまま表示する
+    td {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+  }
+
+  &__note {
+    @include small-text();
+    color: theme-color("darker");
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: space();
+    margin-block-start: space("large");
+
+    .button {
+      margin-inline: 0;
+    }
+  }
+}

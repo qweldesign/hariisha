@@ -456,8 +456,8 @@
               <div class="reserve__contact">
                 <p>ゲストハウスとしての空き状況の確認、ギャラリー来館・版画体験のご予約、滞在制作・展示会のご希望、当サイトへの質問・意見など、フォームからお気軽にお問い合わせください。</p>
               </div>
-              <!-- TODO: 送信先 (action) の決定 -->
-              <form class="form">
+              <!-- 送信は js/contact-form.js (確認画面 confirm.html → api/send.php) -->
+              <form class="form" data-contact-form>
                 <table>
                   <tr>
                     <th><label for="guestName">お名前<span class="is-required">*必須</span></label></th>
@@ -465,11 +465,32 @@
                   </tr>
                   <tr>
                     <th><label for="guestEmail">メールアドレス<span class="is-required">*必須</span></label></th>
-                    <td><input id="guestEmail" type="email" name="Email" autocomplete="email" required></td>
+                    <td><input id="guestEmail" type="email" name="メールアドレス" autocomplete="email" required></td>
                   </tr>
                   <tr>
-                    <th><label for="stayDate">ご希望の宿泊日</label></th>
-                    <td><input id="stayDate" type="date" name="宿泊希望日"></td>
+                    <th><label for="subject">件名<span class="is-required">*必須</span></label></th>
+                    <td>
+                      <select id="subject" name="件名" required>
+                        <option value="stay">ゲストハウスの空き状況・ご予約</option>
+                        <option value="gallery">ギャラリー来館のご予約</option>
+                        <option value="printmaking">版画体験のご予約</option>
+                        <option value="artist-stay">滞在制作・展示会のご希望</option>
+                        <option value="other">ご質問・ご意見・その他</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th><label for="scheduleStart">ご希望の日程</label></th>
+                    <td>
+                      <!-- 開始日を選ぶと, 終了日はそれより前を選べなくなる (js/contact-form.js) -->
+                      <div class="form__range" data-date-range>
+                        <input id="scheduleStart" type="date" name="ご希望の日程 (開始)" aria-label="ご希望の日程 (開始)" data-date-start>
+                        <span class="form__rangeEnd">
+                          <span class="form__rangeSeparator" aria-hidden="true">〜</span>
+                          <input id="scheduleEnd" type="date" name="ご希望の日程 (終了)" aria-label="ご希望の日程 (終了)" data-date-end>
+                        </span>
+                      </div>
+                    </td>
                   </tr>
                   <tr>
                     <th><label for="guestCount">人数</label></th>

@@ -10,6 +10,9 @@ import Slider from './js/slider.js';
 // Dots
 import Dots from './js/dots.js';
 
+// Contact Form
+import ContactForm from './js/contact-form.js';
+
 /**
  * Auto Copyright
  * © 2026 QWEL.DESIGN (https://qwel.design)
@@ -35,4 +38,5 @@ new ActionCore.Preset();
 new Fader();
 new Slider();
 Dots.init();
+new ContactForm({ formUrl: './#reserve' });
 new AutoCopyright(2020, '福井市越前海岸盛り上げ隊');

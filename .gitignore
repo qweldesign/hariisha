@@ -1,2 +1,8 @@
 # VS code
 .vscode/
+
+# Composer
+vendor/
+
+# 環境設定
+.env
