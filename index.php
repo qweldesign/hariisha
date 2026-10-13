@@ -437,6 +437,10 @@ render_header([
               <div>
                 <h3 class="access__sub">海辺の古民家 はりいしゃ</h3>
                 <p class="access__address">〒910-3553 福井県福井市蒲生町1-42</p>
+                <ul class="access__note">
+                  <li>三角屋根の小さなギャラリーが目印です.</li>
+                  <li>公共交通機関では滞在中の移動が不便なため, <br>お車でのお越しをおすすめします.</li>
+                </ul>
                 <dl class="access__routes">
                   <dt>バス</dt>
                   <dd>福井駅から越前海岸ブルーラインで1時間20分</dd>
@@ -445,6 +449,8 @@ render_header([
                   <dt>駐車場</dt>
                   <dd>敷地内に2台. 海水浴場横のトイレ前にも駐車可能.</dd>
                 </dl>
+                <p><a class="moreLink" href="https://maps.google.com/?cid=1839136202818608295" target="_blank">Googleのマップ・クチコミを見る</a></p>
+                <p><a class="moreLink" href="https://search.google.com/local/writereview?placeid=ChIJDVdar-XJ-F8Rp1yQ3qHshRk" target="_blank">Googleのクチコミを書く</a></p>
               </div>
             </div>
           </div>
