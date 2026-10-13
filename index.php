@@ -300,6 +300,7 @@ render_header([
                   </article>
                 </li>
               </ul>
+              <a class="button is-primary is-md my-large" href="<?= path('page/nearby/') ?>">周辺のご案内</a>
             </div>
           </div>
         </div>
