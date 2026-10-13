@@ -47,7 +47,8 @@ const SITE_FOOTER_LINKS = [
   'page/nearby/'      => '周辺のご案内',
   'page/artist-stay/' => '滞在制作・ギャラリー利用について',
   'info/'             => 'お知らせ',
-  'report/'           => '活動報告'
+  'report/'           => '活動報告',
+  'page/privacy/'     => 'プライバシーポリシー'
 ];
 
 // HTMLエスケープ

@@ -538,6 +538,7 @@ render_header([
                   </tr>
                 </table>
                 <input class="button is-primary is-lg" type="submit" value="送信内容を確認">
+                <p class="form__note">ご入力内容は、<a href="<?= path('page/privacy/') ?>">プライバシーポリシー</a>に沿って取り扱います。</p>
               </form>
             </div>
           </div>
