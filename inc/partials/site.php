@@ -132,6 +132,15 @@ function render_header(array $page): void {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Klee+One:wght@600&display=swap">
     <link rel="stylesheet" href="<?= path('style.css') ?>">
     <link rel="icon" href="<?= path('favicon.ico') ?>">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-05PSB10CL7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-05PSB10CL7');
+    </script>
   </head>
   <body>
     <div data-scroll-sentinel></div>
