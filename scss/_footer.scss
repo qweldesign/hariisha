@@ -1,10 +1,101 @@
 /**
  * Layout - Footer
+ * 所在地・お問い合わせ・SNS と, サイト内の主なページへのリンク
  */
 
 .footer {
-  padding: space("x-large") space("medium");
+  padding: space("x-large") space("small") space("large");
   @include background($theme-accent);
   border-block-start: 1px solid theme-color("dark");
   text-align: center;
+
+  &__container {
+    @include container();
+    display: grid;
+    gap: space("large");
+    margin: 0 auto space("large");
+
+    // 広い画面では, 左に所在地と SNS, 右にページのリンクを並べる
+    @media (min-width: breakpoint("md")) {
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      text-align: left;
+    }
+  }
+
+  &__name {
+    margin: 0 0 space("small");
+    font-family: $font-family-serif;
+    font-size: font-size("large");
+    letter-spacing: 0.1em;
+  }
+
+  &__address {
+    margin: 0;
+    font-style: normal;
+    font-size: font-size("small");
+  }
+
+  &__contact {
+    margin: space("small") 0 0;
+    font-size: font-size("small");
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  &__sns {
+    @include list-unstyled();
+    @include row(center);
+    gap: space("small") space("medium");
+    margin: space("small") 0 0;
+    font-size: font-size("small");
+
+    @media (min-width: breakpoint("md")) {
+      justify-content: flex-start;
+    }
+
+    li {
+      margin: 0;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: space("x-small");
+    }
+
+    .icon {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  &__nav ul {
+    @include list-unstyled();
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: space("x-small") space("medium");
+    margin: 0;
+    font-size: font-size("small");
+
+    // 広い画面では2列に並べる
+    @media (min-width: breakpoint("md")) {
+      display: grid;
+      grid-template-columns: repeat(2, max-content);
+      justify-content: start;
+    }
+
+    li {
+      margin: 0;
+    }
+  }
+
+  &__copyright {
+    display: block;
+    color: theme-color("light");
+    font-size: font-size("x-small");
+  }
 }

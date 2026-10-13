@@ -33,6 +33,23 @@ const SITE_NAV = [
   'reserve'   => 'ご予約'
 ];
 
+// 所在地と SNS (フッターに表示する)
+const SITE_ADDRESS = '〒910-3553 福井県福井市蒲生町1-42';
+const SITE_SNS = [
+  'instagram' => ['label' => 'Instagram', 'url' => 'https://www.instagram.com/art.hariisha/'],
+  'line'      => ['label' => 'LINE公式アカウント', 'url' => 'https://lin.ee/TfaDFmh'],
+];
+
+// フッターのリンク (サイトのルートからのパス => 表示名)
+const SITE_FOOTER_LINKS = [
+  'page/story/'       => 'はりいしゃのはなし',
+  'page/stay-guide/'  => '館内のご利用案内',
+  'page/nearby/'      => '周辺のご案内',
+  'page/artist-stay/' => '滞在制作・ギャラリー利用について',
+  'info/'             => 'お知らせ',
+  'report/'           => '活動報告'
+];
+
 // HTMLエスケープ
 function e(?string $value): string {
   return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
@@ -142,7 +159,30 @@ function render_header(array $page): void {
 function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
-      <p>海辺の古民家 はりいしゃ</p>
+      <div class="footer__container">
+        <div class="footer__info">
+          <p class="footer__name">海辺の古民家 はりいしゃ</p>
+          <address class="footer__address"><?= e(SITE_ADDRESS) ?></address>
+          <p class="footer__contact"><a href="<?= path() ?>#reserve">ご予約・お問い合わせ</a></p>
+          <ul class="footer__sns">
+<?php foreach (SITE_SNS as $key => $sns) { ?>
+            <li>
+              <a href="<?= e($sns['url']) ?>" target="_blank" rel="noopener">
+                <svg class="icon" aria-hidden="true"><use href="<?= path('assets/icons.svg') ?>#si-<?= e($key) ?>"></use></svg>
+                <span><?= e($sns['label']) ?></span>
+              </a>
+            </li>
+<?php } ?>
+          </ul>
+        </div>
+        <nav class="footer__nav" aria-label="サイト内のページ">
+          <ul>
+<?php foreach (SITE_FOOTER_LINKS as $link_path => $label) { ?>
+            <li><a href="<?= path($link_path) ?>"><?= e($label) ?></a></li>
+<?php } ?>
+          </ul>
+        </nav>
+      </div>
       <small class="footer__copyright">&copy; <?= e(copyright_years()) ?> <?= e(SITE_OWNER) ?></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>
