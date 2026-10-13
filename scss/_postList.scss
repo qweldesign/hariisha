@@ -9,7 +9,7 @@
     &__image {
       img {
         aspect-ratio: $img-aspect-ratio;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
 
@@ -66,9 +66,9 @@
 
       @media (min-width: breakpoint("md")) {
         display: grid;
-        grid-template-columns: 13rem minmax(0, 1fr);
+        grid-template-columns: 15rem minmax(0, 1fr);
         gap: space("large");
-        align-items: start;
+        align-items: center;
         padding-block: space("medium");
       }
 
@@ -130,7 +130,7 @@
         }
 
         .postItem__image img {
-          transform: scale(1.05);
+          transform: scale(1.2);
         }
       }
     }

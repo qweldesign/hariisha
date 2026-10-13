@@ -1776,8 +1776,8 @@ button, input, select, textarea {
 }
 .postList .postItem__image img {
   aspect-ratio: 1.6;
-  -o-object-fit: cover;
-     object-fit: cover;
+  -o-object-fit: contain;
+     object-fit: contain;
 }
 .postList .postItem__info {
   margin-block-start: var(--spacing--small);
@@ -1832,9 +1832,9 @@ button, input, select, textarea {
 @media (min-width: 900px) {
   .postList.is-list .postItem {
     display: grid;
-    grid-template-columns: 13rem minmax(0, 1fr);
+    grid-template-columns: 15rem minmax(0, 1fr);
     gap: var(--spacing--large);
-    align-items: start;
+    align-items: center;
     padding-block: var(--spacing--medium);
   }
 }
@@ -1885,7 +1885,7 @@ button, input, select, textarea {
   color: rgb(81.814159292, 100.8407079646, 133.185840708);
 }
 .postList.is-list .postItem:hover .postItem__image img, .postList.is-list .postItem:focus-within .postItem__image img {
-  transform: scale(1.05);
+  transform: scale(1.2);
 }
 
 /**
