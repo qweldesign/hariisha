@@ -1,7 +1,6 @@
 ---
 title: "館内のご利用案内"
 slug: "stay-guide"
-img: "/assets/photos/kitchen.jpg"
 date: "2026-10-12"
 summary: "チェックイン・チェックアウトの流れや、寝具・キッチン・ゴミの分別など、はりいしゃに滞在中のご利用案内です。ご到着前にご一読ください。"
 ---

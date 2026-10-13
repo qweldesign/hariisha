@@ -18,6 +18,8 @@ const SITE_OWNER = '福井市越前海岸盛り上げ隊';
 const SITE_START_YEAR = 2020;
 // OGP 画像の既定値 (記事にアイキャッチがない場合など)
 const SITE_OGP_IMAGE = 'assets/ogp.jpg';
+// 投稿一覧のサムネイルの既定値 (記事にアイキャッチがない場合)
+const SITE_THUMBNAIL_IMAGE = 'assets/photos/tatami-room.jpg';
 const SITE_DESCRIPTION = '福井市越前海岸の旧街道に佇む古民家ゲストハウス「はりいしゃ」。海まで徒歩5分。版画家のコレクションを展示するギャラリーと、アーティスト・イン・レジデンスを併設しています。';
 
 // グローバルナビ (トップページのセクションへのリンク)
