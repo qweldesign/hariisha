@@ -3957,3 +3957,98 @@ button, input, select, textarea {
     display: none !important;
   }
 }
+
+/**
+ * Print
+ * 印刷用の調整 (宿泊者向けのご利用案内, 作家向けの利用条件などの固定ページを想定)
+ * サイトのヘッダー・フッターを消し, ページの見出しと本文だけを印刷する
+ * 見出しや箇条書きの装飾は画面に近いまま残し, 文字サイズ・行間・余白を小さくしてページ数を抑える
+ */
+@media print {
+  @page {
+    size: A4;
+    margin: 24mm;
+  }
+  html {
+    font-size: 10pt;
+  }
+  body {
+    background-color: transparent;
+    line-height: 1.5;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .header,
+  .footer,
+  .drawer,
+  .drawerMenu,
+  .drawerMenuOverlay,
+  .backToTop,
+  .breadcrumb,
+  .pageHeader__label,
+  .pageHeader__lead,
+  .pageHeader__meta,
+  .subPage__image,
+  .subPage__actions,
+  .postNav,
+  [data-scroll-sentinel],
+  [data-print] {
+    display: none !important;
+  }
+  [data-readable] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pageHeader {
+    background-color: transparent;
+    color: var(--color--primary);
+  }
+  .pageHeader__container {
+    max-width: none;
+    margin-block-end: 9mm;
+    padding: 0 0 3mm;
+    border-block-end: 2px solid var(--color--secondary);
+  }
+  .pageHeader__title, .pageHeader__title.is-article {
+    font-size: var(--font-size--xx-large);
+    line-height: 1.5;
+  }
+  .subPage__container {
+    max-width: none;
+    padding: 3mm 0 0;
+  }
+  .entry h2 {
+    margin-block: 9mm 4.5mm;
+    padding-block-start: 4.5mm;
+    line-height: 1.5;
+    -moz-column-break-after: avoid;
+         break-after: avoid;
+  }
+  .entry h3,
+  .entry h4 {
+    margin-block: 3mm 1.5mm;
+    line-height: 1.5;
+    -moz-column-break-after: avoid;
+         break-after: avoid;
+  }
+  .entry p,
+  .entry ul,
+  .entry ol,
+  .entry table,
+  .entry blockquote,
+  .entry figure {
+    margin-block: 0 3mm;
+  }
+  .entry li {
+    margin-block: 0 0.75mm;
+  }
+  .entry li,
+  .entry tr {
+    -moz-column-break-inside: avoid;
+         break-inside: avoid;
+  }
+  a {
+    color: inherit;
+  }
+}

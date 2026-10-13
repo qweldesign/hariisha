@@ -1,6 +1,7 @@
 ---
 title: "館内のご利用案内"
 slug: "stay-guide"
+img: "/assets/photos/tatami-room.jpg"
 date: "2026-10-12"
 summary: "チェックイン・チェックアウトの流れや、寝具・キッチン・ゴミの分別など、はりいしゃに滞在中のご利用案内です。ご到着前にご一読ください。"
 ---
@@ -65,3 +66,5 @@ summary: "チェックイン・チェックアウトの流れや、寝具・キ�
 ## ペット同伴について
 
 ペット同伴は不可とさせていただいております。あらかじめご了承ください。
+
+<p><a href="#" data-print onclick="window.print(); return false;">このページを印刷する</a></p>
