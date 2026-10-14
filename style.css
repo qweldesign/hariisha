@@ -360,7 +360,12 @@ button, input, select, textarea {
   font-size: var(--font-size--small);
 }
 .footer__contact a {
-  text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+.footer__contact a:hover, .footer__contact a:focus-visible {
+  -webkit-text-decoration: underline solid;
+          text-decoration: underline solid;
 }
 .footer__sns {
   list-style: none;
@@ -1249,6 +1254,14 @@ button, input, select, textarea {
   align-items: center;
   gap: var(--spacing--small);
   font-size: var(--font-size--small);
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+  text-decoration-color: var(--color--light);
+}
+.moreLink:hover, .moreLink:focus-visible {
+  -webkit-text-decoration: underline solid;
+          text-decoration: underline solid;
+  text-decoration-color: var(--color--light);
 }
 .moreLink::before {
   content: "";
@@ -1260,6 +1273,9 @@ button, input, select, textarea {
 }
 .moreLink:hover::before, .moreLink:focus-visible::before {
   width: 2.5rem;
+}
+.section.is-navy .section__inner .moreLink {
+  text-decoration-color: currentColor;
 }
 
 /**
@@ -1440,7 +1456,7 @@ button, input, select, textarea {
   margin: 0;
 }
 .topInfo__item + .topInfo__item {
-  border-block-start: 1px dashed rgba(43, 53, 70, 0.15);
+  border-block-start: 1px dotted rgba(43, 53, 70, 0.15);
 }
 .topInfo__link {
   display: flex;
@@ -1471,10 +1487,18 @@ button, input, select, textarea {
   align-items: center;
   gap: var(--spacing--small);
   justify-self: end;
-  color: var(--color--primary);
   font-size: var(--font-size--small);
   white-space: nowrap;
-  text-decoration: none;
+}
+.topInfo__more, .topInfo__more:active {
+  color: var(--color--dark);
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+.topInfo__more:hover, .topInfo__more:focus {
+  color: var(--color--primary);
+  -webkit-text-decoration: underline solid;
+          text-decoration: underline solid;
 }
 .topInfo__more::before {
   content: "";
@@ -1514,11 +1538,11 @@ button, input, select, textarea {
   background-color: var(--color--tertiary);
   color: var(--color--darkest);
 }
-.section.is-navy .section__inner a:not(.button), .section.is-navy .section__inner a:not(.button):active {
+:where(.section.is-navy .section__inner) a:not(.button), :where(.section.is-navy .section__inner) a:not(.button):active {
   color: var(--color--secondary);
   text-decoration: none;
 }
-.section.is-navy .section__inner a:not(.button):hover, .section.is-navy .section__inner a:not(.button):focus {
+:where(.section.is-navy .section__inner) a:not(.button):hover, :where(.section.is-navy .section__inner) a:not(.button):focus {
   color: var(--color--lightest);
   text-decoration: underline;
 }
@@ -2278,12 +2302,14 @@ button, input, select, textarea {
 }
 
 .section .form .form__note a:not(.button), .section .form .form__note a:not(.button):active {
-  color: var(--color--primary);
-  text-decoration: underline;
+  color: var(--color--darker);
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 .section .form .form__note a:not(.button):hover, .section .form .form__note a:not(.button):focus {
-  color: var(--color--dark);
-  text-decoration: none;
+  color: var(--color--primary);
+  -webkit-text-decoration: underline solid;
+          text-decoration: underline solid;
 }
 
 /**
@@ -2715,14 +2741,13 @@ button, input, select, textarea {
 }
 .entry a, .entry a:active {
   color: var(--color--darker);
-  text-decoration: none;
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
 }
 .entry a:hover, .entry a:focus {
   color: var(--color--primary);
-  text-decoration: underline;
-}
-.entry a {
-  text-decoration: underline;
+  -webkit-text-decoration: underline solid;
+          text-decoration: underline solid;
 }
 .entry strong {
   font-weight: 700;

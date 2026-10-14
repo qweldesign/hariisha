@@ -40,7 +40,7 @@
     margin: 0;
 
     & + & {
-      border-block-start: 1px dashed rgba(map-get($theme-colors, "primary"), 0.15);
+      border-block-start: 1px dotted rgba(map-get($theme-colors, "primary"), 0.15);
     }
   }
 
@@ -80,10 +80,9 @@
     align-items: center;
     gap: space();
     justify-self: end;
-    color: theme-color("primary");
     font-size: font-size("small");
     white-space: nowrap;
-    text-decoration: none;
+    @include text-link("muted");
 
     &::before {
       content: "";

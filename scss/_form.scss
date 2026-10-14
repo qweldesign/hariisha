@@ -69,5 +69,5 @@
 // フォームは白地なので, 紺地のセクションのリンク色 (砂色) ではなく紺にする
 // (.section.is-navy .section__inner a:not(.button) より強くする必要があるため, 詳細度を合わせて後から上書きする)
 .section .form .form__note a:not(.button) {
-  @include link-text(theme-color("primary"), theme-color("dark"), underline, none);
+  @include text-link("light");
 }

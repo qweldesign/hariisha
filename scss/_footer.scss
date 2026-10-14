@@ -41,7 +41,7 @@
     font-size: font-size("small");
 
     a {
-      text-decoration: underline;
+      @include link-underline();
     }
   }
 

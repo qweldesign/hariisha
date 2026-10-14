@@ -27,9 +27,9 @@ $section-tones: (
     }
   }
 
-  &.is-navy &__inner {
+  :where(&.is-navy &__inner) {
     a:not(.button) {
-      @include link-text(theme-color("secondary"), theme-color("lightest"));
+      @include text-link("dark", $underline: false);
     }
   }
 

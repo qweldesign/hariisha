@@ -42,7 +42,7 @@
     color: $body-color;
 
     a {
-      @include link-text();
+      @include text-link("light", $underline: false);
     }
 
     // 必須マーク: 砂色は白地でコントラストが不足するため差し替え

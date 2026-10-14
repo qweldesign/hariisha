@@ -9,6 +9,7 @@
   align-items: center;
   gap: space();
   font-size: font-size("small");
+  @include link-underline(theme-color("light"));
 
   &::before {
     content: "";
@@ -23,5 +24,10 @@
     &::before {
       width: 2.5rem;
     }
+  }
+
+  // 紺の地では, 下線の色も文字色に合わせる
+  .section.is-navy .section__inner & {
+    text-decoration-color: currentColor;
   }
 }

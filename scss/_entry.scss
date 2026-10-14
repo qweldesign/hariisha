@@ -60,8 +60,7 @@
   }
 
   a {
-    @include link-text();
-    text-decoration: underline;
+    @include text-link();
   }
 
   strong {

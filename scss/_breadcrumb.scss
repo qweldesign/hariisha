@@ -29,7 +29,7 @@
     }
 
     a {
-      @include link-text(theme-color("secondary"), theme-color("lightest"));
+      @include text-link("dark", $underline: false);
     }
 
     span {

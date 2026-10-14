@@ -228,7 +228,7 @@ render_header([
                     <li>最寄りのコンビニ・スーパーまでは車で25分程かかります。</li>
                     <li>宿泊者様以外での母屋とキッチンのご利用には、追加料金が発生します。</li>
                   </ul>
-                  <p class="pl-small"><a class="moreLink" href="<?= path('page/stay-guide/') ?>">ご宿泊のお客様へ: 館内のご利用案内</a></p>
+                  <p class="pl-small"><a class="moreLink" href="<?= path('page/stay-guide/') ?>">ご宿泊のお客様へ: 館内のご利用案内はこちら</a></p>
                 </div>
                 <div>
                   <dl class="infoList">
@@ -358,7 +358,7 @@ render_header([
               </ul>
 <?php } ?>
               <p><a href="<?= path('report/') ?>">過去の活動報告をもっと見る</a></p>
-              <p><a class="moreLink" href="<?= path('page/artist-stay/') ?>">滞在制作・展示会をご希望の作家の方へ</a></p>
+              <p><a class="moreLink" href="<?= path('page/artist-stay/') ?>">滞在制作・展示会を希望の作家の方へ</a></p>
             </div>
           </div>
         </div>
