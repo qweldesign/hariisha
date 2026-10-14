@@ -2878,7 +2878,7 @@ button, input, select, textarea {
   height: 100%;
   align-items: center;
   justify-content: center;
-  background: rgba(52, 49, 45, 0.3);
+  background: rgba(52, 49, 45, 0.5);
   color: var(--color--lightest);
   transition: opacity 0.25s linear;
 }
@@ -2887,6 +2887,7 @@ button, input, select, textarea {
 }
 .safe-embed-cover p {
   font-size: var(--font-size--small);
+  text-align: center;
 }
 
 /**
