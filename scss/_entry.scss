@@ -32,7 +32,11 @@
   }
 
   h3 {
-    margin-block: space("large") space();
+    position: relative;
+    display: inline-block;
+    margin-block: space("large") space("medium");
+    padding-block-end: 2px;
+    border-block-end: 1px theme-color("primary") solid;
     color: theme-color("primary");
     font-size: font-size("large");
   }

@@ -2718,7 +2718,11 @@ button, input, select, textarea {
   background-color: var(--color--secondary);
 }
 .entry h3 {
-  margin-block: var(--spacing--large) var(--spacing--small);
+  position: relative;
+  display: inline-block;
+  margin-block: var(--spacing--large) var(--spacing--medium);
+  padding-block-end: 2px;
+  border-block-end: 1px var(--color--primary) solid;
   color: var(--color--primary);
   font-size: var(--font-size--large);
 }
@@ -4160,7 +4164,12 @@ button, input, select, textarea {
     -moz-column-break-after: avoid;
          break-after: avoid;
   }
-  .entry h3,
+  .entry h3 {
+    margin-block: 4.5mm 3mm;
+    line-height: 1.5;
+    -moz-column-break-after: avoid;
+         break-after: avoid;
+  }
   .entry h4 {
     margin-block: 3mm 1.5mm;
     line-height: 1.5;

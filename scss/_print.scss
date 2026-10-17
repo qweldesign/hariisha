@@ -82,7 +82,12 @@
       break-after: avoid;
     }
 
-    h3,
+    h3 {
+      margin-block: 4.5mm 3mm;
+      line-height: 1.5;
+      break-after: avoid;
+    }
+
     h4 {
       margin-block: 3mm 1.5mm;
       line-height: 1.5;
