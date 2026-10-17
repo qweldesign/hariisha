@@ -414,8 +414,22 @@ render_header([
               <div class="bannerArea">
                 <h3 class="bannerArea__sub">関連する取り組み</h3>
                 <div class="bannerArea__content">
-                  <a class="bannerArea__item" href="https://kunimi.life" target="_blank">
-                    <img src="./assets/banners/kunimi-life.jpg" alt="国見 海・人・暮らし相談室 (kunimi.life) - バナー">
+                  <a class="banner" href="https://discoverechizen.com" target="_blank">
+                    <div class="banner__text is-discoverechizen">
+                      <p class="banner__lead">地域の魅力を再発見</p>
+                      <p class="banner__title">越前海岸盛り上げ隊</p>
+                    </div>
+                    <img class="banner__image" src="./assets/banners/discoverechizen.jpg" alt="福井市越前海岸盛り上げ隊 (discoverechizen.com) - バナー">
+                  </a>
+                  <p class="bannerArea__description">越前海岸の豊かな自然や地域資源を活かし、観光の魅力を発信することで、地域のにぎわいと新たな交流を生み出す取り組みです。</p>
+                </div>
+                <div class="bannerArea__content">
+                  <a class="banner" href="https://kunimi.life" target="_blank">
+                    <div class="banner__text is-kunimi">
+                      <p class="banner__lead">海辺に暮らそう</p>
+                      <p class="banner__title">国見 海・人・暮らし相談室</p>
+                    </div>
+                    <img class="banner__image" src="./assets/banners/kunimi-landscape.jpg" alt="国見 海・人・暮らし相談室 (kunimi.life) - バナー">
                   </a>
                   <p class="bannerArea__description">盛り上げ隊メンバーの一部も関与する、福井市国見地区での暮らしと移住に関する相談窓口です。空き家を巡るツアーも開催しています。</p>
                 </div>

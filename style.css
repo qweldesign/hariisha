@@ -39,13 +39,13 @@
   --spacing--medium: 1.5rem;
   --spacing--large: 3rem;
   --spacing--x-large: 6rem;
-  --font-family-base: "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
+  --font-family-base: Zen Kaku Gothic New, Hiragino Sans, 游ゴシック, Yu Gothic, sans-serif;
   --font-weight-base: 400;
   --line-height-base: 1.8;
   --letter-spacing-base: 0.04em;
   --heading-margin-block-start: var(--spacing--medium);
   --heading-margin-block-end: var(--spacing--small);
-  --heading-font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
+  --heading-font-family: Zen Old Mincho, Hiragino Mincho ProN, 游明朝, Yu Mincho, serif;
   --heading-font-weight: 700;
   --heading-line-height: 1.5;
   --heading-letter-spacing: 0.08em;
@@ -346,7 +346,7 @@ button, input, select, textarea {
 }
 .footer__name {
   margin: 0 0 var(--spacing--small);
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--large);
   letter-spacing: 0.1em;
 }
@@ -1384,7 +1384,7 @@ button, input, select, textarea {
 }
 .hero__caption {
   margin: 0;
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: 1.5em;
   letter-spacing: 0.32em;
   writing-mode: vertical-rl;
@@ -1618,7 +1618,7 @@ button, input, select, textarea {
   margin-block-start: 0;
 }
 .mediaText__lead {
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--x-large);
   line-height: 1.8;
 }
@@ -1667,7 +1667,7 @@ button, input, select, textarea {
  */
 .houseView__lead {
   margin-block-start: 0;
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--x-large);
   line-height: 1.8;
 }
@@ -1824,7 +1824,7 @@ button, input, select, textarea {
   font-size: var(--font-size--small);
 }
 .cancelSteps__fee {
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--x-large);
 }
 
@@ -2022,7 +2022,7 @@ button, input, select, textarea {
 .archiveList__title {
   display: block;
   color: var(--color--lightest);
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--large);
 }
 .archiveList__artist {
@@ -2070,7 +2070,7 @@ button, input, select, textarea {
 .memberList__name {
   display: block;
   color: var(--color--primary);
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--large);
 }
 .memberList__note {
@@ -2102,31 +2102,13 @@ button, input, select, textarea {
   flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-}
-@media (min-width: 600px) {
-  .bannerArea__item {
-    flex-grow: 3;
-    flex-shrink: 3;
-    flex-basis: 18rem;
-  }
-}
-.bannerArea__item {
-  width: 100%;
-  padding-inline: var(--container-pad--sm);
-  display: block;
-  padding-inline: 0;
-  border-radius: var(--spacing--x-small);
-  overflow: hidden;
-  transition: opacity 0.35s ease;
-}
-.bannerArea__item:hover {
-  opacity: 0.7;
+  margin-block-end: var(--spacing--medium);
 }
 @media (min-width: 600px) {
   .bannerArea__description {
-    flex-grow: 3;
-    flex-shrink: 3;
-    flex-basis: 18rem;
+    flex-grow: 2;
+    flex-shrink: 2;
+    flex-basis: 12rem;
   }
 }
 .bannerArea__description {
@@ -2137,6 +2119,86 @@ button, input, select, textarea {
   font-size: var(--small-font-size);
   line-height: var(--small-line-height);
   letter-spacing: var(--small-letter-spacing);
+}
+
+.banner {
+  position: relative;
+}
+@media (min-width: 600px) {
+  .banner {
+    flex-grow: 2;
+    flex-shrink: 2;
+    flex-basis: 12rem;
+  }
+}
+.banner {
+  width: 100%;
+  padding-inline: var(--container-pad--sm);
+  aspect-ratio: 3.5;
+  display: flex;
+  align-items: center;
+  padding-inline: 0;
+  border-radius: var(--spacing--x-small);
+  overflow: hidden;
+}
+.banner:hover {
+  text-decoration: none;
+}
+.banner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 200%;
+  background: linear-gradient(90deg, rgba(43, 53, 70, 0.5), rgba(43, 53, 70, 0));
+  transition: left 0.35s ease;
+}
+.banner:hover::before {
+  left: -100%;
+}
+.banner__text {
+  color: #fff;
+  font-size: 4vw;
+}
+@media (min-width: 600px) {
+  .banner__text {
+    font-size: 2vw;
+  }
+}
+@media (min-width: 900px) {
+  .banner__text {
+    font-size: min(1.6vw, var(--font-size--medium));
+  }
+}
+.banner__text.is-discoverechizen {
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
+}
+.banner__text.is-kunimi {
+  font-family: "Klee One", "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
+}
+.banner__lead {
+  margin-block: 0;
+  margin-inline-start: 1.5em;
+  border-block-end: 1px solid #fff;
+  font-size: 1.5em;
+  line-height: 1.8;
+}
+.banner__title {
+  margin-block: 0;
+  margin-inline-start: 2.25em;
+  line-height: 1.8;
+}
+.banner__image {
+  position: absolute;
+  inset: 0;
+  z-index: -10;
+  margin: auto;
+  transition: transform 0.35s ease;
+}
+.banner:hover .banner__image {
+  transform: scale(1.05);
 }
 
 /**
@@ -2384,7 +2446,7 @@ button, input, select, textarea {
   margin-block-end: var(--spacing--x-small);
 }
 .calendar__current {
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   font-size: var(--font-size--large);
   letter-spacing: 0.08em;
 }
@@ -2728,7 +2790,7 @@ button, input, select, textarea {
 }
 .entry h4 {
   margin-block: var(--spacing--medium) var(--spacing--x-small);
-  font-family: '"Zen Kaku Gothic New"', '"Hiragino Sans"', '"游ゴシック"', '"Yu Gothic"', sans-serif;
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
   font-size: var(--font-size--medium);
 }
 .entry p, .entry ul, .entry ol, .entry table, .entry blockquote, .entry figure {
@@ -2858,7 +2920,7 @@ button, input, select, textarea {
 }
 .postNav__title {
   color: var(--color--primary);
-  font-family: '"Zen Old Mincho"', '"Hiragino Mincho ProN"', '"游明朝"', '"Yu Mincho"', serif;
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
   line-height: 1.6;
 }
 

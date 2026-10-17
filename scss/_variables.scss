@@ -17,9 +17,9 @@ $colors:           (
 );
 
 // フォント (_typography.scss)
-$font-family-sans: "\"Zen Kaku Gothic New\"", "\"Hiragino Sans\"", "\"游ゴシック\"", "\"Yu Gothic\"", sans-serif;
-$font-family-serif: "\"Zen Old Mincho\"", "\"Hiragino Mincho ProN\"", "\"游明朝\"", "\"Yu Mincho\"", serif;
-$font-family-hand: "\"Klee One\"", $font-family-sans; // ロゴ用 (ギャラリー看板の手書き感)
+$font-family-sans: "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
+$font-family-serif: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
+$font-family-hand: "Klee One", $font-family-sans; // ロゴ用 (ギャラリー看板の手書き感)
 
 $body-typography:  (
   font-family:       $font-family-sans,
