@@ -1,0 +1,112 @@
+/**
+ * Project - Banner Area
+ */
+
+.bannerArea {
+  margin-block-start: space("large");
+
+  &__sub {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing--small);
+    font-size: font-size("normal");
+
+    &::before {
+      content: "";
+      display: block;
+      width: 1.5rem;
+      height: 2px;
+      background-color: theme-color("light");
+    }
+  }
+
+  &__content {
+    @include row(space-around, center);
+    margin-block-end: space("medium");
+  }
+
+  &__description {
+    @include col(2, true, "sm");
+    padding-inline: space("medium");
+    color: theme-color("darker");
+    @include small-text();
+  }
+}
+
+.banner {
+  position: relative;
+  @include col(2, true, "sm");
+  aspect-ratio: 3.5;
+  display: flex;
+  align-items: center;
+  padding-inline: 0;
+  border-radius: space("x-small");
+  overflow: hidden;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 200%;
+    background: linear-gradient(90deg, rgba(map-get($theme-colors, "primary"), 0.5), rgba(map-get($theme-colors, "primary"), 0));
+    transition: left 0.35s ease;
+  }
+
+  &:hover::before {
+    left: -100%;
+  }
+
+  &__text {
+    color: #fff;
+    font-size: 4vw;
+
+    @media (min-width: breakpoint("sm")) {
+      font-size: 2vw;
+    }
+
+    @media (min-width: breakpoint("md")) {
+      font-size: min(1.6vw, font-size("medium"));
+    }
+
+    &.is-discoverechizen {
+      font-family: $font-family-serif;
+    }
+
+    &.is-kunimi {
+      font-family: $font-family-hand;
+    }
+  }
+
+  &__lead {
+    margin-block: 0;
+    margin-inline-start: 1.5em;
+    border-block-end: 1px solid #fff;
+    font-size: 1.5em;
+    line-height: 1.8;
+  }
+
+  &__title {
+    margin-block: 0;
+    margin-inline-start: 2.25em;
+    line-height: 1.8;
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    margin: auto;
+    transition: transform 0.35s ease;
+  }
+
+  &:hover &__image {
+    transform: scale(1.05);
+  }
+}

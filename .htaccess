@@ -8,6 +8,10 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  # www なしの URL に揃える
+  RewriteCond %{HTTP_HOST} ^www\.hariisha\.jp$ [NC]
+  RewriteRule ^(.*)$ https://hariisha.jp/$1 [R=301,L]
+
   # サイトのルートの URL (例: /tools/simple-cms/) を BASE に入れる
   RewriteCond %{REQUEST_URI}::$1 ^(.*?/)(.*)::\2$
   RewriteRule ^(.*)$ - [E=BASE:%1]

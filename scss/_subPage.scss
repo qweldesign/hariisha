@@ -1,0 +1,44 @@
+/**
+ * Project - Sub Page
+ * お知らせ・固定ページの本文エリア
+ */
+
+.subPage {
+  &__container {
+    @include container();
+    max-width: 48rem;
+    padding-block: space("x-large");
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+
+    // 一覧ページは少し広く
+    &.is-wide {
+      max-width: 60rem;
+    }
+  }
+
+  // アイキャッチ画像
+  &__image {
+    margin: 0 0 space("large");
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: space();
+    margin-block-start: space("large");
+
+    .button {
+      margin-inline: 0;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    color: theme-color("darker");
+  }
+}

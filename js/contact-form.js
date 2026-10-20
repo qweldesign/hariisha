@@ -10,6 +10,8 @@
  * 入力内容は sessionStorage で確認画面へ渡し, 確認画面から送信する
  *
  * 入力画面: form[data-contact-form][data-confirm-url]
+ *   期間の入力: [data-date-range] の中に [data-date-start] と [data-date-end] の日付入力を置くと,
+ *              今日より前の日付と, 開始日より前の終了日を選べないようにする
  * 確認画面: [data-contact-confirm][data-form-url][data-thanks-url][data-send-url]
  *   値を入れる欄: [data-contact-value="name 属性"]
  *   ボタン: [data-contact-send], [data-contact-back]
@@ -43,6 +45,9 @@ export default class ContactForm {
     const values = this.load();
     if (values) this.restore(values);
 
+    // 期間の入力 (開始日・終了日) の連動 (戻した入力内容に合わせるため, restore の後に行う)
+    this.form.querySelectorAll('[data-date-range]').forEach((range) => this.setupDateRange(range));
+
     this.form.addEventListener('submit', (event) => {
       event.preventDefault();
 
@@ -72,6 +77,28 @@ export default class ContactForm {
         elem.value = value;
       }
     }
+  }
+
+  // 期間の入力 (開始日・終了日)
+  setupDateRange(range) {
+    const start = range.querySelector('[data-date-start]');
+    const end = range.querySelector('[data-date-end]');
+    if (!start || !end) return;
+
+    // 今日の日付 (ローカル時刻の YYYY-MM-DD)
+    const now = new Date();
+    const today = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+    start.min = today;
+    end.min = today;
+
+    // 開始日に合わせて, 終了日の下限を更新する
+    // 開始日より前の終了日が入っていた場合は, 開始日に揃える
+    const update = () => {
+      end.min = start.value || today;
+      if (start.value && end.value && end.value < start.value) end.value = start.value;
+    };
+    start.addEventListener('change', update);
+    update();
   }
 
   // 確認画面

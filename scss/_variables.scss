@@ -1,2 +1,50 @@
 // Variables
 
+// 配色 (_colorSystem.scss)
+$grays:            (
+  darkest:           #2e2b27, // hsl(39, 7.5%, 16.67%)
+  darker:            #5b574f, // hsl(39, 7.5%, 33.33%)
+  dark:              #898276, // hsl(39, 7.5%, 50.00%)
+  light:             #b7ae9d, // hsl(39, 15.0%, 66.67%)
+  lighter:           #e1d8c8, // hsl(39, 30.0%, 83.33%)
+  lightest:          #ffffff,
+);
+
+$colors:           (
+  primary:           #303b50, // 紺色 hsl(219, 25%, 25%)
+  secondary:         #d6cda9, // 砂色 hsl(49, 35%, 75%)
+  tertiary:          #f0ecdb  // 淡色 hsl(49, 40%, 90%)
+);
+
+$img-aspect-ratio: 3 / 2;
+
+// フォント (_typography.scss)
+$font-family-sans: "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
+$font-family-serif: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
+$font-family-hand: "Klee One", $font-family-sans; // ロゴ用 (ギャラリー看板の手書き感)
+
+$body-typography:  (
+  font-family:       $font-family-sans,
+  font-weight:       400,
+  line-height:       1.8,
+  letter-spacing:    0.04em
+);
+
+$heading-typography: (
+  margin-block-start: var(--spacing--medium),
+  margin-block-end:  var(--spacing--small),
+  font-family:       $font-family-serif,
+  font-weight:       700,
+  line-height:       1.5,
+  letter-spacing:    0.08em
+);
+
+// フェーダー (_fader.scss): 紺地のファーストビューで使うため, ナビの色を明るくする
+$gallery-nav-color:        #767d8b; // 紺地になじむグレー (水玉と同じ色)
+$gallery-nav-active-color: #d6cda9; // 砂色
+
+// スライダー (_slider.scss): 紺地の「館内のようす」で使うため, ナビの色を明るくする
+$slider-aspect-ratio:      $img-aspect-ratio;
+$slider-height:            22.5rem;
+$slider-nav-color:         #767d8b; // 紺地になじむグレー (水玉と同じ色)
+$slider-nav-active-color:  #d6cda9; // 砂色

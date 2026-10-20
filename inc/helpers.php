@@ -33,7 +33,7 @@ function post_type(string $type): array {
   if (!isset(SITE_POST_TYPES[$type])) {
     throw new InvalidArgumentException("投稿タイプ {$type} は config.php にありません");
   }
-  return SITE_POST_TYPES[$type] + [
+  $config = SITE_POST_TYPES[$type] + [
     'label'     => $type,
     'path'      => $type . '/',
     'dir'       => 'content/' . $type,
@@ -42,6 +42,8 @@ function post_type(string $type): array {
     'lead'      => '',
     'list'      => true,
   ];
+  // description は lead を既定にする
+  return $config + ['description' => $config['lead']];
 }
 
 // 投稿タイプの一覧・記事・ページ送りのパス (サイトのルートからのパス. canonical などに使う)
