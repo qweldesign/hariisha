@@ -1,0 +1,121 @@
+/**
+ * Print
+ * 印刷用の調整 (宿泊者向けのご利用案内, 作家向けの利用条件などの固定ページを想定)
+ * サイトのヘッダー・フッターを消し, ページの見出しと本文だけを印刷する
+ * 見出しや箇条書きの装飾は画面に近いまま残し, 文字サイズ・行間・余白を小さくしてページ数を抑える
+ */
+
+@media print {
+  @page {
+    size: A4;
+    margin: 24mm;
+  }
+
+  html {
+    font-size: 10pt;
+  }
+
+  body {
+    background-color: transparent;
+    line-height: 1.5;
+    // 見出しの罫や箇条書きの印などの色を, ブラウザの設定に関わらず印刷する
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  // サイトのヘッダー・フッター, 見出し帯の見出し以外の要素, 本文の前後の要素は印刷しない
+  .header,
+  .footer,
+  .drawer,
+  .drawerMenu,
+  .drawerMenuOverlay,
+  .backToTop,
+  .breadcrumb,
+  .pageHeader__label,
+  .pageHeader__lead,
+  .pageHeader__meta,
+  .subPage__image,
+  .subPage__actions,
+  .postNav,
+  [data-scroll-sentinel],
+  [data-print] {
+    display: none !important;
+  }
+
+  // スクロールで表示する要素も, はじめから表示しておく
+  [data-readable] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  // 見出し帯: 紺地の帯はやめて, 紺の見出しと砂色の罫で残す
+  .pageHeader {
+    background-color: transparent;
+    color: theme-color("primary");
+
+    &__container {
+      max-width: none;
+      margin-block-end: 9mm;
+      padding: 0 0 3mm;
+      border-block-end: 2px solid theme-color("secondary");
+    }
+
+    &__title,
+    &__title.is-article {
+      font-size: font-size("xx-large");
+      line-height: 1.5;
+    }
+  }
+
+  .subPage__container {
+    max-width: none;
+    padding: 3mm 0 0;
+  }
+
+  // 本文: 見出し・箇条書きの装飾 (色, 砂色の罫, 印) は画面と同じまま, 間隔だけを詰める
+  .entry {
+    h2 {
+      margin-block: 9mm 4.5mm;
+      padding-block-start: 4.5mm;
+      line-height: 1.5;
+      break-after: avoid;
+    }
+
+    h3 {
+      margin-block: 4.5mm 3mm;
+      line-height: 1.5;
+      break-after: avoid;
+    }
+
+    h4 {
+      margin-block: 3mm 1.5mm;
+      line-height: 1.5;
+      break-after: avoid;
+    }
+
+    p,
+    ul,
+    ol,
+    table,
+    blockquote,
+    figure {
+      margin-block: 0 3mm;
+    }
+
+    li {
+      margin-block: 0 0.75mm;
+    }
+
+    // 箇条書きや表の途中でページが分かれにくくする
+    li,
+    tr {
+      break-inside: avoid;
+    }
+  }
+
+  // リンクは下線を残し, 文字色は本文と同じにする
+  a {
+    color: inherit;
+  }
+}

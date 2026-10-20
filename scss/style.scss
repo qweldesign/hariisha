@@ -65,6 +65,7 @@
 @import "pageHeader";
 @import "contactPage";
 @import "subPage";
+@import "entry";
 @import "postNav";
 
 // Utility
@@ -76,3 +77,6 @@
 @import "utilities/spacing";
 @import "utilities/text";
 @import "utilities/visibility";
+
+// Print
+@import "print";
