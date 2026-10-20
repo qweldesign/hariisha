@@ -10,6 +10,9 @@ inc/vendor/
 # 環境変数
 inc/.env
 
+# データベース
+api/data/*.sqlite
+
 # content
 /content/*
 !/content/.htaccess
