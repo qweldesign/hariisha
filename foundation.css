@@ -1,0 +1,186 @@
+@charset "UTF-8";
+/**
+ * Foundation.css
+ * © 2026 QWEL.DESIGN (https://qwel.design)
+ * Released under the MIT License.
+ * See LICENSE file for details.
+ */
+/**
+ * Root
+ */
+:root {
+  --color--darkest: #2e2b27;
+  --color--darkest--active: rgb(128.8, 120.4, 109.2);
+  --color--darker: #5b574f;
+  --color--darker--active: rgb(168.1, 163.7, 154.9);
+  --color--dark: #898276;
+  --color--dark--active: rgb(207.8, 205, 200.2);
+  --color--light: #b7ae9d;
+  --color--light--active: rgb(107.8, 97.9, 79.2);
+  --color--lighter: #e1d8c8;
+  --color--lighter--active: rgb(171, 145.8, 101);
+  --color--lightest: #ffffff;
+  --color--lightest--active: rgb(178.5, 178.5, 178.5);
+  --color--primary: #303b50;
+  --color--primary--active: rgb(111.875, 131.5546875, 169.125);
+  --color--secondary: #d6cda9;
+  --color--secondary--active: rgb(155.7480314961, 139.4488188976, 74.2519685039);
+  --color--tertiary: #f0ecdb;
+  --color--tertiary--active: #c3b36f;
+  --container-width--sm: 37.5rem;
+  --container-width--md: 56.25rem;
+  --container-width--lg: 75rem;
+  --container-pad--sm: 0.75rem;
+  --container-pad--md: clamp(0.75rem, 2%, 1rem);
+  --container-pad--lg: clamp(0.75rem, 2%, 1.5rem);
+  --spacing--none: 0;
+  --spacing--x-small: 0.375rem;
+  --spacing--small: 0.75rem;
+  --spacing--medium: 1.5rem;
+  --spacing--large: 3rem;
+  --spacing--x-large: 6rem;
+  --font-family-base: Zen Kaku Gothic New, Hiragino Sans, 游ゴシック, Yu Gothic, sans-serif;
+  --font-weight-base: 400;
+  --line-height-base: 1.8;
+  --letter-spacing-base: 0.04em;
+  --heading-margin-block-start: var(--spacing--medium);
+  --heading-margin-block-end: var(--spacing--small);
+  --heading-font-family: Zen Old Mincho, Hiragino Mincho ProN, 游明朝, Yu Mincho, serif;
+  --heading-font-weight: 700;
+  --heading-line-height: 1.5;
+  --heading-letter-spacing: 0.08em;
+  --font-size--x-small: 0.75rem;
+  --font-size--small: 0.875rem;
+  --font-size--normal: 1rem;
+  --font-size--medium: 1.125rem;
+  --font-size--large: 1.25rem;
+  --font-size--x-large: 1.5rem;
+  --font-size--xx-large: 2rem;
+  --small-font-size: var(--font-size--small);
+  --small-line-height: 2;
+  --small-letter-spacing: 0;
+}
+
+/**
+ * Foundation - Normalize
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: min(3.84vw, 16px);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color--lightest);
+  color: var(--color--darkest);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-base);
+  line-height: var(--line-height-base);
+  letter-spacing: var(--letter-spacing-base);
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-block-start: var(--heading-margin-block-start);
+  margin-block-end: var(--heading-margin-block-end);
+  font-family: var(--heading-font-family);
+  font-weight: var(--heading-font-weight);
+  line-height: var(--heading-line-height);
+  letter-spacing: var(--heading-letter-spacing);
+}
+
+h1 {
+  font-size: var(--font-size--x-large);
+}
+
+h2 {
+  font-size: var(--font-size--x-large);
+}
+
+h3 {
+  font-size: var(--font-size--large);
+}
+
+h4 {
+  font-size: var(--font-size--medium);
+}
+
+h5 {
+  font-weight: 700;
+  font-size: var(--font-size--normal);
+}
+
+h6 {
+  font-weight: 700;
+  font-size: var(--font-size--small);
+}
+
+p,
+ol, ul,
+li {
+  margin-block: var(--spacing--small);
+}
+
+small {
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  letter-spacing: var(--small-letter-spacing);
+}
+
+blockquote {
+  margin-block: var(--spacing--small);
+  padding-inline-start: 1em;
+  border-inline-start: var(--spacing--x-small) solid var(--color--darkest);
+}
+blockquote p, blockquote cite {
+  font-style: italic;
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  letter-spacing: var(--small-letter-spacing);
+}
+
+a, a:active {
+  color: var(--color--darker);
+  text-decoration: none;
+}
+a:hover, a:focus {
+  color: var(--color--primary);
+  text-decoration: underline;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  vertical-align: middle;
+}
+
+figure {
+  display: block;
+  margin: var(--spacing--small) 0;
+}
+
+figcaption {
+  font-size: var(--small-font-size);
+  line-height: var(--small-line-height);
+  letter-spacing: var(--small-letter-spacing);
+  text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th {
+  text-align: left;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
