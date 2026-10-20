@@ -2602,37 +2602,176 @@ button, input, select, textarea {
 }
 
 /**
+ * Project - Entry
+ * Markdown から変換した本文 (Parsedown の出力) の組版
+ * クラスを付けられない要素ばかりなので, .entry の子孫セレクタで指定する
+ */
+.entry {
+  overflow-wrap: anywhere;
+}
+.entry > :first-child {
+  margin-block-start: 0;
+}
+.entry h2 {
+  position: relative;
+  margin-block: var(--spacing--x-large) var(--spacing--medium);
+  padding-block-start: var(--spacing--medium);
+  color: var(--color--primary);
+  font-size: var(--font-size--x-large);
+  letter-spacing: 0.1em;
+}
+.entry h2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background-color: var(--color--secondary);
+}
+.entry h3 {
+  position: relative;
+  display: inline-block;
+  margin-block: var(--spacing--large) var(--spacing--medium);
+  padding-block-end: 2px;
+  border-block-end: 1px var(--color--primary) solid;
+  color: var(--color--primary);
+  font-size: var(--font-size--large);
+}
+.entry h4 {
+  margin-block: var(--spacing--medium) var(--spacing--x-small);
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", "游ゴシック", "Yu Gothic", sans-serif;
+  font-size: var(--font-size--medium);
+}
+.entry p, .entry ul, .entry ol, .entry table, .entry blockquote, .entry figure {
+  margin-block: 0 var(--spacing--medium);
+}
+.entry ul, .entry ol {
+  padding-inline-start: 1.5em;
+}
+.entry ul li, .entry ol li {
+  margin-block: 0 var(--spacing--x-small);
+}
+.entry ul li::marker {
+  color: var(--color--secondary);
+}
+.entry a, .entry a:active {
+  color: var(--color--darker);
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+.entry a:hover, .entry a:focus {
+  color: var(--color--primary);
+  -webkit-text-decoration: underline solid;
+          text-decoration: underline solid;
+}
+.entry strong {
+  font-weight: 700;
+}
+.entry img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+  border-radius: var(--spacing--x-small);
+}
+.entry blockquote {
+  margin-inline: 0;
+  padding: var(--spacing--small) var(--spacing--medium);
+  border-inline-start: 3px solid var(--color--secondary);
+  background-color: var(--color--tertiary);
+}
+.entry blockquote > :last-child {
+  margin-block-end: 0;
+}
+.entry table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size--small);
+}
+@media (min-width: 600px) {
+  .entry table {
+    display: table;
+    width: 100%;
+  }
+}
+.entry th, .entry td {
+  padding: var(--spacing--small) var(--spacing--small);
+  border-block-end: 1px solid var(--color--lighter);
+  text-align: left;
+  vertical-align: top;
+  white-space: nowrap;
+}
+@media (min-width: 600px) {
+  .entry th, .entry td {
+    white-space: normal;
+  }
+}
+.entry thead th {
+  border-block-end-color: var(--color--secondary);
+  background-color: var(--color--tertiary);
+  color: var(--color--primary);
+}
+.entry hr {
+  margin-block: var(--spacing--x-large);
+  border: 0;
+  border-block-start: 1px solid var(--color--lighter);
+}
+.entry code {
+  padding: 0.1em 0.3em;
+  border-radius: 0.2em;
+  background-color: var(--color--tertiary);
+  font-size: 0.9em;
+}
+
+/**
  * Project - Post Nav
- * 個別記事の下の, 前後の記事へのリンク
+ * 投稿 (お知らせ・活動報告) の前後の記事へのリンク
  */
 .postNav {
   display: grid;
   gap: var(--spacing--small);
-  margin-block: var(--spacing--large);
+  margin-block-start: var(--spacing--x-large);
+  padding-block-start: var(--spacing--large);
+  border-block-start: 1px solid var(--color--lighter);
 }
-@media (min-width: 900px) {
+@media (min-width: 600px) {
   .postNav {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 .postNav__link {
-  display: block;
-  padding: var(--spacing--small);
-  border: 1px solid var(--color--light);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing--x-small);
+  padding: var(--spacing--small) var(--spacing--medium);
   border-radius: var(--spacing--x-small);
+  background-color: var(--color--tertiary);
+  color: inherit;
   text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+.postNav__link:hover, .postNav__link:focus-visible {
+  background-color: var(--color--secondary);
 }
 .postNav__link.is-next {
-  grid-column: -2;
   text-align: right;
 }
+@media (min-width: 600px) {
+  .postNav__link.is-next {
+    grid-column: 2;
+  }
+}
 .postNav__label {
-  display: block;
-  color: var(--color--dark);
+  color: var(--color--darker);
   font-size: var(--font-size--small);
 }
 .postNav__title {
-  display: block;
+  color: var(--color--primary);
+  font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "游明朝", "Yu Mincho", serif;
+  line-height: 1.6;
 }
 
 /**
@@ -3867,5 +4006,105 @@ button, input, select, textarea {
 @media (max-width: 1199.9px) {
   .visible-lg {
     display: none !important;
+  }
+}
+
+/**
+ * Print
+ * 印刷用の調整 (宿泊者向けのご利用案内, 作家向けの利用条件などの固定ページを想定)
+ * サイトのヘッダー・フッターを消し, ページの見出しと本文だけを印刷する
+ * 見出しや箇条書きの装飾は画面に近いまま残し, 文字サイズ・行間・余白を小さくしてページ数を抑える
+ */
+@media print {
+  @page {
+    size: A4;
+    margin: 24mm;
+  }
+  html {
+    font-size: 10pt;
+  }
+  body {
+    background-color: transparent;
+    line-height: 1.5;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .header,
+  .footer,
+  .drawer,
+  .drawerMenu,
+  .drawerMenuOverlay,
+  .backToTop,
+  .breadcrumb,
+  .pageHeader__label,
+  .pageHeader__lead,
+  .pageHeader__meta,
+  .subPage__image,
+  .subPage__actions,
+  .postNav,
+  [data-scroll-sentinel],
+  [data-print] {
+    display: none !important;
+  }
+  [data-readable] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .pageHeader {
+    background-color: transparent;
+    color: var(--color--primary);
+  }
+  .pageHeader__container {
+    max-width: none;
+    margin-block-end: 9mm;
+    padding: 0 0 3mm;
+    border-block-end: 2px solid var(--color--secondary);
+  }
+  .pageHeader__title, .pageHeader__title.is-article {
+    font-size: var(--font-size--xx-large);
+    line-height: 1.5;
+  }
+  .subPage__container {
+    max-width: none;
+    padding: 3mm 0 0;
+  }
+  .entry h2 {
+    margin-block: 9mm 4.5mm;
+    padding-block-start: 4.5mm;
+    line-height: 1.5;
+    -moz-column-break-after: avoid;
+         break-after: avoid;
+  }
+  .entry h3 {
+    margin-block: 4.5mm 3mm;
+    line-height: 1.5;
+    -moz-column-break-after: avoid;
+         break-after: avoid;
+  }
+  .entry h4 {
+    margin-block: 3mm 1.5mm;
+    line-height: 1.5;
+    -moz-column-break-after: avoid;
+         break-after: avoid;
+  }
+  .entry p,
+  .entry ul,
+  .entry ol,
+  .entry table,
+  .entry blockquote,
+  .entry figure {
+    margin-block: 0 3mm;
+  }
+  .entry li {
+    margin-block: 0 0.75mm;
+  }
+  .entry li,
+  .entry tr {
+    -moz-column-break-inside: avoid;
+         break-inside: avoid;
+  }
+  a {
+    color: inherit;
   }
 }
