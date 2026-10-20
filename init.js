@@ -13,9 +13,13 @@ import Dots from './js/dots.js';
 // Contact Form (トップページの入力画面と /contact/confirm/ で動く. 画面の URL は config.php の SITE_CONTACT)
 import ContactForm from './js/contact-form.js';
 
+// Business Calendar (空き状況)
+import BusinessCalendar from './js/business-calendar.js';
+
 // type="module" のスクリプトは HTML の解析後に実行されるため, DOM を待たずに初期化できる
 new ActionCore.Preset();
 new Fader();
 new Slider();
 Dots.init();
 new ContactForm();
+new BusinessCalendar();
