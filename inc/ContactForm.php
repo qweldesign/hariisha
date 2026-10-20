@@ -84,6 +84,8 @@ class ContactForm {
         $errors[$name] = "{$label}の形式が正しくありません";
       } elseif ($type === 'url' && !preg_match('#^https?://#', $value)) {
         $errors[$name] = "{$label}の形式が正しくありません";
+      } elseif ($type === 'date' && !$this->is_date($value)) {
+        $errors[$name] = "{$label}の日付が正しくありません";
       } elseif (in_array($type, ['select', 'radio'], true) && !in_array($value, $options, true)) {
         $errors[$name] = "{$label}の選択肢が正しくありません";
       }
@@ -91,6 +93,12 @@ class ContactForm {
     }
 
     return ['values' => $values, 'errors' => $errors];
+  }
+
+  // YYYY-MM-DD の実在する日付か (input type="date" の値)
+  protected function is_date(string $value): bool {
+    $date = DateTime::createFromFormat('!Y-m-d', $value);
+    return $date !== false && $date->format('Y-m-d') === $value;
   }
 
   // メール本文 (項目名: 値)

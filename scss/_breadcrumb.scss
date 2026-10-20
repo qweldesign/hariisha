@@ -2,11 +2,14 @@
  * Component - Breadcrumb
  */
 
+// パンくず: 紺地に合わせて控えめに
 .breadcrumb {
   list-style: none;
   display: flex;
   flex-flow: row wrap;
+  margin: 0 0 space("medium");
   padding: 0;
+  font-size: font-size("small");
 
   &__item {
     flex: 0 0 auto;
@@ -19,17 +22,32 @@
 
     a, span {
       display: inline-block;
-      font-weight: 600;
-      font-style: normal;
-      font-size: 0.875rem;
-      color: theme-color("darker");
-      background-color: rgba(map-get($theme-colors, "secondary"), 0.15);
-      padding: 0 0.2em;
-      border-radius: 0.2em;
+      padding: 0;
+      background-color: transparent;
+      font-weight: 400;
+      font-size: inherit;
+    }
+
+    a {
+      @include text-link("dark", $underline: false);
     }
 
     span {
-      background-color: rgba(map-get($theme-colors, "primary"), 0.1);
+      color: theme-color("light");
+    }
+
+    // 現在のページ (記事タイトル) は長くなるため, 1行に収めて末尾を省略する
+    // (直下の見出しに全文が出るので, ここでは省略してよい)
+    &.is-current {
+      flex: 0 1 auto;
+      min-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      span {
+        display: inline;
+      }
     }
   }
 }

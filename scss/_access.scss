@@ -1,0 +1,48 @@
+/**
+ * Project - Access
+ */
+
+.access {
+  display: grid;
+  gap: space("large");
+
+  @media (min-width: breakpoint("md")) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .embed {
+    height: auto;
+    aspect-ratio: 5 / 6;
+  }
+
+  &__sub {
+    font-weight: 700;
+  }
+
+  &__address {
+    margin-block-start: 0;
+  }
+
+  &__note {
+    padding-inline-start: space("medium");
+    @include small-text();
+
+    li {
+      margin-block: space("x-small");
+    }
+  }
+
+  &__routes {
+    margin: 0;
+
+    dt {
+      margin-block-start: space();
+      font-weight: 700;
+      color: theme-color("primary");
+    }
+
+    dd {
+      margin: 0;
+    }
+  }
+}

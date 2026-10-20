@@ -1,0 +1,87 @@
+/**
+ * Project - Section
+ * md以上では見出しを縦組みにして左列に置く (パンフレットの縦書きを踏襲)
+ */
+
+$section-tones: (
+  "white": "lightest",
+  "navy":  "primary",
+  "sand":  "secondary",
+  "cream": "tertiary"
+);
+
+.section {
+  position: relative;
+
+  &__inner {
+    padding-block: space("x-large");
+    background-color: $body-bg;
+  }
+
+  // 背景色のバリエーション (.section.is-navy 等)
+  // background() mixin はボタンのリンク色まで上書きするため, 個別に指定する
+  @each $tone, $key in $section-tones {
+    &.is-#{$tone} &__inner {
+      background-color: theme-color($key);
+      color: color-yiq($key);
+    }
+  }
+
+  :where(&.is-navy &__inner) {
+    a:not(.button) {
+      @include text-link("dark", $underline: false);
+    }
+  }
+
+  // 水玉 (js/dots.js) の色: 既定の半透明の白は紺地向けのため, 明るい背景では調整する
+  // 砂色の地では白を強めて差し込む光に, クリームの地では白が見えないため紺の影として見せる
+  // ($dots-opacity が掛かるため, 見た目の濃さはここの値 × 0.7 になる)
+  &.is-sand[data-dots] {
+    --dots-color: #{rgba(map-get($theme-colors, "lightest"), 0.55)};
+  }
+
+  &.is-cream[data-dots] {
+    --dots-color: #{rgba(map-get($theme-colors, "primary"), 0.16)};
+  }
+
+  &__container {
+    @include container();
+    // grid で組むため, row/col のガター分の余白をコンテナ側で確保する
+    padding-inline: calc(#{container-pad()} + #{$gutter});
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: space("medium");
+
+    @media (min-width: breakpoint("md")) {
+      grid-template-columns: 6rem minmax(0, 1fr);
+      gap: space("large");
+    }
+  }
+
+  &__heading {
+    margin: 0;
+    font-size: font-size("xx-large");
+    letter-spacing: 0.24em;
+
+    @media (min-width: breakpoint("md")) {
+      writing-mode: vertical-rl;
+    }
+
+    &.is-reserve {
+      letter-spacing: 0.12em;
+    }
+
+    .is-navy & {
+      color: color-yiq("primary");
+    }
+
+    .is-white &, .is-cream & {
+      color: theme-color("primary");
+    }
+  }
+
+  &__body {
+    min-width: 0;
+  }
+}

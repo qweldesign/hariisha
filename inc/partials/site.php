@@ -20,14 +20,17 @@ require_once dirname(__DIR__) . '/helpers.php';
  *   description: description (規定で SITE_DESCRIPTION)
  *   path: このページのサイトのルートからのパス (canonical, og:url に使う)
  *   image: OGP 画像 (規定で SITE_OGP_IMAGE)
+ *   image_alt, image_width, image_height: OGP 画像の代替テキストと大きさ
  *   type: og:type (規定で article)
  *   noindex: 検索結果に出さない (404 など)
+ *   home: トップページか (ナビをページ内リンクにして, ScrollSpy で現在地を示す)
  */
 function render_header(array $page = []): void {
   $title = $page['full_title'] ?? (!empty($page['title']) ? $page['title'] . ' | ' . SITE_NAME : SITE_NAME);
   $description = ($page['description'] ?? '') ?: SITE_DESCRIPTION;
   $url = absolute_url($page['path'] ?? '');
   $image = absolute_url(($page['image'] ?? '') ?: SITE_OGP_IMAGE);
+  $home = !empty($page['home']);
   ?>
 <!DOCTYPE html>
 <html lang="<?= e(SITE_LANG) ?>">
@@ -53,6 +56,14 @@ function render_header(array $page = []): void {
     <meta property="og:description" content="<?= e($description) ?>">
     <meta property="og:url" content="<?= e($url) ?>">
     <meta property="og:image" content="<?= e($image) ?>">
+<?php if (!empty($page['image_width'])) { ?>
+    <meta property="og:image:width" content="<?= e((string)$page['image_width']) ?>">
+    <meta property="og:image:height" content="<?= e((string)$page['image_height']) ?>">
+<?php } ?>
+<?php if (!empty($page['image_alt'])) { ?>
+    <meta property="og:image:alt" content="<?= e($page['image_alt']) ?>">
+<?php } ?>
+    <meta property="og:locale" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
 <?php if (SITE_FONTS_URL) { ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,27 +72,39 @@ function render_header(array $page = []): void {
 <?php } ?>
     <link rel="stylesheet" href="<?= path('style.css') ?>">
     <link rel="icon" href="<?= path('favicon.ico') ?>">
+<?php if (SITE_GA_ID) { ?>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?= e(SITE_GA_ID) ?>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', '<?= e(SITE_GA_ID) ?>');
+    </script>
+<?php } ?>
   </head>
   <body>
-    <header class="header">
-      <p id="logo" class="header__logo">
-        <a href="<?= e(SITE_LOGO_LINK ?: path()) ?>">
-<?php if (SITE_LOGO) { ?>
-          <img src="<?= path(SITE_LOGO) ?>" alt="<?= e(SITE_NAME) ?>">
-<?php } else { ?>
-          <?= e(SITE_NAME) ?>
-<?php } ?>
-        </a>
-      </p>
+    <div data-scroll-sentinel></div>
+    <header id="header" class="header" data-active-header>
+      <div class="header__container">
+        <nav id="gNav" class="gNav" aria-label="グローバルナビゲーション">
+          <p class="gNav__siteBrand">
+            <a href="<?= path() ?>"><?= e(SITE_LOGO_TEXT) ?></a>
+          </p>
 <?php if (SITE_NAV) { ?>
-      <nav class="header__nav" aria-label="グローバルナビゲーション">
-        <ul>
-<?php foreach (SITE_NAV as $navPath => $label) { ?>
-          <li><a href="<?= e(path($navPath)) ?>"><?= e($label) ?></a></li>
+          <ul class="gNav__primaryMenu visible-md" data-primary-menu>
+<?php foreach (SITE_NAV as $id => $label) { ?>
+<?php if ($home) { ?>
+            <li class="gNav__menuItem" data-spy-nav><a href="#<?= e($id) ?>"><?= e($label) ?></a></li>
+<?php } else { ?>
+            <li class="gNav__menuItem"><a href="<?= path() ?>#<?= e($id) ?>"><?= e($label) ?></a></li>
 <?php } ?>
-        </ul>
-      </nav>
 <?php } ?>
+          </ul>
+<?php } ?>
+        </nav>
+      </div>
     </header>
 <?php
 }
@@ -90,34 +113,46 @@ function render_header(array $page = []): void {
 function render_footer(): void {
   ?>
     <footer id="footer" class="footer">
-<?php if (SITE_FOOTER_LINKS) { ?>
-      <nav class="footer__nav" aria-label="サイト内のページ">
-        <ul>
-<?php foreach (SITE_FOOTER_LINKS as $linkPath => $label) { ?>
-          <li><a href="<?= e(path($linkPath)) ?>"><?= e($label) ?></a></li>
-<?php } ?>
-        </ul>
-      </nav>
-<?php } ?>
+      <div class="footer__container">
+        <div class="footer__info">
+          <p class="footer__name"><?= e(SITE_FOOTER_NAME) ?></p>
+          <address class="footer__address"><?= e(SITE_ADDRESS) ?></address>
+          <p class="footer__contact"><a href="<?= e(contact_form_url()) ?>">ご予約・お問い合わせ</a></p>
 <?php if (SITE_SNS) { ?>
-      <div class="footer__inner">
+          <ul class="footer__sns">
 <?php foreach (SITE_SNS as $sns) { ?>
 <?php $external = (bool)preg_match('#^https?://#', $sns['url']); ?>
-        <a class="footer__item" href="<?= e(path($sns['url'])) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>>
+            <li>
+              <a href="<?= e(path($sns['url'])) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>>
 <?php if (!empty($sns['icon'])) { ?>
-          <svg class="icon is-md" width="36" height="36" aria-hidden="true">
-            <use href="<?= path('icons.svg') ?>#<?= e($sns['icon']) ?>"></use>
-          </svg>
+                <svg class="icon" aria-hidden="true"><use href="<?= path('icons.svg') ?>#<?= e($sns['icon']) ?>"></use></svg>
 <?php } ?>
-          <span><?= e($sns['label']) ?></span>
-        </a>
+                <span><?= e($sns['label']) ?></span>
+              </a>
+            </li>
+<?php } ?>
+          </ul>
+<?php } ?>
+        </div>
+<?php if (SITE_FOOTER_LINKS) { ?>
+        <nav class="footer__nav" aria-label="サイト内のページ">
+          <ul>
+<?php foreach (SITE_FOOTER_LINKS as $linkPath => $label) { ?>
+            <li><a href="<?= e(path($linkPath)) ?>"><?= e($label) ?></a></li>
+<?php } ?>
+          </ul>
+        </nav>
 <?php } ?>
       </div>
-<?php } ?>
       <small class="footer__copyright">&copy; <?= e(copyright_years()) ?> <?= e(SITE_OWNER) ?></small>
     </footer>
     <script src="<?= path('init.js') ?>" type="module"></script>
   </body>
 </html>
 <?php
+}
+
+// お問い合わせフォーム (入力画面) の URL
+function contact_form_url(): string {
+  return path(SITE_CONTACT['form_url'] ?? SITE_CONTACT['path']);
 }

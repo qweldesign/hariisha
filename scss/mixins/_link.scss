@@ -1,0 +1,47 @@
+// Link
+// テキストリンクの見た目をまとめて管理する
+// リンクの下線や色を変えるときは, このファイルの変数だけを書き換える
+
+// 下線 (通常時 / ホバー・フォーカス時)
+$text-link-decoration:       underline dotted !default;
+$text-link-hover-decoration: underline solid !default;
+
+// 色 (置かれた地の色ごと)
+//   light: 白・砂色・クリームの地 (本文, フォームなど)
+//   dark:  紺の地 (紺のセクション, パンくず, フッター)
+//   muted: 控えめなリンク (お知らせ一覧へのリンクなど)
+$text-link-colors: (
+  "light": ("color": theme-color("darker"),    "hover": theme-color("primary")),
+  "dark":  ("color": theme-color("secondary"), "hover": theme-color("lightest")),
+  "muted": ("color": theme-color("dark"),      "hover": theme-color("primary")),
+) !default;
+
+// 地の色に合わせたリンクの色 ($state: "color" または "hover")
+@function text-link-color($on: "light", $state: "color") {
+  @return map-get(map-get($text-link-colors, $on), $state);
+}
+
+// 下線だけを付ける (文字色は置かれた場所のまま)
+@mixin link-underline($color: null) {
+  text-decoration: $text-link-decoration;
+  @if $color {
+    text-decoration-color: $color;
+  }
+
+  &:hover, &:focus-visible {
+    text-decoration: $text-link-hover-decoration;
+    @if $color {
+      text-decoration-color: $color;
+    }
+  }
+}
+
+// 本文中などのテキストリンク (色と下線)
+// $underline: false にすると色だけを付ける (リスト全体がリンクの一覧など, 下線がうるさい場所)
+@mixin text-link($on: "light", $underline: true) {
+  @if $underline {
+    @include link-text(text-link-color($on), text-link-color($on, "hover"), $text-link-decoration, $text-link-hover-decoration);
+  } @else {
+    @include link-text(text-link-color($on), text-link-color($on, "hover"));
+  }
+}

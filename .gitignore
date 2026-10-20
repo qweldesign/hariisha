@@ -9,3 +9,7 @@ inc/vendor/
 
 # 環境変数
 inc/.env
+
+# content
+/content/*
+!/content/.htaccess

@@ -22,6 +22,39 @@
     }
   }
 
+  // 期間の入力 (開始日 〜 終了日)
+  // 幅が足りない場合は折り返し, 「〜」は終了日と同じ行に付けて置く
+  &__range {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: space("x-small");
+
+    input {
+      flex: 1 1 9rem;
+      min-width: 0;
+    }
+  }
+
+  &__rangeEnd {
+    display: flex;
+    flex: 1 1 11rem;
+    align-items: center;
+    gap: space("x-small");
+    min-width: 0;
+  }
+
+  &__rangeSeparator {
+    flex: 0 0 auto;
+  }
+
+  // 送信ボタンの下の注記 (プライバシーポリシーへのリンクなど)
+  &__note {
+    margin-block: space("medium") 0;
+    font-size: font-size("small");
+  }
+
+
   [type="submit"] {
     display: inline-block;
     width: 14rem;
@@ -58,62 +91,8 @@
   overflow: hidden;
 }
 
-// 確認画面
-.confirm {
-  text-align: center;
-
-  .main__lead {
-    text-align: left;
-  }
-
-  table {
-    @include table();
-    margin-block-end: space("medium");
-    text-align: left;
-
-    th {
-      width: 12rem;
-    }
-
-    td {
-      white-space: pre-wrap; // 本文の改行をそのまま表示する
-      overflow-wrap: anywhere;
-    }
-  }
-
-  // 送信エラーなどのメッセージ
-  &__message {
-    margin-block: 0 space("medium");
-    padding: space();
-    border-radius: space("x-small");
-    background-color: rgba(map-get($colors, "secondary"), 0.15);
-    white-space: pre-line;
-  }
-
-  [type="submit"], [type="button"] {
-    display: inline-block;
-    width: 14rem;
-    height: 3.5rem;
-    line-height: 3.5rem;
-    margin: 0 space() space();
-    @include make-button();
-  }
-
-  [type="submit"] {
-    @include make-button-color-normal("primary");
-
-    &:disabled {
-      opacity: 0.5;
-      cursor: wait;
-    }
-  }
-
-  [type="button"] {
-    @include make-button-color-normal("secondary");
-  }
-}
-
-// 完了画面
-.thanks {
-  text-align: center;
+// フォームは白地なので, 紺地のセクションのリンク色 (砂色) ではなく紺にする
+// (.section.is-navy .section__inner a:not(.button) より強くする必要があるため, 詳細度を合わせて後から上書きする)
+.section .form .form__note a:not(.button) {
+  @include text-link("light");
 }
