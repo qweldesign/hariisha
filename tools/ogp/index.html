@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <!--
+      OGP画像 (assets/ogp.jpg) の原稿
+      ブラウザで開き, 1200×630px の .ogp 要素をスクリーンショットして書き出す
+      (例: Chrome DevTools で .ogp を選択 → 「Capture node screenshot」)
+      水玉は読み込みのたびにランダムに描かれるので, 気に入った配置で書き出す
+    -->
+    <title>OGP | 海辺の古民家 はりいしゃ</title>
+    <meta name="robots" content="noindex">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500&display=swap">
+    <link rel="stylesheet" href="../../foundation.css">
+    <style>
+      body {
+        margin: 0;
+        padding: 40px;
+        background: #888;
+      }
+
+      .ogp {
+        position: relative;
+        overflow: hidden;
+        width: 1200px;
+        height: 630px;
+        margin: auto;
+        background-color: var(--color--primary);
+        color: #fff;
+        font-family: var(--font-family-base);
+        line-height: 1.5;
+        letter-spacing: 0.04em;
+      }
+
+      /* 木漏れ日の水玉 (js/dots.js) */
+      .ogp__dots {
+        --dots-color: #ffffff3c;
+        position: absolute;
+        inset: 0;
+      }
+
+      .dots {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+      }
+
+      .ogp__text {
+        position: absolute;
+        left: 72px;
+        top: 270px;
+        z-index: 1;
+        transform: translateY(-50%);
+      }
+
+      .ogp__en {
+        margin: 0;
+        color: var(--color--secondary);
+        font-size: 36px;
+        letter-spacing: 0.04em;
+      }
+
+      .ogp__title {
+        margin: 0;
+        font-family: var(--heading-font-family);
+        font-weight: 500;
+        font-size: 54px;
+        line-height: 1.5;
+        letter-spacing: 0.16em;
+
+        & > span {
+          display: block;
+
+          &:nth-child(2) {
+            letter-spacing: 0.32em;
+          }
+
+          & > span {
+            font-size: 1.33em;
+          }
+        }
+      }
+
+      .ogp__place {
+        position: relative;
+        margin: 36px 0 0;
+        padding-inline-start: 56px;
+        font-size: 24px;
+        line-height: 1.8;
+        color: var(--color--tertiary);
+      }
+
+      .ogp__place span {
+        display: block;
+      }
+
+      /* 砂色の短い罫 (1行目の高さに揃える) */
+      .ogp__place::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.85em;
+        width: 40px;
+        height: 2px;
+        background-color: var(--color--secondary);
+      }
+
+      /* 丸く切り抜いた写真 (パンフレット・ファーストビューの円形トリミング) */
+      .ogp__photo {
+        position: absolute;
+        z-index: 1;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 50%;
+        background-color: var(--color--primary);
+      }
+
+      .ogp__photo img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* 縦長のギャラリー外観は, 三角屋根の頂点が切れないよう上寄せで切り抜く */
+      .ogp__photo.is-main img {
+        object-position: center 25%;
+      }
+
+      .ogp__photo.is-main {
+        right: 120px;
+        top: 50%;
+        width: 432px;
+        height: 432px;
+        transform: translateY(-50%);
+      }
+
+      .ogp__photo.is-sub {
+        right: 480px;
+        bottom: 48px;
+        width: 168px;
+        height: 168px;
+        box-shadow: 0 0 0 8px var(--color--primary); /* 大きい円との間に紺の縁を取る */
+      }
+
+      /* 縦書きのキャプション */
+      .ogp__caption {
+        position: absolute;
+        right: 54px;
+        top: 96px;
+        z-index: 1;
+        margin: 0;
+        font-family: var(--heading-font-family);
+        font-size: 24px;
+        letter-spacing: 0.32em;
+        writing-mode: vertical-rl;
+      }
+
+      .ogp__url {
+        position: absolute;
+        left: 80px;
+        bottom: 40px;
+        z-index: 1;
+        margin: 0;
+        font-size: 24px;
+        letter-spacing: 0.12em;
+        color: var(--color--secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ogp">
+      <div class="ogp__dots" data-dots data-dots-region="0.5" data-dots-x="25" data-dots-y="100"></div>
+      <div class="ogp__text">
+        <p class="ogp__en">Guest house &amp; Gallery</p>
+        <h1 class="ogp__title">
+          <span class="ogp__jp"><span>海辺</span>の<span>古民家</span></span>
+          <span class="ogp__name">はりいしゃ</span>
+        </h1>
+        <p class="ogp__place">
+          <span>福井市越前海岸の旧街道に佇む、</span>
+          <span>ひとと文化が行き交う家。</span>
+        </p>
+      </div>
+      <figure class="ogp__photo is-main">
+        <img src="../../assets/photos/gallery-exterior.jpg" alt="">
+      </figure>
+      <figure class="ogp__photo is-sub">
+        <img src="../../assets/photos/sea-rocks.jpg" alt="">
+      </figure>
+      <p class="ogp__caption">海まで徒歩５分</p>
+      <p class="ogp__url">hariisha.jp</p>
+    </div>
+    <script type="module">
+      import Dots from '../../js/dots.js';
+      Dots.init();
+    </script>
+  </body>
+</html>
