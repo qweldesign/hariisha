@@ -71,7 +71,9 @@ function render_header(array $page = []): void {
     <link rel="stylesheet" href="<?= e(SITE_FONTS_URL) ?>">
 <?php } ?>
     <link rel="stylesheet" href="<?= path('style-1.0.css') ?>">
-    <link rel="icon" href="<?= path('favicon.ico') ?>">
+    <link rel="icon" href="<?= path('assets/favicon.ico') ?>" sizes="32x32">
+    <link rel="icon" href="<?= path('assets/favicon.svg') ?>" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="<?= path('assets/apple-touch-icon.png') ?>">
 <?php if (SITE_GA_ID) { ?>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?= e(SITE_GA_ID) ?>"></script>
